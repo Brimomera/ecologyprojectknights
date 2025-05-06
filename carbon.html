@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EcoTech | Technology for Good</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="background-layer"></div>
+
+  <header>
+    <img src="logo.png" alt="EcoTech Logo" class="logo">
+    <h1>EcoTech</h1>
+    <p>Technology for Good — Eco-Friendly Innovation</p>
+    <button class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">🌞</span> Toggle Theme</button>
+  </header>
+
+  <main>
+    <section class="nav-buttons fade-section">
+      <button onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'});">Our Projects</button>
+      <button onclick="alert('Ideas to Solve Coming Soon!')">Ideas to Solve</button>
+      <button onclick="alert('Current Affairs Coming Soon!')">Current Affairs</button>
+    </section>
+
+    <section class="fade-section">
+      <p>We believe that technology should serve both people and the planet. EcoTech is a platform where sustainable innovation meets impactful action. Join our mission to harness the power of code, circuits, and creativity to protect nature and empower communities.</p>
+    </section>
+
+    <section class="fade-section" id="projects">
+      <h2>Our Projects</h2>
+      <div class="project-card">
+        <h3>Carbon Footprint Calculator</h3>
+        <form id="carbon-form">
+          <label for="electricity">Electricity (kWh):</label>
+          <input type="number" id="electricity" name="electricity" /><br/>
+
+          <label for="gas">Gas (therms):</label>
+          <input type="number" id="gas" name="gas" /><br/>
+
+          <label for="carKm">Car Travel (km):</label>
+          <input type="number" id="carKm" name="carKm" /><br/>
+
+          <button type="submit">Calculate</button>
+        </form>
+        <div id="result-box"></div>
+
+        <div class="what-you-can-do">
+          <h4>What You Can Do</h4>
+          <p>Switch to renewable energy, reduce car usage, and insulate your home better. Small changes like these help lower your carbon footprint significantly!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © Knights and Summre(not u adia )
+  </footer>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      document.getElementById('theme-icon').textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
+    }
+
+    document.getElementById('carbon-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const electricity = parseFloat(document.getElementById('electricity').value) || 0;
+      const gas = parseFloat(document.getElementById('gas').value) || 0;
+      const carKm = parseFloat(document.getElementById('carKm').value) || 0;
+
+      const electricityFactor = 0.35;
+      const gasFactor = 2.0;
+      const carFactor = 0.21;
+
+      const total = electricity * electricityFactor + gas * gasFactor + carKm * carFactor;
+
+      document.getElementById('result-box').innerText = `Your estimated carbon footprint is ${total.toFixed(2)} kg CO2e/month.`;
+    });
+  </script>
+</body>
+</html>
