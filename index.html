@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EcoTech | Technology for Good</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
   <div class="background-layer"></div>
 
   <header>
@@ -42,27 +41,35 @@
   </main>
 
   <footer>
-    © Knights and @adia(Tcd)
+    © 2025 EcoTech | Made by Zuhaib Mir and TCD Team
   </footer>
 
-  <!-- Sidebar -->
+  <!-- Slide Bar -->
   <div class="sidebar" id="sidebar">
-    <h3>Welcome, Guest!</h3>
-    <p>Please <a href="#">Sign In</a> to access your dashboard and connect with the EcoTech network.</p>
-    <p><strong>On the other website:</strong></p>
-    <ul>
-      <li>Track your green projects</li>
-      <li>Join community challenges</li>
-      <li>Submit eco-friendly ideas</li>
-    </ul>
+    <div class="sidebar-handle" onclick="toggleSidebar()">›</div>
+    <div class="sidebar-content">
+      <h3>Hello, Guest</h3>
+      <p><a href="signin.html">Sign In</a> to get started.</p>
+      <hr>
+      <p><strong>What You Can Do:</strong></p>
+      <ul>
+        <li>Submit eco-projects</li>
+        <li>Read guides & articles</li>
+        <li>Join community discussions</li>
+        <li>Explore partner site</li>
+      </ul>
+    </div>
   </div>
-  <div class="sidebar-handle" onclick="toggleSidebar()">☰<span>Dashboard</span></div>
 
-  <!-- JavaScript -->
   <script>
     function toggleTheme() {
       document.body.classList.toggle('dark');
-      document.getElementById('theme-icon').textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
+      document.getElementById('theme-icon').textContent =
+        document.body.classList.contains('dark') ? '🌙' : '🌞';
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
     }
 
     const observer = new IntersectionObserver((entries) => {
@@ -73,16 +80,13 @@
           entry.target.classList.remove('visible');
         }
       });
-    }, { threshold: 0.1 });
+    }, {
+      threshold: 0.1
+    });
 
     document.querySelectorAll('.fade-section').forEach((section) => {
       observer.observe(section);
     });
-
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-    }
   </script>
-
 </body>
 </html>
