@@ -1,19 +1,19 @@
 :root {
-  --bg-main: linear-gradient(135deg, rgba(224, 242, 241, 0.7), rgba(200, 230, 201, 0.7));
-  --text-main: #2e7d32;
-  --btn-bg: rgba(56, 142, 60, 0.8); /* Transparent button background */
-  --btn-hover: rgba(46, 125, 50, 0.8);
-  --glass-bg: rgba(255, 255, 255, 0.4); /* More transparent glass effect */
-  --footer-bg: rgba(165, 214, 167, 0.8); /* Semi-transparent footer */
+  --bg-main: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(240, 240, 240, 0.6));
+  --text-main: #2c3e50;
+  --btn-bg: rgba(100, 100, 100, 0.4);
+  --btn-hover: rgba(80, 80, 80, 0.6);
+  --glass-bg: rgba(255, 255, 255, 0.3);
+  --footer-bg: rgba(245, 245, 245, 0.6);
 }
 
 body.dark {
-  --bg-main: linear-gradient(135deg, rgba(27, 31, 27, 0.7), rgba(46, 59, 46, 0.7));
-  --text-main: rgba(200, 230, 201, 0.9);
-  --btn-bg: rgba(76, 175, 80, 0.8);
-  --btn-hover: rgba(102, 187, 106, 0.8);
-  --glass-bg: rgba(40, 60, 40, 0.4);
-  --footer-bg: rgba(51, 105, 30, 0.8);
+  --bg-main: linear-gradient(135deg, rgba(20, 20, 20, 0.7), rgba(40, 40, 40, 0.7));
+  --text-main: rgba(230, 230, 230, 0.9);
+  --btn-bg: rgba(180, 180, 180, 0.2);
+  --btn-hover: rgba(255, 255, 255, 0.2);
+  --glass-bg: rgba(50, 50, 50, 0.3);
+  --footer-bg: rgba(30, 30, 30, 0.5);
 }
 
 body {
@@ -32,9 +32,20 @@ body {
   width: 100%;
   height: 100%;
   background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
-  opacity: 0.1; /* Increased opacity for more transparency */
+  opacity: 0.12;
   z-index: -1;
   filter: blur(8px);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #e8f5e9;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #66bb6a;
+  border-radius: 10px;
 }
 
 .hero {
@@ -102,14 +113,14 @@ body {
   font-weight: bold;
   font-size: 1em;
   cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0, 100, 0, 0.2);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
 }
 
 .nav-buttons button:hover {
   background-color: var(--btn-hover);
   transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0, 100, 0, 0.3);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .icon {
