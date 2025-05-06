@@ -93,3 +93,93 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EcoTech | Technology for Good</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="background-layer"></div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <h3>Welcome, Guest!</h3>
+    <p>Please <a href="#">Sign In</a> to access your dashboard and connect with the EcoTech network.</p>
+    <p><strong>On the other website:</strong></p>
+    <ul>
+      <li>Track your green projects</li>
+      <li>Join community challenges</li>
+      <li>Submit eco-friendly ideas</li>
+    </ul>
+  </div>
+
+  <!-- Main Content Section -->
+  <div class="main-content">
+    <header>
+      <img src="logo.png" alt="EcoTech Logo" class="logo">
+      <h1>EcoTech</h1>
+      <p>Technology for Good — Eco-Friendly Innovation</p>
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <span id="theme-icon">🌞</span> Toggle Theme
+      </button>
+    </header>
+
+    <main>
+      <section class="nav-buttons fade-section">
+        <button onclick="alert('Small Projects Section Coming Soon!')">Small Projects</button>
+        <button onclick="alert('Ideas to Solve Coming Soon!')">Ideas to Solve</button>
+        <button onclick="alert('Current Affairs Coming Soon!')">Current Affairs</button>
+      </section>
+
+      <section class="fade-section">
+        <p>We believe that technology should serve both people and the planet. EcoTech is a platform where sustainable innovation meets impactful action. Join our mission to harness the power of code, circuits, and creativity to protect nature and empower communities.</p>
+      </section>
+
+      <section class="fade-section">
+        <h2>Our Mission</h2>
+        <ul>
+          <li>Promote green technologies and sustainable innovation</li>
+          <li>Encourage eco-conscious tech projects and startups</li>
+          <li>Provide educational resources for environmental coding</li>
+        </ul>
+        <h2>Get Involved</h2>
+        <p>Whether you're a student, developer, or environmentalist — there's space for you at EcoTech. Submit your project ideas, read the latest news, or help others build better solutions for our planet.</p>
+      </section>
+    </main>
+
+    <footer>
+      © Knights|TCD TEAM(Summre)
+    </footer>
+  </div>
+
+  <script>
+    // Theme Toggle
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      document.getElementById('theme-icon').textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
+    }
+
+    // Intersection Observer for fade-in effect
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-section').forEach((section) => {
+      observer.observe(section);
+    });
+  </script>
+
+</body>
+</html>
