@@ -48,28 +48,28 @@
   </main>
 
   <footer>
-    © 2025 EcoTech | Made by Zuhaib Mir and TCD Team
+    © 2025 Knights and Summre
   </footer>
 
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle('dark');
-      document.getElementById('theme-icon').textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
+  function toggleTheme() {
+  document.body.classList.toggle('dark');
+  document.getElementById('theme-icon').textContent = 
+    document.body.classList.contains('dark') ? '🌙' : '🌞';
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    } else {
+      entry.target.classList.remove('visible');
     }
+  });
+}, { threshold: 0.1 });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        } else {
-          entry.target.classList.remove('visible');
-        }
-      });
-    }, { threshold: 0.1 });
+document.querySelectorAll('.fade-section').forEach((section) => {
+  observer.observe(section);
+});
 
-    document.querySelectorAll('.fade-section').forEach((section) => {
-      observer.observe(section);
-    });
-  </script>
 </body>
 </html>
