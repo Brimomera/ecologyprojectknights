@@ -16,8 +16,9 @@ body {
   color: var(--text);
   transition: background 0.5s, color 0.5s;
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 body.dark {
@@ -41,6 +42,7 @@ header {
   background: var(--glass-bg);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   position: relative;
+  z-index: 1;
 }
 
 body.dark header {
@@ -65,7 +67,7 @@ header p {
 .theme-toggle {
   position: absolute;
   top: 20px;
-  right: 20px;
+  left: 20px;
   background: var(--primary);
   color: white;
   border: none;
@@ -81,6 +83,7 @@ header p {
 }
 
 main {
+  flex: 1;
   max-width: 900px;
   margin: 40px auto;
   padding: 0 20px;
@@ -168,16 +171,19 @@ footer {
 .sidebar {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   height: 100%;
-  width: 30px;
+  width: 0;
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
   transition: width 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   z-index: 999;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
 }
 
 body.dark .sidebar {
@@ -199,25 +205,35 @@ body.dark .sidebar {
 }
 
 .sidebar-handle {
-  position: absolute;
+  position: fixed;
   top: 50%;
-  left: -20px;
-  width: 20px;
-  height: 80px;
+  left: 0;
+  width: 40px;
+  height: 40px;
   background: var(--primary);
   color: white;
   font-weight: bold;
-  border-radius: 10px 0 0 10px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transform: translateY(-50%);
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar a {
   color: var(--primary-dark);
   font-weight: bold;
   text-decoration: none;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 600px) {
+  .sidebar {
+    width: 0; /* Default sidebar is hidden */
+  }
+  .sidebar.open {
+    width: 250px;
+  }
 }
