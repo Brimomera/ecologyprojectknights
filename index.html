@@ -42,8 +42,7 @@
 
     <section class="fade-section">
       <h2>What You Can Do</h2>
-      <p>Start by calculating your carbon footprint and making simple changes. Small efforts lead to big impacts!</p>
-      <a href="carbon_footprint_calculator.html">Go to the Carbon Footprint Calculator</a>
+      <p>Start by making simple changes. Small efforts lead to big impacts!</p>
     </section>
   </main>
 
@@ -51,25 +50,26 @@
     © 2025 Knights and Summre
   </footer>
 
-  function toggleTheme() {
-  document.body.classList.toggle('dark');
-  document.getElementById('theme-icon').textContent = 
-    document.body.classList.contains('dark') ? '🌙' : '🌞';
-}
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    } else {
-      entry.target.classList.remove('visible');
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      document.getElementById('theme-icon').textContent = 
+        document.body.classList.contains('dark') ? '🌙' : '🌞';
     }
-  });
-}, { threshold: 0.1 });
 
-document.querySelectorAll('.fade-section').forEach((section) => {
-  observer.observe(section);
-});
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0.1 });
 
+    document.querySelectorAll('.fade-section').forEach((section) => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
