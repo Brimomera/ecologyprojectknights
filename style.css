@@ -61,10 +61,11 @@ header p {
   font-weight: 300;
 }
 
+/* Theme Toggle Button on the Right */
 .theme-toggle {
   position: absolute;
   top: 20px;
-  left: 20px;
+  right: 20px; /* Positioned on the right side */
   background: var(--primary);
   color: white;
   border: none;
@@ -78,6 +79,7 @@ header p {
 .theme-toggle:hover {
   background: var(--primary-dark);
 }
+
 
 main {
   flex: 1;
