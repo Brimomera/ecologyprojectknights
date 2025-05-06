@@ -169,7 +169,7 @@ footer {
 
 /* Sidebar styles */
 .sidebar {
-  position: ;
+  position:;
   top: 0;
   left: 0;
   height: 100%;
@@ -181,7 +181,6 @@ footer {
   overflow: hidden;
   z-index: 999;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex;
   flex-direction: column;
   padding-top: 60px;
 }
