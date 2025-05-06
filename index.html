@@ -5,52 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EcoTech | Technology for Good</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <div class="background-blur"></div>
+  <div class="background-layer"></div>
 
-  <header class="hero">
-    <!-- Use your logo image here -->
-    <img src="eco_logo.png" alt="EcoTech Logo" class="logo" />
-    <div class="hero-text">
-      <h1>EcoTech</h1>
-      <p>Technology for Good - Eco-Friendly Innovations</p>
-    </div>
-    <button class="theme-toggle" onclick="toggleTheme()">
-      <span id="theme-icon">🌞</span> Toggle Mode
-    </button>
+  <header>
+    <img src="logo.png" alt="EcoTech Logo" class="logo">
+    <h1>EcoTech</h1>
+    <p>Technology for Good — Eco-Friendly Innovation</p>
+    <button class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">🌞</span> Toggle Theme</button>
   </header>
 
   <main>
     <section class="nav-buttons">
       <button onclick="alert('Coming soon!')">
-        <span class="icon">🌱</span> Small Projects
+        <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2..."/></svg> Small Projects
       </button>
       <button onclick="alert('Coming soon!')">
-        <span class="icon">💡</span> Ideas to Solve
+        <svg class="icon" viewBox="0 0 24 24"><path d="M13 2H11v2..."/></svg> Ideas to Solve
       </button>
       <button onclick="alert('Coming soon!')">
-        <span class="icon">📰</span> Current Affairs
+        <svg class="icon" viewBox="0 0 24 24"><path d="M19 3H5..."/></svg> Current Affairs
       </button>
     </section>
 
     <section class="description">
-      <p>Explore how technology can drive sustainable change and environmental protection. Join us on a mission to innovate for a greener future.</p>
+      <p>We believe that technology should serve both people and the planet. EcoTech is a platform where sustainable innovation meets impactful action. Join our mission to harness the power of code, circuits, and creativity to protect nature and empower communities.</p>
+    </section>
+
+    <section class="details">
+      <h2>Our Mission</h2>
+      <ul>
+        <li>Promote green technologies and sustainable innovation</li>
+        <li>Encourage eco-conscious tech projects and startups</li>
+        <li>Provide educational resources for environmental coding</li>
+      </ul>
+      <h2>Get Involved</h2>
+      <p>Whether you're a student, developer, or environmentalist — there's space for you at EcoTech. Submit your project ideas, read the latest news, or help others build better solutions for our planet.</p>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 EcoTech | Knights  </p>
+    © 2025 EcoTech | Made by Zuhaib Mir and TCD Team
   </footer>
 
   <script>
     function toggleTheme() {
       document.body.classList.toggle('dark');
-      const icon = document.getElementById('theme-icon');
-      icon.textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
+      document.getElementById('theme-icon').textContent = document.body.classList.contains('dark') ? '🌙' : '🌞';
     }
   </script>
+
 </body>
 </html>
