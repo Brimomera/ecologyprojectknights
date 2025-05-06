@@ -1,3 +1,4 @@
+
 :root {
   --primary: #388e3c;
   --primary-dark: #2e7d32;
@@ -37,10 +38,10 @@ body.dark {
 header {
   text-align: center;
   padding: 60px 20px 40px;
+  position: relative;
   backdrop-filter: blur(8px);
   background: var(--glass-bg);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  position: relative;
 }
 
 body.dark header {
@@ -164,20 +165,21 @@ footer {
   }
 }
 
-/* Sidebar styles */
+/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
-  right: 0;
+  right: -300px;
+  width: 300px;
   height: 100%;
-  width: 30px;
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
-  transition: width 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.2);
+  transition: right 0.4s ease;
   z-index: 999;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
 }
 
 body.dark .sidebar {
@@ -185,39 +187,35 @@ body.dark .sidebar {
 }
 
 .sidebar.open {
-  width: 300px;
+  right: 0;
 }
 
-.sidebar-content {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  padding: 20px;
-}
-
-.sidebar.open .sidebar-content {
-  opacity: 1;
-}
-
-.sidebar-handle {
-  position: absolute;
-  top: 50%;
-  left: -20px;
-  width: 20px;
-  height: 80px;
-  background: var(--primary);
-  color: white;
-  font-weight: bold;
-  border-radius: 10px 0 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transform: translateY(-50%);
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
+.sidebar h3 {
+  margin-top: 0;
 }
 
 .sidebar a {
   color: var(--primary-dark);
-  font-weight: bold;
   text-decoration: none;
+  margin-top: 10px;
+  font-weight: 600;
+  display: inline-block;
 }
+
+.sidebar-handle {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: var(--primary);
+  color: white;
+  border-radius: 12px 0 0 12px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1000;
+  font-weight: bold;
+  box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-handle:hover {
+  background: var(--prim
