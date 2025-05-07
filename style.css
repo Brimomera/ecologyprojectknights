@@ -61,11 +61,10 @@ header p {
   font-weight: 300;
 }
 
-/* Theme Toggle Button on the Right */
 .theme-toggle {
   position: absolute;
   top: 20px;
-  right: 20px; /* Positioned on the right side */
+  right: 20px;
   background: var(--primary);
   color: white;
   border: none;
@@ -79,7 +78,6 @@ header p {
 .theme-toggle:hover {
   background: var(--primary-dark);
 }
-
 
 main {
   flex: 1;
@@ -168,6 +166,7 @@ footer {
   box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
   padding-top: 60px;
   z-index: 999;
+  transition: transform 0.3s ease;
 }
 
 body.dark .sidebar {
@@ -190,9 +189,38 @@ body.dark .sidebar {
   color: var(--primary);
 }
 
+/* Sidebar toggle button */
+.sidebar-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  display: none;
+}
+
+/* Sidebar transition states */
+.sidebar.hidden {
+  transform: translateX(-100%);
+}
+
+.sidebar.show {
+  transform: translateX(0);
+}
+
 /* Media query for smaller screens */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .sidebar {
-    width: 200px;
+    transform: translateX(-100%);
+  }
+
+  .sidebar-toggle {
+    display: block;
   }
 }
