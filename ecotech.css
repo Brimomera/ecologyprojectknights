@@ -1,108 +1,79 @@
-/* Default Styles for Light Mode (with original gradient) */
+/* --- Global Base --- */
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #a8e063, #56ab2f); /* Light Emerald Gradient */
-  color: #333;
-  transition: all 0.3s ease;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #d8b4fe, #93c5fd); /* Light mode gradient */
+  color: #ffffff;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
-header {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 1rem;
-  text-align: center;
+/* --- Glass Card & Header --- */
+.card, header {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
-header .logo {
-  height: 40px;
-  width: 40px;
-}
-
-header nav {
-  margin-top: 10px;
-}
-
-header a {
-  color: #56ab2f;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 1.2rem;
-}
-
-header .switch {
-  margin-top: 10px;
-  display: inline-block;
-}
-
-.switch input {
-  display: none;
-}
-
-.switch .slider {
-  width: 34px;
-  height: 20px;
-  background-color: #ccc;
-  border-radius: 50px;
-  position: relative;
-  transition: 0.4s;
-}
-
-.switch .slider:before {
-  content: '';
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: white;
-  transition: 0.4s;
-}
-
-.switch input:checked + .slider {
-  background-color: #56ab2f;
-}
-
-.switch input:checked + .slider:before {
-  transform: translateX(14px);
-}
-
-/* Principles Section */
-.principles {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin: 20px;
-}
-
-.principle {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 15px;
-  border-radius: 8px;
-}
-
-.principle h3 {
-  color: #56ab2f;
-  font-size: 1.5rem;
-}
-
-/* Emerald Mode (Light Emerald) */
-body.emerald {
-  background: linear-gradient(135deg, #5b8c5a, #397c39); /* Darker Emerald Gradient */
-}
-
-/* Dark Mode (Dark Emerald) */
-body.emerald.dark {
-  background: linear-gradient(135deg, #243e21, #1a2f14); /* Very Dark Emerald Gradient */
+/* --- Emerald Neon Button --- */
+.button {
+  background: linear-gradient(135deg, #00ff9c, #007a5e);
   color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  padding: 14px 30px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 0 20px rgba(0, 255, 153, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-body.emerald.dark header {
-  background: rgba(0, 0, 0, 0.5);
+.button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 255, 153, 0.9);
 }
 
-body.emerald.dark header a {
-  color: #a8e063;
+/* --- Toggle Button (Top Right) --- */
+#themeToggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #00c387;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.6);
 }
 
-body.emerald.dark .principle {
-  background: rgba(0, 0, 0, 0.7);
-  border-radius: 10px;
+/* --- Dark Mode Styles --- */
+body.dark {
+  background: linear-gradient(135deg, #0d1b1e, #1a3a3f);
+  color: #d3ffe6;
+}
+
+body.dark .card, body.dark header {
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 255, 153, 0.1);
+}
+
+body.dark .button {
+  background: linear-gradient(135deg, #00ff9c, #007a5e);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(0, 255, 153, 0.4);
+}
+
+body.dark .button:hover {
+  box-shadow: 0 0 30px rgba(0, 255, 153, 0.8);
+}
+
+body.dark #themeToggle {
+  background: #005c45;
+  box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
 }
