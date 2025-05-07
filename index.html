@@ -34,7 +34,7 @@
   </svg>
 
   <!-- Navigation -->
-  <nav class="nav__cont">
+ <nav class="nav__cont">
     <ul class="nav">
         <li class="nav__items">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -46,7 +46,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                 <use xlink:href="#search"></use>
             </svg>
-            <a href="">Search</a>
+            <a href="javascript:void(0);" onclick="toggleSearch()">Search</a>
         </li>
         <li class="nav__items">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
@@ -60,12 +60,14 @@
             </svg>
             <a href="">Planner</a>
         </li>
-        <!-- Add the Search Input Here -->
-        <li class="nav__items search-bar-container">
-            <input type="text" id="search-bar" class="search-input" placeholder="Search..." oninput="searchContent()">
-        </li>
     </ul>
 </nav>
+
+<!-- The search bar, initially hidden -->
+<div id="search-bar" style="display: none;">
+  <input type="text" id="search-input" placeholder="Search...">
+  <button onclick="performSearch()">Search</button>
+</div>
 
 
   <!-- Header -->
