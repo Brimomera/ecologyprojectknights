@@ -108,26 +108,47 @@
   </footer>
 
   <!-- Script -->
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle('dark');
-      document.getElementById('theme-icon').textContent =
-        document.body.classList.contains('dark') ? '🌙' : '🌞';
-    }
+ <script>
+  // Function to toggle theme (dark/light mode)
+  function toggleTheme() {
+    document.body.classList.toggle('dark');
+    document.getElementById('theme-icon').textContent =
+      document.body.classList.contains('dark') ? '🟩' : '🟪';
+  }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        } else {
-          entry.target.classList.remove('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-section').forEach((section) => {
-      observer.observe(section);
+  // Intersection Observer for fade-in effect when section comes into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      } else {
+        entry.target.classList.remove('visible');
+      }
     });
-  </script>
+  }, { threshold: 0.1 });
+
+  // Apply observer to elements with the class "fade-section"
+  document.querySelectorAll('.fade-section').forEach((section) => {
+    observer.observe(section);
+  });
+
+  // Search functionality
+  function searchContent() {
+    const searchQuery = document.getElementById('search-input').value.toLowerCase();
+    const items = document.querySelectorAll('.searchable-item'); // Replace with the actual class of items you want to search
+    items.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      if (text.includes(searchQuery)) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  // Optional: Add event listener for search input to trigger the search function
+  document.getElementById('search-input').addEventListener('input', searchContent);
+</script>
+
 </body>
 </html>
