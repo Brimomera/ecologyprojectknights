@@ -210,6 +210,28 @@ footer {
   opacity: 1;
   transform: translateY(0);
 }
+/* Styling for the search input field */
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.search-input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: var(--primary);
+  outline: none;
+}
+
+.search-bar-container {
+  margin-top: 10px; /* Adjusts positioning in the sidebar */
+}
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
