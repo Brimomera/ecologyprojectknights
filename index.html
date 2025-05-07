@@ -34,40 +34,28 @@
   </svg>
 
   <!-- Navigation -->
- <nav class="nav__cont">
-    <ul class="nav">
-        <li class="nav__items">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                <use xlink:href="#home"></use>
-            </svg>
-            <a href="">Home</a>
-        </li>
-        <li class="nav__items">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-                <use xlink:href="#search"></use>
-            </svg>
-            <a href="javascript:void(0);" onclick="toggleSearch()">Search</a>
-        </li>
-        <li class="nav__items">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-                <use xlink:href="#map"></use>
-            </svg>
-            <a href="">Map</a>
-        </li>
-        <li class="nav__items">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 35.6">
-                <use xlink:href="#planner"></use>
-            </svg>
-            <a href="">Planner</a>
-        </li>
-    </ul>
-</nav>
-
-<!-- The search bar, initially hidden -->
-<div id="search-bar" style="display: none;">
-  <input type="text" id="search-input" placeholder="Search...">
-  <button onclick="performSearch()">Search</button>
+<div class="nav__cont">
+  <ul class="nav">
+    <li class="nav__items">
+      <a href="#">Home</a>
+    </li>
+    <li class="nav__items">
+      <a href="#">About</a>
+    </li>
+    <li class="nav__items">
+      <a href="#">Contact</a>
+    </li>
+    <!-- Search Bar inside Sidebar -->
+    <li class="nav__items">
+      <input id="search-input" class="search-input" type="text" placeholder="Search..." oninput="searchContent()">
+    </li>
+  </ul>
 </div>
+
+<div id="search-bar">
+  <input id="search-input" type="text" placeholder="Search...">
+</div>
+
 
 
   <!-- Header -->
