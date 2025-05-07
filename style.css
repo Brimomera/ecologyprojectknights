@@ -210,41 +210,73 @@ footer {
   opacity: 1;
   transform: translateY(0);
 }
-/* Styling for the search input field */
-.search-input {
-  width: 100%;
+/* Basic styles for search bar */
+#search-bar {
+  display: none;  /* Initially hidden */
+  position: fixed;  /* Positioned relative to the screen */
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
   padding: 10px;
-  margin: 10px 0;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 8px;
-  color: #fff;
-  font-size: 1rem;
-  transition: background 0.3s ease;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 9999;  /* Make sure it's on top of other elements */
+  width: 300px;
 }
 
-/* Styling for the search input field */
-.search-input {
+#search-input {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 8px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* For search results (hide them by default) */
+.searchable-item {
+  display: block;
+}
+
+.searchable-item.hidden {
+  display: none;
+}
+
+/* Dark mode styles */
+body.dark {
+  background-color: #121212;
   color: #fff;
-  font-size: 1rem;
-  transition: background 0.3s ease;
 }
 
-.search-input:focus {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: var(--primary);
-  outline: none;
+body.dark .nav {
+  background-color: #222;
 }
 
-.search-bar-container {
-  margin-top: 10px; /* Adjusts positioning in the sidebar */
+body.dark .nav__items a {
+  color: #fff;
 }
+
+body.dark #search-bar {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Fade-in effect for sections */
+.fade-section {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.fade-section.visible {
+  opacity: 1;
+}
+
+/* Theme toggle button styles (for dark/light mode) */
+#theme-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
