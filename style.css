@@ -1,75 +1,33 @@
-:root {
-  --primary: #388e3c;
-  --primary-dark: #2e7d32;
-  --text: #1b5e20;
-  --glass-bg: rgba(255, 255, 255, 0.4);
-  --glass-dark: rgba(30, 50, 30, 0.4);
-  --bg-light: linear-gradient(to right, #e0f2f1, #c8e6c9);
-  --bg-dark: linear-gradient(to right, #1c1f1c, #2d3b2d);
-  --footer-bg: #a5d6a7;
-}
-
+/* General Styles */
 body {
-  height: 100vh;
-  margin: 0;
   font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at 94.02% 88.03%, #54a4ff, transparent 100%),
-    radial-gradient(circle at 25.99% 27.79%, #ff94fb, transparent 100%),
-    radial-gradient(circle at 50% 50%, #000000, #000000 100%);
-  color: var(--text);
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  transition: background 0.5s, color 0.5s;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
 }
 
-body.dark {
-  background: var(--bg-dark);
-  color: #e8f5e9;
-}
-
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: transparent;
-  border: none;
-  font-size: 2rem; /* Make the squares bigger */
-  cursor: pointer;
-  transition: transform 0.3s, color 0.3s;
-}
-
-.theme-toggle.light {
-  color: #9b4dca; /* Purple for light mode */
-}
-
-.theme-toggle.dark {
-  color: #2ecc71; /* Green for dark mode */
-}
-
-.theme-toggle:hover {
-  transform: scale(1.2); /* Add a scaling effect on hover */
-}
-
-.theme-toggle.light:hover {
-  color: #2ecc71; /* Turn to green on hover */
-}
-
-.theme-toggle.dark:hover {
-  color: #9b4dca; /* Turn to purple on hover */
+.dark {
+  background-color: #212121;
+  color: white;
 }
 
 .nav__cont {
   position: fixed;
   top: 0;
   left: 0;
-  width: 70px;
+  width: 50px; 
   height: 100%;
   background: var(--glass-bg);
   backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
+  justify-content: flex-start; 
   z-index: 1000;
+  transition: width 0.3s ease;
+}
+
+.nav__cont:hover {
+  width: 150px;
 }
 
 .nav {
@@ -88,10 +46,10 @@ body.dark {
 }
 
 .nav__items svg {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   fill: var(--primary-dark);
-  transition: fill 0.3s;
+  transition: fill 0.3s ease;
 }
 
 .nav__items a {
@@ -100,10 +58,33 @@ body.dark {
   color: var(--primary-dark);
   text-decoration: none;
   margin-top: 5px;
+  transition: color 0.3s ease;
 }
 
 .nav__items:hover svg,
 .nav__items:hover a {
   fill: var(--primary);
   color: var(--primary);
+}
+
+.fade-section {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.fade-section.visible {
+  opacity: 1;
+}
+
+header {
+  padding: 20px;
+  text-align: center;
+  background-color: var(--primary);
+  color: white;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f1f1f1;
 }
