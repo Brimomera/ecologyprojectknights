@@ -22,86 +22,58 @@
         <path fill="#90A4AE" d="M16,14.2c-1,0-1.8,0.8-1.8,1.8s0.8,1.8,1.8,1.8c1,0,1.8-0.8,1.8-1.8S17,14.2,16,14.2z M16,0C7.2,0,0,7.2,0,16c0,8.8,7.2,16,16,16s16-7.2,16-16C32,7.2,24.8,0,16,0z M19.5,19.5L6.4,25.6l6.1-13.1l13.1-6.1L19.5,19.5z"/>
       </g>
       <g id="planner">
-        <path fill="#90A4AE" d="M28.4,3.6h-1.8V0h-3.6v3.6H8.9V0H5.3v3.6H3.6C1.6,3.6,0,5.1,0,7.1L0,32c0,2,1.6,3.6,3.6,3.6h24.9c2,0,3.6-1.6,3.6-3.6V7.1C32,5.1,30.4,3.6,28.4,3.6z M28.4,32H3.6V12.4h24.9V32z M7.1,16H16v8.9H7.1V16z"/>
+        <path fill="#90A4AE" d="M28.4,3.6h-1.8V0h-3.6v3.6H8.9V0H5.3v3.6H3.6C1.6,3.6,0,5.1,0,7.1L0,32c0,2,1.6,3.6,3.6,3.6h24.9c2,0,3.6-1.6,3.6-3.6V7.1C32,5.1,30.4,3.6,28.4,3.6z M28.4,32H3.6V12.4h24.9V32z M7.1,16H16v8.9H7.1z"/>
       </g>
     </defs>
   </svg>
 
-  <!-- Sidebar -->
-  <nav class="nav__cont">
+  <!-- Main content -->
+  <div class="nav__cont">
     <ul class="nav">
       <li class="nav__items">
-        <svg viewBox="0 0 48 48"><use xlink:href="#home" /></svg>
-        <a href="">Home</a>
+        <svg><use xlink:href="#home"></use></svg>
+        <a href="#">Home</a>
       </li>
       <li class="nav__items">
-        <svg viewBox="0 0 32 32"><use xlink:href="#search" /></svg>
-        <a href="">Search</a>
+        <svg><use xlink:href="#search"></use></svg>
+        <a href="#">Search</a>
       </li>
       <li class="nav__items">
-        <svg viewBox="0 0 32 32"><use xlink:href="#map" /></svg>
-        <a href="">Map</a>
+        <svg><use xlink:href="#map"></use></svg>
+        <a href="#">Map</a>
       </li>
       <li class="nav__items">
-        <svg viewBox="0 0 32 35.6"><use xlink:href="#planner" /></svg>
-        <a href="">Planner</a>
+        <svg><use xlink:href="#planner"></use></svg>
+        <a href="#">Planner</a>
       </li>
     </ul>
-  </nav>
+  </div>
 
-  <!-- Header -->
-  <header>
-    <img src="earthicon.png" alt="EcoTech Logo" class="logo" />
-    <h1>EcoTech</h1>
-    <p>Technology for Good — Eco-Friendly Innovation</p>
-    <button class="theme-toggle" onclick="toggleTheme()">
-      <span id="theme-icon">🌞</span>
-    </button>
-  </header>
-
-  <!-- Main Content -->
   <main>
-    <section class="nav-buttons fade-section">
-      <button onclick="alert('Green Tech Content Coming Soon!')">Green Tech</button>
-      <button onclick="alert('Ideas to Solve Coming Soon!')">Ideas to Solve</button>
-      <button onclick="alert('Current Affairs Coming Soon!')">Current Affairs</button>
+    <header>
+      <h1>EcoTech</h1>
+      <button class="theme-toggle">Toggle Theme</button>
+    </header>
+
+    <section>
+      <h2>Welcome to EcoTech</h2>
+      <p>We are a technology company dedicated to helping the environment with innovative solutions.</p>
     </section>
 
-    <section class="fade-section">
-      <p>We believe that technology should serve both people and the planet. EcoTech is a platform where sustainable innovation meets impactful action. Join our mission to harness the power of code, circuits, and creativity to protect nature and empower communities.</p>
-    </section>
+    <div class="nav-buttons">
+      <button>Get Started</button>
+      <button>Learn More</button>
+    </div>
 
-    <section class="fade-section">
-      <h2>Our Mission</h2>
-      <ul>
-        <li>Promote green technologies and sustainable innovation</li>
-        <li>Encourage eco-conscious tech projects and startups</li>
-        <li>Provide educational resources for environmental coding</li>
-      </ul>
-      <h2>Get Involved</h2>
-      <p>Whether you're a student, developer, or environmentalist — there's space for you at EcoTech.</p>
-    </section>
+    <footer>
+      <p>© 2025 EcoTech. All Rights Reserved.</p>
+    </footer>
   </main>
 
-  <!-- Footer -->
-  <footer>
-    © Knights | TCD TEAM (Summre)
-  </footer>
-
   <script>
-    function toggleTheme() {
+    document.querySelector('.theme-toggle').addEventListener('click', function() {
       document.body.classList.toggle('dark');
-      document.getElementById('theme-icon').textContent =
-        document.body.classList.contains('dark') ? '🌙' : '🌞';
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        entry.target.classList.toggle('visible', entry.isIntersecting);
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-section').forEach((section) => observer.observe(section));
+    });
   </script>
 </body>
 </html>
