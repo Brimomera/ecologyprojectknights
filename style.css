@@ -137,10 +137,12 @@ h1 {
   opacity: 0;
   white-space: nowrap;
   transition: opacity 0.3s ease, color 0.3s ease;
+  visibility: hidden;
 }
 
 .nav__cont:hover .nav__items a {
   opacity: 1;
+  visibility: visible;
 }
 
 main {
