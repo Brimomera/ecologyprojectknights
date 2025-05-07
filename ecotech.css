@@ -1,129 +1,64 @@
-/* General Styles */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  color: #333;
+/* ===== Global Reset ===== */
+* {
   margin: 0;
   padding: 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  box-sizing: border-box;
 }
 
-/* Dark Mode */
-body.dark {
-  background-color: #333;
-  color: #f0f0f0;
-}
-
-/* Header */
-header {
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #b892ff, #7069d0); /* dreamy purple */
+  color: white;
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  background-color: #28a745;
+  padding: 2rem;
+}
+
+/* ===== Card / Container Styling ===== */
+.card, .container {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  width: 90%;
+  max-width: 1000px;
+  text-align: center;
+}
+
+/* ===== Heading & Text ===== */
+h1 {
+  font-size: 3rem;
+  letter-spacing: 2px;
   color: white;
-  padding: 10px 20px;
+  margin-bottom: 0.5rem;
 }
 
-header .logo {
-  width: 50px;
+p {
+  font-size: 1.2rem;
+  opacity: 0.85;
 }
 
-header h1 {
-  font-size: 1.8rem;
-  margin: 0;
-}
-
-header nav a {
+/* ===== Button Styling ===== */
+.button {
+  background: linear-gradient(135deg, #00a67e, #004f3c); /* dark emerald */
   color: white;
-  text-decoration: none;
-  margin-right: 20px;
-  font-size: 1rem;
-}
-
-header nav a:hover {
-  text-decoration: underline;
-}
-
-/* Toggle Button */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 24px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.emoji-toggle {
-  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  padding: 14px 28px;
+  margin: 1rem;
+  font-size: 1.1rem;
+  box-shadow: 0 0 15px rgba(0, 77, 63, 0.6);
+  transition: all 0.3s ease;
   cursor: pointer;
-  transition: font-size 0.3s ease;
 }
 
-.switch input:checked + .emoji-toggle {
-  font-size: 24px; /* Slightly larger when toggled */
-}
-
-/* Main Content */
-main {
-  padding: 20px;
-}
-
-.intro h2 {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-}
-
-.intro p {
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.principles {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.principle {
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.principle h3 {
-  font-size: 1.25rem;
-  margin-bottom: 10px;
-}
-
-.principle blockquote {
-  font-size: 1rem;
-  font-style: italic;
-  margin: 10px 0;
-  color: #555;
-}
-
-.principle p {
-  font-size: 1rem;
-  line-height: 1.5;
-}
-
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-  .principles {
-    grid-template-columns: 1fr;
-  }
-
-  header h1 {
-    font-size: 1.5rem;
-  }
-
-  header nav a {
-    font-size: 0.9rem;
-  }
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(0, 77, 63, 0.9);
 }
