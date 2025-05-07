@@ -8,45 +8,95 @@
 </head>
 <body>
 
-  <!-- Header -->
   <header>
     <img src="earthicon.png" alt="EcoTech Logo" class="logo">
     <h1>EcoTech</h1>
     <nav>
       <a href="index.html">Home</a>
+      <!-- The toggle button with just the emoji -->
       <label class="switch">
         <input type="checkbox" id="themeToggle">
-        <span class="slider"></span>
+        <span class="emoji-toggle">🌙</span>
       </label>
     </nav>
   </header>
 
-  <!-- Main Content -->
   <main>
     <section class="intro">
-      <h2>Principles We Live By</h2>
-      <p>We believe in sustainability, innovation, and responsibility. These are the principles we follow:</p>
+      <h2>Welcome to the principles and morals which Knights House proposes.</h2>
+      <p>We believe in sustainability, innovation, and responsibility. These are the 10 principles we live by:</p>
     </section>
 
-    <!-- Principles -->
     <section class="principles">
-      <div class="principle"><h3>1. Sustainable Innovation</h3><p>"Innovation is the ability to see change as an opportunity." - Steve Jobs</p></div>
-      <div class="principle"><h3>2. Circular Economy</h3><p>"Waste should be an input for something else." - William McDonough</p></div>
-      <div class="principle"><h3>3. Responsibility Toward Future Generations</h3><p>"We borrow the Earth from our children." - Native American Proverb</p></div>
-      <div class="principle"><h3>4. Energy Efficiency</h3><p>"The greatest threat is the belief that someone else will save it." - Robert Swan</p></div>
-      <div class="principle"><h3>5. Collaboration Over Competition</h3><p>"The way forward is to collaborate." - Jacinda Ardern</p></div>
-      <div class="principle"><h3>6. Renewable Resources</h3><p>"Look deep into nature, and you will understand everything." - Albert Einstein</p></div>
-      <div class="principle"><h3>7. Local Solutions, Global Impact</h3><p>"Think globally, act locally." - Rene Dubos</p></div>
-      <div class="principle"><h3>8. Resilience and Adaptation</h3><p>"Survival is about adaptation." - Charles Darwin</p></div>
-      <div class="principle"><h3>9. Ecological Literacy</h3><p>"We won’t have a society if we destroy the environment." - Margaret Mead</p></div>
-      <div class="principle"><h3>10. Environmental Justice</h3><p>"Injustice anywhere is a threat to justice everywhere." - Martin Luther King Jr.</p></div>
+      <div class="principle">
+        <h3>1. Sustainable Innovation</h3>
+        <blockquote>"Innovation is the ability to see change as an opportunity – not a threat." - Steve Jobs</blockquote>
+        <p>Focus on long-term, eco-friendly technological advancements.</p>
+      </div>
+
+      <div class="principle">
+        <h3>2. Circular Economy</h3>
+        <blockquote>"The economy is a system that should be circular. Waste should be an input for something else." - William McDonough</blockquote>
+        <p>Encourage recycling, reducing waste, and designing sustainable systems.</p>
+      </div>
+
+      <div class="principle">
+        <h3>3. Responsibility Toward Future Generations</h3>
+        <blockquote>"We do not inherit the Earth from our ancestors, we borrow it from our children." - Native American Proverb</blockquote>
+        <p>Make decisions that protect the environment for future generations.</p>
+      </div>
+
+      <div class="principle">
+        <h3>4. Energy Efficiency</h3>
+        <blockquote>"The greatest threat to our planet is the belief that someone else will save it." - Robert Swan</blockquote>
+        <p>Adopt energy-efficient technologies and promote renewable energy.</p>
+      </div>
+
+      <div class="principle">
+        <h3>5. Collaboration Over Competition</h3>
+        <blockquote>"The way forward is to collaborate, not to compete." - Jacinda Ardern</blockquote>
+        <p>Work together to build a sustainable future.</p>
+      </div>
+
+      <div class="principle">
+        <h3>6. Renewable Resources</h3>
+        <blockquote>"Look deep into nature, and then you will understand everything better." - Albert Einstein</blockquote>
+        <p>Leverage renewable resources like wind and solar power.</p>
+      </div>
+
+      <div class="principle">
+        <h3>7. Local Solutions, Global Impact</h3>
+        <blockquote>"Think globally, act locally." - Rene Dubos</blockquote>
+        <p>Local actions lead to global environmental improvements.</p>
+      </div>
+
+      <div class="principle">
+        <h3>8. Resilience and Adaptation</h3>
+        <blockquote>"It is not the strongest of the species that survive... but the one most responsive to change." - Charles Darwin</blockquote>
+        <p>Develop resilient systems that adapt to environmental challenges.</p>
+      </div>
+
+      <div class="principle">
+        <h3>9. Ecological Literacy</h3>
+        <blockquote>"We won’t have a society if we destroy the environment." - Margaret Mead</blockquote>
+        <p>Educate individuals on the importance of sustainability.</p>
+      </div>
+
+      <div class="principle">
+        <h3>10. Environmental Justice</h3>
+        <blockquote>"Injustice anywhere is a threat to justice everywhere." - Martin Luther King Jr.</blockquote>
+        <p>Ensure that sustainability efforts are inclusive and equitable.</p>
+      </div>
     </section>
   </main>
 
-  <!-- Theme Toggle Script -->
   <script>
-    document.querySelector('#themeToggle').addEventListener('change', () => {
+    // Toggle between light and dark mode
+    const toggle = document.querySelector('#themeToggle');
+    toggle.addEventListener('change', () => {
       document.body.classList.toggle('dark');
+      const emoji = document.querySelector('.emoji-toggle');
+      emoji.textContent = document.body.classList.contains('dark') ? '🌞' : '🌙'; // Toggle emoji
     });
   </script>
 
