@@ -9,9 +9,7 @@
 </head>
 <body>
 
-  <div class="background-layer"></div>
-
-  <!-- SVG Icon Definitions -->
+  <!-- SVG Icons -->
   <svg style="display:none;">
     <defs>
       <g id="home">
@@ -33,31 +31,23 @@
     </defs>
   </svg>
 
-  <!-- Navigation -->
+  <!-- Sidebar -->
   <nav class="nav__cont">
     <ul class="nav">
       <li class="nav__items">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-          <use xlink:href="#home"></use>
-        </svg>
+        <svg viewBox="0 0 48 48"><use xlink:href="#home"/></svg>
         <a href="">Home</a>
       </li>
       <li class="nav__items">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-          <use xlink:href="#search"></use>
-        </svg>
+        <svg viewBox="0 0 32 32"><use xlink:href="#search"/></svg>
         <a href="">Search</a>
       </li>
       <li class="nav__items">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-          <use xlink:href="#map"></use>
-        </svg>
+        <svg viewBox="0 0 32 32"><use xlink:href="#map"/></svg>
         <a href="">Map</a>
       </li>
       <li class="nav__items">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 35.6">
-          <use xlink:href="#planner"></use>
-        </svg>
+        <svg viewBox="0 0 32 35.6"><use xlink:href="#planner"/></svg>
         <a href="">Planner</a>
       </li>
     </ul>
@@ -65,18 +55,18 @@
 
   <!-- Header -->
   <header>
-    <img src="earthicon.png" alt="EcoTech Logo" class="logo">
+    <img src="earthicon.png" alt="EcoTech Logo" class="logo" />
     <h1>EcoTech</h1>
     <p>Technology for Good — Eco-Friendly Innovation</p>
     <button class="theme-toggle" onclick="toggleTheme()">
-      <span id="theme-icon">🌞</span> 
+      <span id="theme-icon">🌞</span>
     </button>
   </header>
 
-  <!-- Content -->
+  <!-- Main Content -->
   <main>
     <section class="nav-buttons fade-section">
-      <button onclick="alert('Small Projects Section Coming Soon!')">Small Projects</button>
+      <button onclick="alert('Green Tech Content Coming Soon!')">Green Tech</button>
       <button onclick="alert('Ideas to Solve Coming Soon!')">Ideas to Solve</button>
       <button onclick="alert('Current Affairs Coming Soon!')">Current Affairs</button>
     </section>
@@ -93,7 +83,7 @@
         <li>Provide educational resources for environmental coding</li>
       </ul>
       <h2>Get Involved</h2>
-      <p>Whether you're a student, developer, or environmentalist — there's space for you at EcoTech. Submit your project ideas, read the latest news, or help others build better solutions for our planet.</p>
+      <p>Whether you're a student, developer, or environmentalist — there's space for you at EcoTech.</p>
     </section>
   </main>
 
@@ -102,27 +92,20 @@
     © Knights | TCD TEAM (Summre)
   </footer>
 
-  <!-- Script -->
   <script>
     function toggleTheme() {
       document.body.classList.toggle('dark');
       document.getElementById('theme-icon').textContent =
-        document.body.classList.contains('dark') ? '🌙' : '🌞';
+        document.body.classList.contains('dark') ? '🟩' : '🟪';
     }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        } else {
-          entry.target.classList.remove('visible');
-        }
+        entry.target.classList.toggle('visible', entry.isIntersecting);
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.fade-section').forEach((section) => {
-      observer.observe(section);
-    });
+    document.querySelectorAll('.fade-section').forEach((section) => observer.observe(section));
   </script>
 </body>
 </html>
