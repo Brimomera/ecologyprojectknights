@@ -108,7 +108,7 @@
   </footer>
 
   <!-- Script -->
- <script>
+<script>
   // Function to toggle theme (dark/light mode)
   function toggleTheme() {
     document.body.classList.toggle('dark');
@@ -133,22 +133,32 @@
   });
 
   // Search functionality
-  function searchContent() {
-    const searchQuery = document.getElementById('search-input').value.toLowerCase();
+  function toggleSearch() {
+    var searchBar = document.getElementById('search-bar');
+    if (searchBar.style.display === 'none' || searchBar.style.display === '') {
+      searchBar.style.display = 'block';  // Show the search bar
+    } else {
+      searchBar.style.display = 'none';  // Hide the search bar
+    }
+  }
+
+  function performSearch() {
+    var query = document.getElementById('search-input').value.toLowerCase();
     const items = document.querySelectorAll('.searchable-item'); // Replace with the actual class of items you want to search
     items.forEach(item => {
       const text = item.textContent.toLowerCase();
-      if (text.includes(searchQuery)) {
-        item.style.display = '';
+      if (text.includes(query)) {
+        item.style.display = '';  // Show item
       } else {
-        item.style.display = 'none';
+        item.style.display = 'none';  // Hide item
       }
     });
   }
 
   // Optional: Add event listener for search input to trigger the search function
-  document.getElementById('search-input').addEventListener('input', searchContent);
+  document.getElementById('search-input').addEventListener('input', performSearch);
 </script>
+
 
 </body>
 </html>
