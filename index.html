@@ -34,29 +34,34 @@
   </svg>
 
   <!-- Navigation -->
-<div class="nav__cont">
-  <ul class="nav">
-    <li class="nav__items">
-      <a href="#">Home</a>
-    </li>
-    <li class="nav__items">
-      <a href="#">About</a>
-    </li>
-    <li class="nav__items">
-      <a href="#">Contact</a>
-    </li>
-    <!-- Search Bar inside Sidebar -->
-    <li class="nav__items">
-      <input id="search-input" class="search-input" type="text" placeholder="Search..." oninput="searchContent()">
-    </li>
-  </ul>
-</div>
-
-<div id="search-bar">
-  <input id="search-input" type="text" placeholder="Search...">
-</div>
-
-
+  <nav class="nav__cont">
+    <ul class="nav">
+      <li class="nav__items">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+          <use xlink:href="#home"></use>
+        </svg>
+        <a href="">Home</a>
+      </li>
+      <li class="nav__items">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+          <use xlink:href="#search"></use>
+        </svg>
+        <a href="">Search</a>
+      </li>
+      <li class="nav__items">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+          <use xlink:href="#map"></use>
+        </svg>
+        <a href="">Map</a>
+      </li>
+      <li class="nav__items">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 35.6">
+          <use xlink:href="#planner"></use>
+        </svg>
+        <a href="">Planner</a>
+      </li>
+    </ul>
+  </nav>
 
   <!-- Header -->
   <header>
@@ -98,58 +103,26 @@
   </footer>
 
   <!-- Script -->
-<script>
- // Function to toggle theme (dark/light mode)
-function toggleTheme() {
-  document.body.classList.toggle('dark');
-  document.getElementById('theme-icon').textContent =
-    document.body.classList.contains('dark') ? '🟩' : '🟪';
-}
-
-// Intersection Observer for fade-in effect when section comes into view
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    } else {
-      entry.target.classList.remove('visible');
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      document.getElementById('theme-icon').textContent =
+        document.body.classList.contains('dark') ? '🌙' : '🌞';
     }
-  });
-}, { threshold: 0.1 });
 
-// Apply observer to elements with the class "fade-section"
-document.querySelectorAll('.fade-section').forEach((section) => {
-  observer.observe(section);
-});
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        } else {
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, { threshold: 0.1 });
 
-// Search functionality
-function toggleSearch() {
-  var searchBar = document.getElementById('search-bar');
-  if (searchBar.style.display === 'none' || searchBar.style.display === '') {
-    searchBar.style.display = 'block';  // Show the search bar
-  } else {
-    searchBar.style.display = 'none';  // Hide the search bar
-  }
-}
-
-function performSearch() {
-  var query = document.getElementById('search-input').value.toLowerCase();
-  const items = document.querySelectorAll('.searchable-item'); // Replace with the actual class of items you want to search
-  items.forEach(item => {
-    const text = item.textContent.toLowerCase();
-    if (text.includes(query)) {
-      item.style.display = '';  // Show item
-    } else {
-      item.style.display = 'none';  // Hide item
-    }
-  });
-}
-
-// Optional: Add event listener for search input to trigger the search function
-document.getElementById('search-input').addEventListener('input', performSearch);
-
-</script>
-
-
+    document.querySelectorAll('.fade-section').forEach((section) => {
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
