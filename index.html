@@ -100,53 +100,66 @@
   <!-- Script -->
 <script>
   // Function to toggle theme (dark/light mode)
-  function toggleTheme() {
-    document.body.classList.toggle('dark');
-    document.getElementById('theme-icon').textContent =
-      document.body.classList.contains('dark') ? '🟩' : '🟪';
-  }
+function toggleTheme() {
+  document.body.classList.toggle('dark');
+  document.getElementById('theme-icon').textContent =
+    document.body.classList.contains('dark') ? '🟩' : '🟪';
+}
 
-  // Intersection Observer for fade-in effect when section comes into view
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      } else {
-        entry.target.classList.remove('visible');
-      }
-    });
-  }, { threshold: 0.1 });
-
-  // Apply observer to elements with the class "fade-section"
-  document.querySelectorAll('.fade-section').forEach((section) => {
-    observer.observe(section);
-  });
-
-  // Search functionality
-  function toggleSearch() {
-    var searchBar = document.getElementById('search-bar');
-    if (searchBar.style.display === 'none' || searchBar.style.display === '') {
-      searchBar.style.display = 'block';  // Show the search bar
+// Intersection Observer for fade-in effect when section comes into view
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
     } else {
-      searchBar.style.display = 'none';  // Hide the search bar
+      entry.target.classList.remove('visible');
     }
-  }
+  });
+}, { threshold: 0.1 });
 
-  function performSearch() {
-    var query = document.getElementById('search-input').value.toLowerCase();
-    const items = document.querySelectorAll('.searchable-item'); // Replace with the actual class of items you want to search
-    items.forEach(item => {
-      const text = item.textContent.toLowerCase();
-      if (text.includes(query)) {
-        item.style.display = '';  // Show item
-      } else {
-        item.style.display = 'none';  // Hide item
-      }
-    });
-  }
+// Apply observer to elements with the class "fade-section"
+document.querySelectorAll('.fade-section').forEach((section) => {
+  observer.observe(section);
+});
 
-  // Optional: Add event listener for search input to trigger the search function
-  document.getElementById('search-input').addEventListener('input', performSearch);
+// Search functionality
+function toggleSearch() {
+  var searchBar = document.getElementById('search-bar');
+  if (searchBar.classList.contains('active')) {
+    searchBar.classList.remove('active');  // Hide the search bar
+  } else {
+    searchBar.classList.add('active');  // Show the search bar
+  }
+}
+
+function performSearch() {
+  var query = document.getElementById('search-input').value.toLowerCase();
+  const items = document.querySelectorAll('.searchable-item'); // Replace with the actual class of items you want to search
+  items.forEach(item => {
+    const text = item.textContent.toLowerCase();
+    if (text.includes(query)) {
+      item.classList.remove('hidden');  // Show item
+    } else {
+      item.classList.add('hidden');  // Hide item
+    }
+  });
+}
+
+// Optional: Add event listener for search input to trigger the search function
+document.getElementById('search-input').addEventListener('input', performSearch);
+
+// Event listener for closing search bar when clicked outside
+document.addEventListener('click', function (event) {
+  var searchBar = document.getElementById('search-bar');
+  if (!searchBar.contains(event.target) && !document.getElementById('search-button').contains(event.target)) {
+    searchBar.classList.remove('active');
+  }
+});
+
+// Event listener for toggling search bar when the button is clicked
+document.getElementById('search-button').addEventListener('click', toggleSearch);
+
+
 </script>
 
 
