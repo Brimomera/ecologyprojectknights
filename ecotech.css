@@ -1,79 +1,129 @@
-/* --- Global Base --- */
+/* General Styles */
 body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #d8b4fe, #93c5fd); /* Light mode gradient */
-  color: #ffffff;
-  transition: background 0.4s ease, color 0.4s ease;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* --- Glass Card & Header --- */
-.card, header {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  transition: background 0.4s ease, box-shadow 0.4s ease;
+/* Dark Mode */
+body.dark {
+  background-color: #333;
+  color: #f0f0f0;
 }
 
-/* --- Emerald Neon Button --- */
-.button {
-  background: linear-gradient(135deg, #00ff9c, #007a5e);
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #28a745;
   color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 20px;
-  padding: 14px 30px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  box-shadow: 0 0 20px rgba(0, 255, 153, 0.6);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px 20px;
 }
 
-.button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(0, 255, 153, 0.9);
+header .logo {
+  width: 50px;
 }
 
-/* --- Toggle Button (Top Right) --- */
-#themeToggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: #00c387;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 12px;
+header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+header nav a {
   color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  font-size: 1rem;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Toggle Button */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.emoji-toggle {
   font-size: 20px;
   cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 255, 153, 0.6);
+  transition: font-size 0.3s ease;
 }
 
-/* --- Dark Mode Styles --- */
-body.dark {
-  background: linear-gradient(135deg, #0d1b1e, #1a3a3f);
-  color: #d3ffe6;
+.switch input:checked + .emoji-toggle {
+  font-size: 24px; /* Slightly larger when toggled */
 }
 
-body.dark .card, body.dark header {
-  background: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 8px 25px rgba(0, 255, 153, 0.1);
+/* Main Content */
+main {
+  padding: 20px;
 }
 
-body.dark .button {
-  background: linear-gradient(135deg, #00ff9c, #007a5e);
-  color: #fff;
-  box-shadow: 0 0 15px rgba(0, 255, 153, 0.4);
+.intro h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
 }
 
-body.dark .button:hover {
-  box-shadow: 0 0 30px rgba(0, 255, 153, 0.8);
+.intro p {
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
-body.dark #themeToggle {
-  background: #005c45;
-  box-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+.principles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.principle {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.principle h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.principle blockquote {
+  font-size: 1rem;
+  font-style: italic;
+  margin: 10px 0;
+  color: #555;
+}
+
+.principle p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .principles {
+    grid-template-columns: 1fr;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  header nav a {
+    font-size: 0.9rem;
+  }
 }
