@@ -125,10 +125,10 @@ document.querySelectorAll('.fade-section').forEach((section) => {
 // Search functionality
 function toggleSearch() {
   var searchBar = document.getElementById('search-bar');
-  if (searchBar.classList.contains('active')) {
-    searchBar.classList.remove('active');  // Hide the search bar
+  if (searchBar.style.display === 'none' || searchBar.style.display === '') {
+    searchBar.style.display = 'block';  // Show the search bar
   } else {
-    searchBar.classList.add('active');  // Show the search bar
+    searchBar.style.display = 'none';  // Hide the search bar
   }
 }
 
@@ -138,9 +138,9 @@ function performSearch() {
   items.forEach(item => {
     const text = item.textContent.toLowerCase();
     if (text.includes(query)) {
-      item.classList.remove('hidden');  // Show item
+      item.style.display = '';  // Show item
     } else {
-      item.classList.add('hidden');  // Hide item
+      item.style.display = 'none';  // Hide item
     }
   });
 }
@@ -148,16 +148,6 @@ function performSearch() {
 // Optional: Add event listener for search input to trigger the search function
 document.getElementById('search-input').addEventListener('input', performSearch);
 
-// Event listener for closing search bar when clicked outside
-document.addEventListener('click', function (event) {
-  var searchBar = document.getElementById('search-bar');
-  if (!searchBar.contains(event.target) && !document.getElementById('search-button').contains(event.target)) {
-    searchBar.classList.remove('active');
-  }
-});
-
-// Event listener for toggling search bar when the button is clicked
-document.getElementById('search-button').addEventListener('click', toggleSearch);
 
 
 </script>
