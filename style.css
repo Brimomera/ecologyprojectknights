@@ -199,7 +199,7 @@
     
     .nav-buttons button:hover {
          transform: translate(0px, -5px);;
-        box-shadow: 0 10px 30px rgba(0, 255, 170, 0.5);
+        box-shadow: 0 10px 30px rgba(0,0,0);
     }
     
     footer {
