@@ -1,4 +1,3 @@
-
 /* Base Reset */
 * {
     margin: 0;
@@ -45,4 +44,108 @@ header {
 
 header h1 {
     font-size: 1.5rem;
-    margin
+    margin-bottom: 0;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 0;
+    margin-right: 1rem;
+    font-weight: 500;
+}
+
+/* Theme Switch */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.switch {
+    margin-left: 1rem;
+    position: relative;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    background-color: #ccc;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    transition: 0.4s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #2196f3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Main Content */
+main {
+    padding: 2rem;
+}
+
+.intro {
+    margin-bottom: 2rem;
+}
+
+.principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.principle {
+    background: rgba(255, 255, 255, 0.05); /* Changed to match homepage --glass-bg */
+    backdrop-filter: blur(12px);  /* Added to match homepage */
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); /* Added to match homepage */
+    transition: background 0.3s, color 0.3s;
+}
+
+body.dark .principle {
+    background: rgba(30, 50, 30, 0.2); /* Changed to match homepage --glass-dark */
+}
+
+blockquote {
+    margin: 0.5rem 0;
+    font-style: italic;
+    color: #555;
+}
+
+body.dark blockquote {
+    color: #aaa;
+}
+</style>
