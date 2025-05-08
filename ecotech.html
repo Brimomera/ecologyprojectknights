@@ -4,17 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EcoTech Principles</title>
-    <link  rel="stylesheet" href="ecotech.css">
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> </head>
 <body>
     <header>
         <img src="earthicon.png" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" style="cursor: pointer;">
         <h1>EcoTech</h1>
         <nav>
-            <label class="switch">
-                <input type="checkbox" id="themeToggle" />
-                <span class="slider"></span>
-            </label>
+            <button id="themeToggle" class="theme-toggle">☀️</button> 
         </nav>
     </header>
 
@@ -116,8 +113,13 @@
         const toggle = document.querySelector('#themeToggle');
         const logo = document.querySelector('.logo');
 
-        toggle.addEventListener('change', () => {
+        toggle.addEventListener('click', () => {
             document.body.classList.toggle('dark');
+             if (document.body.classList.contains('dark')) {
+                toggle.textContent = '☀️'; // Switch to sun for light mode
+             } else {
+                toggle.textContent = '🌑'; // Switch to moon for dark mode
+             }
         });
 
         // Make logo act like a link to home page
