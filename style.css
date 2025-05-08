@@ -198,7 +198,7 @@
     }
     
     .nav-buttons button:hover {
-        transform: translateY(-4px);
+         transform: translate(0px, -5px);;
         box-shadow: 0 10px 30px rgba(0, 255, 170, 0.5);
     }
     
