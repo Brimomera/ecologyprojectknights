@@ -1,4 +1,3 @@
-
 /* Basic styles for the Forces of Change page */
 body {
     font-family: sans-serif;
@@ -6,6 +5,7 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for theme change */
 }
 
 header {
@@ -13,6 +13,7 @@ header {
     color: white;
     padding: 1rem;
     text-align: center;
+    position: relative; /* Needed for absolute positioning of the toggle */
 }
 
 main {
@@ -32,4 +33,42 @@ footer {
     color: white;
     padding: 1rem;
     text-align: center;
+}
+
+/* Dark Theme */
+body.dark-theme {
+    background-color: #222;
+    color: #eee;
+}
+
+body.dark-theme header {
+    background-color: #333;
+}
+
+body.dark-theme h2 {
+    color: #4CAF50; /* Example: Change heading color in dark theme */
+}
+
+body.dark-theme footer {
+    background-color: #111;
+}
+
+/* Theme Toggle Button Styles */
+.theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center; /* Vertically center icon and label */
+    gap: 0.5rem; /* Space between icon and label */
+    cursor: pointer;
+}
+
+.theme-toggle-icon {
+    font-size: 1.5rem; /* Larger size for the icon */
+}
+
+.theme-toggle-label {
+    color: white;
+    font-size: 1rem;
 }
