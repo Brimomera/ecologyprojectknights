@@ -2,74 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Knights | Principles</title>
-  <link rel="stylesheet" href="ecotech.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoTech Principles</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <img src="earthicon.png" alt="EcoTech Logo" class="logo">
-    <h1>EcoTech</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <label class="switch">
-        <input type="checkbox" id="themeToggle">
-        <span class="slider"></span>
-      </label>
-    </nav>
-  </header>
+  <nav class="navbar">
+    <svg class="logo" viewBox="0 0 24 24">
+      <use xlink:href="#earth-icon"></use>
+    </svg>
+    <h1 class="brand">EcoTech</h1>
+    <ul class="nav-links">
+      <li>Home</li>
+    </ul>
+    <label class="toggle-switch">
+      <input type="checkbox" id="themeToggle" />
+      <span class="slider"></span>
+    </label>
+  </nav>
 
-  <main>
-    <section class="intro">
-      <h2>Welcome to the principles and morals which Knights House proposes.</h2>
-      <p>We believe in sustainability, innovation, and responsibility. These are the 10 principles we live by:</p>
-    </section>
-
-    <section class="principles">
-      <div class="principle">
-        <h3>1. Integrity</h3>
-        <p>Uphold honesty and strong moral values in all actions.</p>
-      </div>
-      <div class="principle">
-        <h3>2. Responsibility</h3>
-        <p>Be accountable for the impact of your decisions and actions on the world.</p>
-      </div>
-      <div class="principle">
-        <h3>3. Innovation</h3>
-        <p>Embrace creativity to drive sustainable solutions for the future.</p>
-      </div>
-      <div class="principle">
-        <h3>4. Sustainability</h3>
-        <p>Make choices that preserve resources and protect ecosystems.</p>
-      </div>
-      <div class="principle">
-        <h3>5. Empathy</h3>
-        <p>Understand and value diverse perspectives and experiences.</p>
-      </div>
-      <div class="principle">
-        <h3>6. Leadership</h3>
-        <p>Inspire others through vision, action, and example.</p>
-      </div>
-      <div class="principle">
-        <h3>7. Adaptability</h3>
-        <p>Stay flexible and resilient in the face of challenges.</p>
-      </div>
-      <div class="principle">
-        <h3>8. Excellence</h3>
-        <p>Strive for quality and mastery in every endeavor.</p>
-      </div>
-      <div class="principle">
-        <h3>9. Unity</h3>
-        <p>Work together with respect and cooperation for a greater cause.</p>
-      </div>
-      <div class="principle">
-        <h3>10. Wisdom</h3>
-        <p>Make decisions grounded in knowledge, foresight, and reflection.</p>
-      </div>
-    </section>
+  <main class="content">
+    <h2>Welcome to the principles and morals which Knights House proposes.</h2>
+    <p>We believe in sustainability, innovation, and responsibility. These are the 10 principles we live by:</p>
+    <div class="grid">
+      <div class="card"><strong>1. Integrity</strong><br />Uphold honesty and strong moral values in all actions.</div>
+      <div class="card"><strong>2. Responsibility</strong><br />Be accountable for the impact of your decisions and actions on the world.</div>
+      <div class="card"><strong>3. Innovation</strong><br />Embrace creativity to drive sustainable solutions for the future.</div>
+      <div class="card"><strong>4. Sustainability</strong><br />Make choices that preserve resources and protect ecosystems.</div>
+      <div class="card"><strong>5. Empathy</strong><br />Understand and value diverse perspectives and experiences.</div>
+      <div class="card"><strong>6. Leadership</strong><br />Inspire others through vision, action, and example.</div>
+      <div class="card"><strong>7. Adaptability</strong><br />Stay flexible and resilient in the face of challenges.</div>
+      <div class="card"><strong>8. Excellence</strong><br />Strive for quality and mastery in every endeavor.</div>
+      <div class="card"><strong>9. Unity</strong><br />Work together with respect and cooperation for a greater cause.</div>
+      <div class="card"><strong>10. Wisdom</strong><br />Make decisions grounded in knowledge, foresight, and reflection.</div>
+    </div>
   </main>
 
+  <!-- SVG Icon Definitions -->
+  <svg style="display: none;">
+    <symbol id="earth-icon" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm1 17.93V19a1 1 0 0 0-2 0v.93A8.06 8.06 0 0 1 4.07 13H5a1 1 0 0 0 0-2h-.93A8.06 8.06 0 0 1 11 4.07V5a1 1 0 0 0 2 0v-.93A8.06 8.06 0 0 1 19.93 11H19a1 1 0 0 0 0 2h.93A8.06 8.06 0 0 1 13 19.93Z"/>
+    </symbol>
+  </svg>
+
   <script>
+    // Check if a saved theme exists and apply it
     const toggle = document.querySelector('#themeToggle');
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
