@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="ecotech.css" />
 </head>
 <body>
-
   <header>
     <img src="earthicon.png" alt="EcoTech Logo" class="logo">
     <h1>EcoTech</h1>
@@ -28,73 +27,60 @@
 
     <section class="principles">
       <div class="principle">
-        <h3>1. Sustainable Innovation</h3>
-        <blockquote>"Innovation is the ability to see change as an opportunity – not a threat." - Steve Jobs</blockquote>
-        <p>Focus on long-term, eco-friendly technological advancements.</p>
+        <h3>1. Integrity</h3>
+        <p>Uphold honesty and strong moral values in all actions.</p>
       </div>
-
       <div class="principle">
-        <h3>2. Circular Economy</h3>
-        <blockquote>"The economy is a system that should be circular. Waste should be an input for something else." - William McDonough</blockquote>
-        <p>Encourage recycling, reducing waste, and designing sustainable systems.</p>
+        <h3>2. Responsibility</h3>
+        <p>Be accountable for the impact of your decisions and actions on the world.</p>
       </div>
-
       <div class="principle">
-        <h3>3. Responsibility Toward Future Generations</h3>
-        <blockquote>"We do not inherit the Earth from our ancestors, we borrow it from our children." - Native American Proverb</blockquote>
-        <p>Make decisions that protect the environment for future generations.</p>
+        <h3>3. Innovation</h3>
+        <p>Embrace creativity to drive sustainable solutions for the future.</p>
       </div>
-
       <div class="principle">
-        <h3>4. Energy Efficiency</h3>
-        <blockquote>"The greatest threat to our planet is the belief that someone else will save it." - Robert Swan</blockquote>
-        <p>Adopt energy-efficient technologies and promote renewable energy.</p>
+        <h3>4. Sustainability</h3>
+        <p>Make choices that preserve resources and protect ecosystems.</p>
       </div>
-
       <div class="principle">
-        <h3>5. Collaboration Over Competition</h3>
-        <blockquote>"The way forward is to collaborate, not to compete." - Jacinda Ardern</blockquote>
-        <p>Work together to build a sustainable future.</p>
+        <h3>5. Empathy</h3>
+        <p>Understand and value diverse perspectives and experiences.</p>
       </div>
-
       <div class="principle">
-        <h3>6. Renewable Resources</h3>
-        <blockquote>"Look deep into nature, and then you will understand everything better." - Albert Einstein</blockquote>
-        <p>Leverage renewable resources like wind and solar power.</p>
+        <h3>6. Leadership</h3>
+        <p>Inspire others through vision, action, and example.</p>
       </div>
-
       <div class="principle">
-        <h3>7. Local Solutions, Global Impact</h3>
-        <blockquote>"Think globally, act locally." - Rene Dubos</blockquote>
-        <p>Local actions lead to global environmental improvements.</p>
+        <h3>7. Adaptability</h3>
+        <p>Stay flexible and resilient in the face of challenges.</p>
       </div>
-
       <div class="principle">
-        <h3>8. Resilience and Adaptation</h3>
-        <blockquote>"It is not the strongest of the species that survive... but the one most responsive to change." - Charles Darwin</blockquote>
-        <p>Develop resilient systems that adapt to environmental challenges.</p>
+        <h3>8. Excellence</h3>
+        <p>Strive for quality and mastery in every endeavor.</p>
       </div>
-
       <div class="principle">
-        <h3>9. Ecological Literacy</h3>
-        <blockquote>"We won’t have a society if we destroy the environment." - Margaret Mead</blockquote>
-        <p>Educate individuals on the importance of sustainability.</p>
+        <h3>9. Unity</h3>
+        <p>Work together with respect and cooperation for a greater cause.</p>
       </div>
-
       <div class="principle">
-        <h3>10. Environmental Justice</h3>
-        <blockquote>"Injustice anywhere is a threat to justice everywhere." - Martin Luther King Jr.</blockquote>
-        <p>Ensure that sustainability efforts are inclusive and equitable.</p>
+        <h3>10. Wisdom</h3>
+        <p>Make decisions grounded in knowledge, foresight, and reflection.</p>
       </div>
     </section>
   </main>
 
   <script>
-    const toggle = document.querySelector('#theme-toggle');
-  toggle.addEventListener('change', () => {
-    document.body.classList.toggle('dark');
-  });
-  </script>
+    const toggle = document.querySelector('#themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark');
+      toggle.checked = true;
+    }
 
+    toggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
 </body>
 </html>
