@@ -1,7 +1,9 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #f9f9f9;
+  background: linear-gradient(120deg, #e8f5e9, #c8e6c9, #e0f2f1);
+  background-size: 400% 400%;
+  animation: gradientShift 20s ease infinite;
   color: #000000;
   display: flex;
   flex-direction: column;
@@ -11,16 +13,21 @@ body {
 }
 
 body.dark {
-  background-color: #000000;
+  background-color: #1b1f1b;
   color: #ffffff;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 header {
   text-align: center;
   padding: 40px 20px;
   background-color: transparent;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0;
+  border-bottom: 1px solid rgba(76, 175, 80, 0.3);
   width: 100%;
   max-width: 800px;
   margin-left: auto;
@@ -28,7 +35,7 @@ header {
 }
 
 header.dark {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(129, 199, 132, 0.3);
 }
 
 h1 {
@@ -69,7 +76,7 @@ p {
   position: absolute;
   top: 20px;
   right: 20px;
-  background-color: #808080;
+  background-color: #66bb6a;
   color: white;
   border: none;
   padding: 10px 14px;
@@ -80,7 +87,7 @@ p {
 }
 
 .theme-toggle:hover {
-  background-color: #a0a0a0;
+  background-color: #81c784;
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
@@ -103,16 +110,19 @@ section {
   padding: 30px;
   border-radius: 16px;
   backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border: 1px solid #c8e6c9;
   transition: all 0.3s ease;
   width: 100%;
   animation: fadeIn 1s ease, slideIn 0.5s ease-out;
 }
 
 section.dark {
-  background-color: transparent;
+  background: rgba(38, 50, 38, 0.8);
   box-shadow: 0 8px 24px rgba(255, 255, 255, 0.05);
   color: #ffffff;
+  border: 1px solid #2e7d32;
 }
 
 @keyframes slideIn {
@@ -133,21 +143,21 @@ section.dark {
   min-width: 220px;
   padding: 18px 24px;
   border: none;
-  border-radius: 16px;
+  border-radius: 20px;
   font-size: 1.2rem;
-  background-color: #808080;
+  background: linear-gradient(145deg, #66bb6a, #4caf50);
   color: #fff;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
 }
 
 .nav-buttons button:hover {
   transform: translateY(-4px) scale(1.08);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-  background-color: #a0a0a0;
+  background: linear-gradient(145deg, #81c784, #66bb6a);
+  box-shadow: 0 8px 18px rgba(76, 175, 80, 0.4);
 }
 
 footer {
@@ -155,22 +165,19 @@ footer {
   text-align: center;
   font-size: 0.9rem;
   color: inherit;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(76, 175, 80, 0.2);
   margin-top: 2rem;
   width: 100%;
   transition: background-color 0.5s ease;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  background-color: #e8f5e9;
 }
 
 footer.dark {
-  border-top: 1px solid rgba(0, 0, 0, 0.3);
-  background-color: #000000;
-}
-
-footer.light{
-    background-color: #f9f9f9;
+  border-top: 1px solid rgba(129, 199, 132, 0.2);
+  background-color: #1b1f1b;
 }
 
 .fade-section {
@@ -191,23 +198,23 @@ ul {
 
 @media (max-width: 600px) {
   header {
-      padding: 30px 15px;
+    padding: 30px 15px;
   }
 
   h1 {
-      font-size: 2.2rem;
+    font-size: 2.2rem;
   }
 
   main {
-      padding: 15px;
+    padding: 15px;
   }
 
   section {
-      padding: 20px;
+    padding: 20px;
   }
 
   .nav-buttons button {
-      min-width: 100%;
-      margin-bottom: 15px;
+    min-width: 100%;
+    margin-bottom: 15px;
   }
 }
