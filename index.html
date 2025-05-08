@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>EcoTech | Technology for Good</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    
 </head>
 <body class="light">
   <div class="background-layer"></div>
@@ -54,17 +54,40 @@
         <li>Provide educational resources for environmental coding</li>
       </ul>
       <h2>Get Involved</h2>
-      <p>As Buddha once said, "If you wish to know the divine, feel the wind on your face and the warm sun on your hand." Knights House embodies this spirit — it is more than just a school house; it is a way of life. It instills a sense of responsibility, integrity, and purpose that goes beyond institutional boundaries, nurturing individuals to serve and lead with humility and strength in every walk of life.</p>
-      <p> We value and welcome your thoughts and beliefs. Whether you're a teacher, a student, or a visitor, we encourage you to share your ideas and concerns about our environment. Your voice matters — help us grow, inspire change, and build a more conscious and responsible future together. </p>
+      <p>
+        As Buddha once said, "If you wish to know the divine, feel the 
+        wind on your face and the warm sun on your hand." Knights House 
+        embodies this spirit — it is more than just a school house; it is 
+        a way of life.
+      </p>
+      <br>
+      <p>
+        It instills a sense of responsibility, integrity, and purpose 
+        that goes beyond institutional boundaries, nurturing individuals 
+        to serve and lead with humility and strength in every walk of life.
+      </p>
+      <br>
+      <p>
+        We value and welcome your thoughts and beliefs. Whether you're a 
+        teacher, a student, or a visitor, we encourage you to share your 
+        ideas and concerns about our environment. Your voice matters — 
+        help us grow, inspire change, and build a more conscious and 
+        responsible future together.
+      </p>
+      <br>
       <p>Contact us at our email: knightsidps@gmail.com</p>
     </section>
   </main>
-  <footer>
+  <footer class="light">
     © Knights | TCD TEAM (Summer)
   </footer>
   <script>
     function toggleTheme() {
       document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+      const footer = document.querySelector('footer');
+      footer.classList.toggle('dark');
+      footer.classList.toggle('light');
       document.getElementById('theme-icon').textContent = document.body.classList.contains('dark') ? '🌑' : '☀️';
     }
     const observer = new IntersectionObserver((entries) => {
