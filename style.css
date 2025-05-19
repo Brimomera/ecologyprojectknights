@@ -1,5 +1,4 @@
-
-        :root {
+  :root {
             --primary: #78909c;
             --primary-dark: #607d8b;
             --text: #333;
@@ -8,8 +7,6 @@
             --glass-dark: rgba(0, 0, 0, 0.2);
             --footer-bg: #eee;
             --accent-color: #a0f;
-            --light-gradient: repeating-linear-gradient(to right, #d0bfff 0%, #a78bfa 20%, #d0bfff 40%);
-            --dark-gradient: repeating-linear-gradient(to right, #2a4d40 0%, #21382b 20%, #2a4d40 40%);
         }
 
         body {
@@ -17,7 +14,8 @@
             font-family: 'Inter', sans-serif;
             font-weight: 400;
             line-height: 1.6;
-            background: var(--light-gradient);
+            /* Apply light gradient directly */
+            background: repeating-linear-gradient(to right, #d0bfff 0%, #a78bfa 20%, #d0bfff 40%);
             color: var(--text);
             display: flex;
             flex-direction: column;
@@ -30,7 +28,8 @@
             --text: #fff;
             --background: #212e23;
             --footer-bg: #2e3d31;
-            background: var(--dark-gradient);
+            /* Apply dark gradient directly */
+            background: repeating-linear-gradient(to right, #2a4d40 0%, #21382b 20%, #2a4d40 40%);
         }
 
         header {
@@ -394,4 +393,3 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
-   
