@@ -1,4 +1,5 @@
- :root {
+
+        :root {
             --primary: #78909c;
             --primary-dark: #607d8b;
             --text: #333;
@@ -393,3 +394,4 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+   
