@@ -14,7 +14,7 @@
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   line-height: 1.6;
-  background: linear-gradient(to top, #f8f0ff, #fff); /* Vertical light purple gradient */
+  background: linear-gradient(to top, #a78bfa, #6b46c1); /* Deeper purple vertical gradient */
   color: var(--text);
   display: flex;
   flex-direction: column;
@@ -27,7 +27,7 @@
   --text: #fff;
   --background: #121212;
   --footer-bg: #212121;
-  background: linear-gradient(to top, #c1f0c1, #2e8b57); /* Vertical light to dark emerald gradient */
+  background: linear-gradient(to top, #55efc4, #00b894); /* Richer emerald vertical gradient */
  }
 
  header {
