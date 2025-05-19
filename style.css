@@ -406,4 +406,5 @@ footer:hover p {
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity
+  to { opacity: 1;}
+}
