@@ -14,7 +14,7 @@ body {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   line-height: 1.6;
-  background: linear-gradient(to top, #a78bfa, #6b46c1); /* Restored light theme gradient */
+ background: repeating-linear-gradient(to right, #d0bfff 0%, #a78bfa 20%, #d0bfff 40%);
   color: var(--text);
   display: flex;
   flex-direction: column;
