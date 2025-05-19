@@ -24,17 +24,16 @@ body {
 }
 
 body.dark {
-  --text: #eee; /* Lighter text for dark theme */
-  --background: #303030; /* Dark background */
-  --footer-bg: #424242;
-  background: linear-gradient(to top, #55efc4, #00b894); /* Restored dark theme gradient */
-}
+      --text: #fff;
+      --background: #212e23;
+     --footer-bg: #2e3d31;
+            background: repeating-linear-gradient(to right, #2a4d40 0%, #21382b 20%, #2a4d40 40%);
 
 body.light {
-  --text: #333;
+  --text: #fff;
   --background: #f5f5f5;
-  --footer-bg: #eee;
-  background: linear-gradient(to top, #a78bfa, #6b46c1); /* Restored light theme gradient */
+  --footer-bg: #2e3d31;
+  background: repeating-linear-gradient(to right, #d0bfff 0%, #a78bfa 20%, #d0bfff 40%);
 }
 
 header {
