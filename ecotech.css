@@ -181,4 +181,31 @@ body.dark button {
 }
 
 body.dark button:hover {
-    background: linear-gradient(
+    background: linear-gradient(135deg, #2a4d40, #21382b);
+    box-shadow: 0 8px 20px rgba(33, 56, 43, 1);
+}
+
+/* Credits */
+#credits {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    transition: color 0.5s ease;
+}
+
+body.dark #credits {
+    color: #999;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
