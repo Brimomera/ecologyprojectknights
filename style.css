@@ -1,19 +1,23 @@
+/* Enhanced Glassmorphism and Modern UI */
 :root {
-    --primary: #78909c;
-    --primary-dark: #607d8b;
-    --text: #000;
-    --background: #fff;
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-dark: rgba(30, 50, 30, 0.2);
-    --footer-bg: #e0e0e0;
+    --primary: #7c3aed;
+    --primary-dark: #5b21b6;
+    --accent: #38bdf8;
+    --text: #222;
+    --background: #f3f4f6;
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-dark: rgba(30, 50, 30, 0.25);
+    --footer-bg: #ede9fe;
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --border-radius: 18px;
 }
 
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
-  background: repeating-linear-gradient(to right, #d0bfff 0%, #a78bfa 20%, #d0bfff 40%);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #d0bfff 0%, #a78bfa 50%, #f3e8ff 100%);
+    background-size: 200% 200%;
+    animation: gradient 12s ease-in-out infinite;
     color: var(--text);
     display: flex;
     flex-direction: column;
@@ -23,12 +27,12 @@ body {
 }
 
 body.dark {
-    --text: #fff;
-    --background: #000;
-    --footer-bg: #212121;
-    background: repeating-linear-gradient(to right, #2a4d40 0%, #21382b 20%, #2a4d40 40%);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    --text: #f3f4f6;
+    --background: #18181b;
+    --footer-bg: #2a2636;
+    background: linear-gradient(135deg, #2a4d40 0%, #21382b 50%, #18181b 100%);
+    background-size: 200% 200%;
+    animation: gradient 12s ease-in-out infinite;
 }
 
 @keyframes gradient {
@@ -49,8 +53,12 @@ header {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin: 32px auto 24px auto;
+    max-width: 700px;
+    color: var(--primary-dark);
+    transition: background 0.4s, color 0.4s;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -167,6 +175,15 @@ main {
     margin-left: 80px;
     padding: 20px;
     color: var(--text);
+    background: var(--glass-bg);
+    box-shadow: var(--shadow);
+    border-radius: var(--border-radius);
+    padding: 32px 24px;
+    margin: 24px auto;
+    max-width: 800px;
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(120, 144, 156, 0.15);
+    transition: background 0.4s, box-shadow 0.4s;
 }
 
 section {
@@ -178,6 +195,19 @@ section {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     color: var(--text);
     transition: all 0.3s ease;
+}
+
+.card {
+    margin-bottom: 20px;
+    background: var(--glass-bg);
+    box-shadow: var(--shadow);
+    border-radius: var(--border-radius);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.18);
 }
 
 .nav-buttons {
@@ -192,30 +222,32 @@ section {
     min-width: 220px;
     padding: 18px 24px;
     border: none;
-    border-radius: 16px;
+    border-radius: 999px;
     font-size: 1.2rem;
-    background-color: var(--primary);
+    background: linear-gradient(90deg, var(--primary) 60%, var(--accent) 100%);
     color: #fff;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0, 255, 170, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(120, 144, 156, 0.12);
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+    outline: none;
 }
 
 .nav-buttons button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(0, 255, 170, 0.5);
+    background: linear-gradient(90deg, var(--primary-dark) 60%, var(--accent) 100%);
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 4px 16px rgba(120, 144, 156, 0.18);
 }
 
 footer {
-    background-color: var(--footer-bg);
-    padding: 20px;
+    background: var(--footer-bg);
+    color: var(--primary-dark);
     text-align: center;
-    font-size: 0.9rem;
-    color: #666;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 -2px 12px rgba(0, 255, 170, 0.2);
-    margin-top: 40px;
+    padding: 18px 0 10px 0;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    box-shadow: 0 -2px 12px rgba(120, 144, 156, 0.08);
+    margin-top: auto;
+    font-size: 1rem;
 }
 
 .fade-section {
@@ -322,4 +354,25 @@ footer {
 .stat span {
     font-size: 0.9rem;
     opacity: 0.8;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+    header, main, .card {
+        padding: 18px 8px;
+        max-width: 98vw;
+    }
+}
+
+/* Add smooth transitions for theme changes */
+* {
+    transition: background 0.4s, color 0.4s, box-shadow 0.3s;
 }
