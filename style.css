@@ -11,7 +11,7 @@
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(-45deg, #d0bfff, #a78bfa, #93c5fd, #60a5fa);
+  background: repeating-linear-gradient(to right, #d0bfff 0%, #a78bfa 20%, #d0bfff 40%);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
     color: var(--text);
@@ -26,7 +26,7 @@ body.dark {
     --text: #fff;
     --background: #000;
     --footer-bg: #212121;
-    background: linear-gradient(-45deg, #2a4d40, #21382b, #1a2e38, #1e293b);
+    background: repeating-linear-gradient(to right, #2a4d40 0%, #21382b 20%, #2a4d40 40%);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 }
