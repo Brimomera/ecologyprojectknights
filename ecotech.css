@@ -10,22 +10,24 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    transition: background-color 0.5s, color 0.5s;
+    transition: background 0.5s, color 0.5s;
+    /* fallback */
     background-color: #fff;
     color: #000;
 }
 
 /* Light Theme */
 body.light {
-    background-color: #fff;
+    background: linear-gradient(135deg, #d0bfff 0%, #a78bfa 50%, #f3e8ff 100%);
     color: #000;
 }
 
 /* Dark Theme */
 body.dark {
-    background-color: #121212;
+    background: linear-gradient(135deg, #2a4d40 0%, #21382b 50%, #18181b 100%);
     color: #f5f5f5;
 }
+
 
 header {
     display: flex;
