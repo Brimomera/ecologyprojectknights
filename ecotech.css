@@ -17,7 +17,7 @@ body {
 
 /* Light Theme */
 body.light {
-    background: linear-gradient(135deg, #d0bfff 0%, #a78bfa 50%, #f3e8ff 100%);
+    background: linear-gradient(135deg, #b395f5 0%, #8364c7 50%, #efe0fa 100%);
     color: #000;
 }
 
@@ -37,13 +37,16 @@ header {
     border-radius: 8px;
     text-align: center;
     position: relative;
-    background-color: #f0f0f0;
+    /* Removed background-color: #f0f0f0; */
     transition: background-color 0.5s ease, color 0.5s ease;
+    background: linear-gradient(135deg, #b395f5 0%, #8364c7 50%, #efe0fa 100%);
 }
 
 body.dark header {
-    background-color: #1f1f1f;
+    /* Removed background-color: #1f1f1f; */
+    background: linear-gradient(135deg, #2a4d40 0%, #21382b 50%, #18181b 100%);
 }
+
 
 .logo {
     height: 80px;
@@ -127,21 +130,35 @@ body.dark .intro {
 
 /* Boxes */
 .principle {
-    background-color: rgba(255, 255, 255, 0.8);
     padding: 1.5rem;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(167, 139, 250, 0.25);
     transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
-    color: #2c2c2c;
     opacity: 0;
     animation: fadeInUp 0.6s forwards;
+    background-color: rgba(33, 56, 43, 0.75);
+    color: #2c2c2c;
+    border: 1px solid #ccc;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
+/* Light Theme Boxes */
+body.light .principle {
+    background-color: rgba(153, 128, 228, 0.75);
+    box-shadow: 5px 5px 10px rgba(102, 51, 153, 0.3);
+    color: #2c2c2c;
+}
+
+/* Dark Theme Boxes */
 body.dark .principle {
-    background-color: rgba(33, 56, 43, 0.75);
-    box-shadow: 0 8px 20px rgba(0, 100, 60, 0.6);
     color: #dcdcdc;
 }
+
 
 /* Blockquote */
 blockquote {
