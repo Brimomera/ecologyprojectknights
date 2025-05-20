@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>EcoTech | Technology for Good</title>
+  <link rel="stylesheet" crossorigin href="/assets/index-BlD4-LMg.css">
+</head>
+<body class="light">
+    <div class="background-layer"></div>
+    <header>
+        <img src="/assets/earthicon-ifmzhZL7.png" alt="EcoTech Logo" class="logo">
+        <h1>EcoTech</h1>
+        <p>Technology for Good — Eco-Friendly Innovation</p>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <span id="theme-icon">☀️</span>
+        </button>
+    </header>
+    <nav class="nav__cont">
+        <ul class="nav">
+            <li class="nav__items">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="nav__items">
+                <a href="ecotech.html">Our Values</a>
+            </li>
+            <li class="nav__items">
+                <a href="change.html">Forces of Change</a>
+            </li>
+            <li class="nav__items">
+                <a href="calculator.html">Carbon Calculator</a>
+            </li>
+        </ul>
+    </nav>
+    <main>
+        <section class="nav-buttons fade-section">
+            <button onclick="location.href='ecotech.html'">Our Values</button>
+            <button onclick="location.href='change.html'">Forces of Change</button>
+            <button onclick="location.href='calculator.html'">Carbon Calculator</button>
+        </section>
+        <section class="fade-section">
+            <p>We believe that technology should serve both people and the planet. EcoTech is a platform where sustainable innovation meets impactful action. Join our mission to harness the power of code, circuits, and creativity to protect nature and empower communities.</p>
+        </section>
+        <section class="fade-section">
+            <h2>Our Mission</h2>
+            <ul>
+                <li>Promote green technologies and sustainable innovation</li>
+                <li>Encourage eco-conscious tech projects and startups</li>
+                <li>Provide educational resources for environmental coding</li>
+            </ul>
+            <h2>Get Involved</h2>
+            <p>
+                As Buddha once said, "If you wish to know the divine, feel the
+                wind on your face and the warm sun on your hand." Knights House
+                embodies this spirit — it is more than just a school house; it is
+                a way of life.
+            </p>
+            <br>
+            <p>
+                It instills a sense of responsibility, integrity, and purpose
+                that goes beyond institutional boundaries, nurturing individuals
+                to serve and lead with humility and strength in every walk of life.
+            </p>
+            <br>
+            <p>
+                We value and welcome your thoughts and beliefs. Whether you're a
+                teacher, a student, or a visitor, we encourage you to share your
+                ideas and concerns about our environment. Your voice matters —
+                help us grow, inspire change, and build a more conscious and
+                responsible future together.
+            </p>
+            <br>
+            <p>Contact us at our email: knightsidps@gmail.com</p>
+        </section>
+    </main>
+    <footer>
+        © Knights | TCD TEAM (Summer)
+    </footer>
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            document.body.classList.toggle('light');
+            const footer = document.querySelector('footer');
+            footer.classList.toggle('dark');
+            footer.classList.toggle('light');
+            document.getElementById('theme-icon').textContent = 
+                document.body.classList.contains('dark') ? '🌑' : '☀️';
+        }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-section').forEach((section) => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
