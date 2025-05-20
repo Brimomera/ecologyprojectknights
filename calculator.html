@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator | EcoTech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body class="light">
+    <header>
+        <img src="earthicon.png" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';">
+        <h1>Carbon Footprint Calculator</h1>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <span id="theme-icon">☀️</span>
+        </button>
+    </header>
+
+    <nav class="nav__cont">
+        <ul class="nav">
+            <li class="nav__items">
+                <a href="index.html">Home</a>
+            </li>
+            <li class="nav__items">
+                <a href="ecotech.html">Our Values</a>
+            </li>
+            <li class="nav__items">
+                <a href="change.html">Forces of Change</a>
+            </li>
+            <li class="nav__items">
+                <a href="calculator.html">Calculator</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="calculator fade-section">
+            <h2>Calculate Your Carbon Footprint</h2>
+            <div class="input-group">
+                <label for="electricity">Monthly Electricity Usage (kWh)</label>
+                <input type="number" id="electricity" placeholder="e.g., 500">
+            </div>
+            <div class="input-group">
+                <label for="gas">Monthly Natural Gas Usage (therms)</label>
+                <input type="number" id="gas" placeholder="e.g., 50">
+            </div>
+            <div class="input-group">
+                <label for="car">Monthly Car Mileage</label>
+                <input type="number" id="car" placeholder="e.g., 1000">
+            </div>
+            <div class="input-group">
+                <label for="flights">Number of Flights per Year</label>
+                <input type="number" id="flights" placeholder="e.g., 2">
+            </div>
+            <button onclick="calculateFootprint()">Calculate</button>
+            
+            <div id="result" class="result-section" style="display: none;">
+                <h3>Your Carbon Footprint</h3>
+                <p id="footprint-result"></p>
+                <canvas id="footprintChart"></canvas>
+            </div>
+        </section>
+
+        <section class="impact-stats fade-section">
+            <div class="stat">
+                <h3>Trees Needed</h3>
+                <div id="trees" class="counter">0</div>
+                <span>to offset your carbon footprint</span>
+            </div>
+            <div class="stat">
+                <h3>Compared to Average</h3>
+                <div id="comparison" class="counter">0%</div>
+                <span>of global average</span>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © Knights | TCD TEAM (Summer)
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+            document.body.classList.toggle('light');
+            document.getElementById('theme-icon').textContent = 
+                document.body.classList.contains('dark') ? '🌑' : '☀️';
+        }
+
+        function calculateFootprint() {
+            const electricity = parseFloat(document.getElementById('electricity').value) || 0;
+            const gas = parseFloat(document.getElementById('gas').value) || 0;
+            const car = parseFloat(document.getElementById('car').value) || 0;
+            const flights = parseFloat(document.getElementById('flights').value) || 0;
+
+            const electricityEmissions = electricity * 0.92; // lbs CO2 per kWh
+            const gasEmissions = gas * 11.7; // lbs CO2 per therm
+            const carEmissions = car * 0.89; // lbs CO2 per mile
+            const flightEmissions = flights * 1100; // lbs CO2 per flight
+
+            const totalEmissions = (electricityEmissions + gasEmissions + carEmissions + flightEmissions) / 2205; // Convert to metric tons
+
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('footprint-result').textContent = 
+                `Your annual carbon footprint is approximately ${totalEmissions.toFixed(2)} metric tons of CO2`;
+
+            document.getElementById('trees').textContent = Math.ceil(totalEmissions * 40);
+            document.getElementById('comparison').textContent = 
+                `${Math.round((totalEmissions / 4.6) * 100)}%`;
+
+            updateChart({
+                electricity: electricityEmissions,
+                gas: gasEmissions,
+                car: carEmissions,
+                flights: flightEmissions
+            });
+        }
+
+        function updateChart(data) {
+            const ctx = document.getElementById('footprintChart').getContext('2d');
+            
+            if (window.footprintChart) {
+                window.footprintChart.destroy();
+            }
+
+            window.footprintChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Electricity', 'Natural Gas', 'Car Travel', 'Flights'],
+                    datasets: [{
+                        data: [data.electricity, data.gas, data.car, data.flights],
+                        backgroundColor: [
+                            '#4CAF50',
+                            '#2196F3',
+                            '#FFC107',
+                            '#F44336'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize fade animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-section').forEach((section) => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
