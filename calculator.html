@@ -5,13 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carbon Footprint Calculator | EcoTech</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="light">
     <header>
-        <img src="earthicon.png" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';">
-        <h1>Carbon Footprint Calculator</h1>
-        <button class="theme-toggle" onclick="toggleTheme()">
+        <img src="earthicon.png" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" title="Home">
+        <h1>🌍 Carbon Footprint Calculator 📊</h1>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
             <span id="theme-icon">☀️</span>
         </button>
     </header>
@@ -19,73 +31,108 @@
     <nav class="nav__cont">
         <ul class="nav">
             <li class="nav__items">
-                <a href="index.html">Home</a>
+                <a href="index.html">🏠 Home</a>
             </li>
             <li class="nav__items">
-                <a href="ecotech.html">Our Values</a>
+                <a href="ecotech.html">✨ Our Values</a>
             </li>
             <li class="nav__items">
-                <a href="change.html">Forces of Change</a>
+                <a href="change.html">💪 Forces of Change</a>
             </li>
             <li class="nav__items">
-                <a href="calculator.html">Calculator</a>
+                <a href="calculator.html">🧮 Calculator</a>
             </li>
         </ul>
     </nav>
 
     <main>
         <section class="calculator fade-section">
-            <h2>Calculate Your Carbon Footprint</h2>
+            <h2>Calculate Your Carbon Footprint 👣</h2>
             <div class="input-group">
-                <label for="electricity">Monthly Electricity Usage (kWh)</label>
+                <label for="electricity">⚡ Monthly Electricity Usage (kWh)</label>
                 <input type="number" id="electricity" placeholder="e.g., 500">
             </div>
             <div class="input-group">
-                <label for="gas">Monthly Natural Gas Usage (therms)</label>
+                <label for="gas">🔥 Monthly Natural Gas Usage (therms)</label>
                 <input type="number" id="gas" placeholder="e.g., 50">
             </div>
             <div class="input-group">
-                <label for="car">Monthly Car Mileage</label>
+                <label for="car">🚗 Monthly Car Mileage</label>
                 <input type="number" id="car" placeholder="e.g., 1000">
             </div>
             <div class="input-group">
-                <label for="flights">Number of Flights per Year</label>
+                <label for="flights">✈️ Number of Flights per Year</label>
                 <input type="number" id="flights" placeholder="e.g., 2">
             </div>
-            <button onclick="calculateFootprint()">Calculate</button>
+            <button onclick="calculateFootprint()">Calculate ✨</button>
             
-            <div id="result" class="result-section" style="display: none;">
-                <h3>Your Carbon Footprint</h3>
-                <p id="footprint-result"></p>
+            <div id="result" class="result-section hidden">
+                <div class="chart-title-container">
+                    <button id="toggleChartTypeBtn" onclick="toggleChartType()" title="Switch Graphs">📊</button>
+                    <h3>📈 Your Carbon Footprint Breakdown</h3>
+                </div>
                 <canvas id="footprintChart"></canvas>
-            </div>
-        </section>
 
-        <section class="impact-stats fade-section">
-            <div class="stat">
-                <h3>Trees Needed</h3>
-                <div id="trees" class="counter">0</div>
-                <span>to offset your carbon footprint</span>
-            </div>
-            <div class="stat">
-                <h3>Compared to Average</h3>
-                <div id="comparison" class="counter">0%</div>
-                <span>of global average</span>
+                <div id="combinedInfoAndTips" class="info-and-tips-container">
+                    <p id="carbonConsumption"></p>
+                    <p id="saveEarthTips" class="mt-2"></p>
+                </div>
+
+                <div class="impact-stats-container">
+                    <div class="stat-box">
+                        <h3>🌳 Trees Needed</h3>
+                        <div class="value" id="treesNeededValue">0</div>
+                        <div class="description">to offset your carbon footprint annually 🌱</div>
+                    </div>
+                    <div class="stat-box">
+                        <h3>⚖️ Compared to Average</h3>
+                        <div class="value" id="comparedToAverageValue">0%</div>
+                        <div class="description">of global average 🌐</div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
     <footer>
-        © Knights | TCD TEAM (Summer)
+        © Knights | TCD TEAM (Summer) ☀️
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         function toggleTheme() {
             document.body.classList.toggle('dark');
             document.body.classList.toggle('light');
             document.getElementById('theme-icon').textContent = 
                 document.body.classList.contains('dark') ? '🌑' : '☀️';
+            // Recalculate and redraw chart to apply new theme colors
+            if (!document.getElementById('result').classList.contains('hidden')) {
+                calculateFootprint();
+            }
+        }
+
+        let footprintChart = null; // Initialize footprintChart outside the function
+        let currentChartTypeIndex = 0; // 0: doughnut, 1: bar, 2: line
+        const chartTypes = ['doughnut', 'bar', 'line'];
+        let lastCalculatedData = null; // To store the data so advice doesn't change on chart switch
+
+        // Function to toggle chart type
+        function toggleChartType() {
+            currentChartTypeIndex = (currentChartTypeIndex + 1) % chartTypes.length;
+            // Only update chart if data has been calculated at least once
+            if (lastCalculatedData) {
+                const rootStyles = getComputedStyle(document.documentElement);
+                const primaryColor = rootStyles.getPropertyValue('--primary').trim();
+                const accentColor = rootStyles.getPropertyValue('--accent').trim();
+                const oliveLightColor = rootStyles.getPropertyValue('--olive-light').trim();
+                const textColor = rootStyles.getPropertyValue('--text').trim();
+                const glassBgColor = rootStyles.getPropertyValue('--glass-bg').trim();
+                const neonBlue = rootStyles.getPropertyValue('--neon-blue').trim();
+                const neonPurple = rootStyles.getPropertyValue('--neon-purple').trim();
+                const neonGreen = rootStyles.getPropertyValue('--neon-green').trim();
+                const neonYellow = rootStyles.getPropertyValue('--neon-yellow').trim();
+
+                updateChart(lastCalculatedData, chartTypes[currentChartTypeIndex], primaryColor, accentColor, oliveLightColor, textColor, glassBgColor, neonBlue, neonPurple, neonGreen, neonYellow);
+            }
         }
 
         function calculateFootprint() {
@@ -94,62 +141,173 @@
             const car = parseFloat(document.getElementById('car').value) || 0;
             const flights = parseFloat(document.getElementById('flights').value) || 0;
 
-            const electricityEmissions = electricity * 0.92; // lbs CO2 per kWh
-            const gasEmissions = gas * 11.7; // lbs CO2 per therm
-            const carEmissions = car * 0.89; // lbs CO2 per mile
-            const flightEmissions = flights * 1100; // lbs CO2 per flight
+            // Emission factors (converted to kg CO2 for consistency with previous output)
+            const electricityEmissions = electricity * 0.418; // kg CO2 per kWh (approx from 0.92 lbs/kWh)
+            const gasEmissions = gas * 5.3; // kg CO2 per therm (approx from 11.7 lbs/therm)
+            const carEmissions = car * 0.404; // kg CO2 per mile (approx from 0.89 lbs/mile)
+            const flightEmissions = flights * 500; // kg CO2 per short-haul flight (adjusted for kg, rough estimate)
 
-            const totalEmissions = (electricityEmissions + gasEmissions + carEmissions + flightEmissions) / 2205; // Convert to metric tons
+            const totalEmissions = electricityEmissions + gasEmissions + carEmissions + flightEmissions;
 
-            document.getElementById('result').style.display = 'block';
-            document.getElementById('footprint-result').textContent = 
-                `Your annual carbon footprint is approximately ${totalEmissions.toFixed(2)} metric tons of CO2`;
-
-            document.getElementById('trees').textContent = Math.ceil(totalEmissions * 40);
-            document.getElementById('comparison').textContent = 
-                `${Math.round((totalEmissions / 4.6) * 100)}%`;
-
-            updateChart({
+            // Store the calculated data globally
+            lastCalculatedData = {
                 electricity: electricityEmissions,
                 gas: gasEmissions,
                 car: carEmissions,
                 flights: flightEmissions
-            });
+            };
+
+            // Calculate Trees Needed and Compared to Average
+            const CO2_PER_TREE_PER_YEAR_KG = 20; // Average CO2 absorbed by a young tree per year
+            const GLOBAL_AVERAGE_CARBON_FOOTPRINT_KG = 4500; // Global average carbon footprint in kg CO2 per year
+
+            const treesNeeded = Math.ceil(totalEmissions / CO2_PER_TREE_PER_YEAR_KG);
+            const comparedToAverage = ((totalEmissions / GLOBAL_AVERAGE_CARBON_FOOTPRINT_KG) * 100).toFixed(0);
+
+
+            // Get computed styles for theme colors
+            const rootStyles = getComputedStyle(document.documentElement);
+            const primaryColor = rootStyles.getPropertyValue('--primary').trim();
+            const accentColor = rootStyles.getPropertyValue('--accent').trim();
+            const oliveLightColor = rootStyles.getPropertyValue('--olive-light').trim();
+            const textColor = rootStyles.getPropertyValue('--text').trim();
+            const glassBgColor = rootStyles.getPropertyValue('--glass-bg').trim();
+
+            // Get neon colors for the chart
+            const neonBlue = rootStyles.getPropertyValue('--neon-blue').trim();
+            const neonPurple = rootStyles.getPropertyValue('--neon-purple').trim();
+            const neonGreen = rootStyles.getPropertyValue('--neon-green').trim();
+            const neonYellow = rootStyles.getPropertyValue('--neon-yellow').trim();
+
+
+            // Display the carbon consumption text
+            const carbonConsumptionDiv = document.getElementById('carbonConsumption');
+            carbonConsumptionDiv.textContent = `Your estimated annual carbon consumption is: ${totalEmissions.toFixed(2)} kg CO2 💨`;
+            
+            // Display "You can do this to save the earth:" tips (only updated when calculate is pressed)
+            const tips = [
+                "Consider switching to renewable energy sources.",
+                "Reduce your driving by walking, cycling, or using public transport.",
+                "Insulate your home to reduce natural gas usage.",
+                "Take fewer short-haul flights or choose train travel.",
+                "Reduce your meat consumption.",
+                "Support local and sustainable businesses.",
+                "Plant trees and participate in local green initiatives.",
+                "Recycle and compost more effectively.",
+                "Unplug electronics when not in use to save phantom energy.",
+                "Adjust your thermostat by a few degrees to save energy."
+            ];
+            const randomTip = tips[Math.floor(Math.random() * tips.length)];
+            const saveEarthTipsDiv = document.getElementById('saveEarthTips');
+            saveEarthTipsDiv.textContent = `You can do this to save the earth: ${randomTip} 🌎`;
+
+            // Update the new stat boxes
+            document.getElementById('treesNeededValue').textContent = treesNeeded;
+            document.getElementById('comparedToAverageValue').textContent = `${comparedToAverage}%`;
+
+
+            // Show the result section
+            document.getElementById('result').classList.remove('hidden');
+
+            // Get the current chart type from the array
+            const currentChartType = chartTypes[currentChartTypeIndex];
+
+            updateChart(lastCalculatedData, currentChartType, primaryColor, accentColor, oliveLightColor, textColor, glassBgColor, neonBlue, neonPurple, neonGreen, neonYellow);
         }
 
-        function updateChart(data) {
+        function updateChart(data, type, primaryColor, accentColor, oliveLightColor, textColor, glassBgColor, neonBlue, neonPurple, neonGreen, neonYellow) {
             const ctx = document.getElementById('footprintChart').getContext('2d');
             
-            if (window.footprintChart) {
-                window.footprintChart.destroy();
+            if (footprintChart instanceof Chart) {
+                footprintChart.destroy();
             }
 
-            window.footprintChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Electricity', 'Natural Gas', 'Car Travel', 'Flights'],
-                    datasets: [{
-                        data: [data.electricity, data.gas, data.car, data.flights],
-                        backgroundColor: [
-                            '#4CAF50',
-                            '#2196F3',
-                            '#FFC107',
-                            '#F44336'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
+            const chartData = {
+                labels: ['Electricity', 'Natural Gas', 'Car Travel', 'Flights'],
+                datasets: [{
+                    label: 'Carbon Emissions (kg CO2)',
+                    data: [data.electricity, data.gas, data.car, data.flights],
+                    backgroundColor: [
+                        neonBlue,
+                        neonGreen,
+                        neonPurple,
+                        neonYellow
+                    ],
+                    borderColor: [
+                        neonBlue.replace('0.8)', '1)'),
+                        neonGreen.replace('0.8)', '1)'),
+                        neonPurple.replace('0.8)', '1)'),
+                        neonYellow.replace('0.8)', '1)')
+                    ],
+                    borderWidth: 2,
+                    fill: type === 'line' ? true : false, // Fill area under line graph
+                    tension: type === 'line' ? 0.4 : 0 // Smooth lines
+                }]
+            };
+
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Carbon Emissions (kg CO2)',
+                            color: textColor
+                        },
+                        ticks: {
+                            color: textColor
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: textColor
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
                         }
                     }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: textColor
+                        }
+                    },
+                    title: {
+                        display: false, /* Hide Chart.js internal title */
+                        text: 'Your Carbon Footprint Breakdown',
+                        font: {
+                            size: 18,
+                            color: textColor
+                        },
+                        color: textColor
+                    },
+                    tooltip: {
+                        backgroundColor: glassBgColor,
+                        titleColor: textColor,
+                        bodyColor: textColor,
+                        borderColor: 'rgba(255, 255, 255, 0.2)',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        displayColors: true
+                    }
                 }
+            };
+
+            footprintChart = new Chart(ctx, {
+                type: type,
+                data: chartData,
+                options: chartOptions
             });
         }
 
-        // Initialize fade animations
+        // Initialize fade animations (from original calculator.html)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
