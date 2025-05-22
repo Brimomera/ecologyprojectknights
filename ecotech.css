@@ -1,89 +1,163 @@
+/* Enhanced Glassmorphism and Modern UI */
+:root {
+    --primary: #7c3aed;
+    --primary-dark: #5b21b6;
+    --accent: #38bdf8;
+    --text: #222;
+    --background: #f3f4f6;
+    --glass-bg: rgba(255, 255, 255, 0.25);
+    --glass-dark: rgba(30, 50, 30, 0.25);
+    --footer-bg: #ede9fe;
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    --border-radius: 18px;
+    /* --- Custom Olive Green Variables (from original ecotech.css, kept for potential use) --- */
+    --olive-light: #6B8E23;
+    --olive-dark: #556B2F;
+    --olive-darker: #4A5C2A;
+    /* --- Button Colors for Themes (from calculator.html) --- */
+    --light-button: rgb(165, 141, 238);
+    --dark-button: rgba(42, 77, 64, 0.7);
+    --header-border: rgba(255, 255, 255, 0.1); /* Default light mode header border */
+
+    /* New variables for dynamic colors */
+    --speaker-border-color: var(--primary); /* Default to primary in light mode */
+    --principle-title-color: var(--primary); /* Default to primary in light mode */
+}
+
 /* Base Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* Apply transition to all elements for smooth theme changes */
+    transition: background 0.4s, color 0.4s, box-shadow 0.3s, transform 0.3s, filter 0.3s, opacity 0.3s; /* Added filter and opacity for blur effect */
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif; /* Consistent with calculator */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    transition: background 0.8s ease, color 0.8s ease;
-    background-color: #fff; /* fallback */
-    color: #000;
+    background: linear-gradient(135deg, #d0bfff 0%, #a78bfa 50%, #f3e8ff 100%); /* From calculator */
+    background-size: 200% 200%;
+    animation: gradient 12s ease-in-out infinite; /* From calculator */
+    color: var(--text);
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-/* Light Theme */
-body.light {
-    background: linear-gradient(135deg, #b395f5 0%, #8364c7 50%, #efe0fa 100%);
-    color: #000;
-}
-
-/* Dark Theme */
 body.dark {
-    background: linear-gradient(135deg, #2a4d40 0%, #21382b 50%, #18181b 100%);
-    color: #f5f5f5;
+    --text: #f3f4f6;
+    --background: #18181b;
+    --footer-bg: #2a2636;
+    --glass-bg: rgba(0, 0, 0, 0.25); /* Use a darker glass background for dark mode */
+    background: linear-gradient(135deg, #2a4d40 0%, #21382b 50%, #18181b 100%); /* From calculator */
+    background-size: 200% 200%;
+    animation: gradient 12s ease-in-out infinite; /* From calculator */
+    --light-button: rgb(165, 141, 238);
+    --dark-button: rgba(42, 77, 64, 0.7);
+    --header-border: rgba(0, 0, 0, 0.2); /* Dark mode header border */
+
+    /* Dark mode specific colors for speaker image border and principle title */
+    --speaker-border-color: #0A6A4A; /* Dark emerald green */
+    --principle-title-color: #0A6A4A; /* Dark emerald green */
 }
 
-/* Header */
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Header - Replicated from calculator.html */
 header {
+    text-align: center;
+    padding: 30px 20px 50px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--header-border); /* Use dynamic border color */
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin: 32px auto 24px auto;
+    max-width: 100%;
+    color: var(--text); /* Changed to use --text for consistency */
+    transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease, border-color 0.4s ease; /* Added border-color transition */
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem 2rem;
-    color: #fff;
-    border-radius: 8px;
-    text-align: center;
-    position: relative;
-    /* Removed background-color: #f0f0f0; */
-    transition: background-color 0.5s ease, color 0.5s ease;
-    background: linear-gradient(135deg, #b395f5 0%, #8364c7 50%, #efe0fa 100%);
+}
+header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+header h1 { /* Specific h1 styling for header */
+    font-family: 'Roboto', sans-serif;
+    font-size: 3rem;
+    color: var(--text); /* This is correct for dynamic text color */
+    margin: 10px 0 0 0;
+    letter-spacing: 3px;
+    /* animation: dropIn 1s ease; /* Removed for typing animation */
+    transform-origin: top;
+}
+@keyframes dropIn {
+    from {
+        transform: translateY(-50px) scaleY(0);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scaleY(1);
+        opacity: 1;
+    }
 }
 
-body.dark header {
-    /* Removed background-color: #1f1f1f; */
-    background: linear-gradient(135deg, #2a4d40 0%, #21382b 50%, #18181b 100%);
+/* Typing Animation CSS */
+.typing-animation {
+    overflow: hidden; /* Ensures text is hidden until typed */
+    white-space: nowrap; /* Keeps text on a single line */
+    border-right: 0.15em solid var(--text); /* Blinking cursor */
+    animation:
+        typing 3.5s steps(40, end), /* Typing animation duration */
+        blink-caret 0.75s step-end infinite; /* Blinking cursor animation */
+    width: 0; /* Start with zero width */
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--text); }
 }
 
 
-.logo {
-    height: 80px;
-    margin-bottom: 1rem;
+.logo { /* Replicated from calculator.html */
+    width: 120px;
+    animation: float 4s ease-in-out infinite;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+.logo:hover {
+    transform: scale(1.1);
+}
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
 }
 
-header h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0;
-    color: #000;
-    transition: color 0.5s ease;
-}
-
-body.dark header h1 {
-    color: #fff;
-}
-
-/* Navigation */
-nav {
-    display: flex;
-    align-items: center;
-    margin-top: 1rem;
-}
-
-nav a {
-    color: #000;
-    text-decoration: none;
-    margin-right: 1rem;
-    font-weight: 500;
-    transition: color 0.5s ease;
-}
-
-body.dark nav a {
-    color: #fff;
-}
-
-/* Theme Toggle Button */
+/* Theme Toggle Button - Replicated from calculator.html */
 .theme-toggle {
     position: absolute;
     top: 20px;
@@ -93,89 +167,200 @@ body.dark nav a {
     border: none;
     background: transparent;
     padding: 0;
-    transition: transform 0.3s ease, color 0.5s ease;
-    color: #777;
+    transition: transform 0.3s ease;
+    color: var(--text);
 }
-
 .theme-toggle:hover {
     transform: scale(1.2);
 }
 
-body.dark .theme-toggle {
-    color: #eee;
+/* Navigation - Replicated from calculator.html */
+.nav__cont {
+    position: fixed;
+    width: 60px;
+    top: 0;
+    height: 100vh;
+    z-index: 100;
+    background-color: var(--glass-bg); /* Changed to use variable */
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    transition: width 0.3s ease;
+    cursor: pointer;
+    box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.4);
+}
+.nav__cont:hover {
+    width: 200px;
+}
+@media screen and (min-width: 600px) {
+    .nav__cont {
+        width: 80px;
+    }
+}
+.nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text);
+}
+.nav:first-child {
+    padding-top: 1.5rem;
+}
+.nav__items {
+    padding: 1.2rem 0;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: background-color 0.3s ease;
+}
+.nav__items:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.nav__items a {
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-decoration: none;
+    margin-left: 20px;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.3s ease, color 0.3s ease;
+    visibility: hidden;
+}
+.nav__cont:hover .nav__items a {
+    opacity: 1;
+    visibility: visible;
 }
 
-/* Main Content */
+/* Main Content - Replicated from calculator.html */
 main {
-    padding: 2rem;
     flex: 1;
+    margin-left: 80px; /* To account for fixed nav */
+    padding: 20px;
+    color: var(--text);
+    background: var(--glass-bg);
+    box-shadow: var(--shadow);
+    border-radius: var(--border-radius);
+    padding: 32px 24px;
+    margin: 24px auto;
+    max-width: 90%; /* Increased max-width for more space */
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(120, 144, 156, 0.15);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* Intro Section */
 .intro {
     margin-bottom: 2rem;
-    color: #333;
+    color: var(--text); /* Use theme text color */
     transition: color 0.5s ease;
+    text-align: center; /* Center the intro text */
+}
+.intro h2 {
+    font-size: 2rem; /* Adjust font size for consistency */
+    margin-bottom: 1rem;
+    color: var(--primary-dark); /* Use primary-dark for headings */
+}
+.intro p {
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
-body.dark .intro {
-    color: #ddd;
-}
-
-/* Principles Grid */
+/* Principles Grid - Adjusted for glassmorphism */
 .principles {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax for better fit */
     gap: 1.5rem;
 }
 
-/* Boxes */
+/* Principle Boxes - Replicated from calculator's stat-box/glass-bg elements */
 .principle {
     padding: 1.5rem;
-    border-radius: 12px;
-    transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
-    opacity: 0;
-    animation: fadeInUp 0.6s forwards;
-    background-color: rgba(33, 56, 43, 0.75);
-    color: #2c2c2c;
-    border: 1px solid #ccc;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
-    aspect-ratio: 1;
+    border-radius: var(--border-radius); /* Use theme border radius */
+    background: var(--glass-bg); /* Use glass background variable */
+    backdrop-filter: blur(10px); /* Apply blur effect */
+    box-shadow: var(--shadow); /* Apply theme shadow */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter border for glass effect */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, opacity 0.3s ease; /* Added filter and opacity */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    aspect-ratio: 1; /* Keep aspect ratio for uniform boxes */
+    position: relative; /* Needed for z-index to work */
 }
 
-/* Light Theme Boxes */
-body.light .principle {
-    background-color: rgba(153, 128, 228, 0.75);
-    box-shadow: 5px 5px 10px rgba(102, 51, 153, 0.3);
-    color: #2c2c2c;
+.principle:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.18);
 }
 
-/* Dark Theme Boxes */
-body.dark .principle {
-    color: #dcdcdc;
+/* New classes for hover effect */
+.principle.blurred {
+    filter: blur(5px);
+    opacity: 0.6;
+    transform: scale(0.98);
 }
 
+.principle.highlighted {
+    transform: translateY(-8px) scale(1.05); /* More pronounced lift */
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+    z-index: 10; /* Bring to front */
+    filter: none; /* Remove blur if it was applied by mistake */
+    opacity: 1;
+}
+
+
+.principle h3 {
+    font-size: 1.4rem; /* Adjust font size */
+    margin-bottom: 0.8rem;
+    color: var(--principle-title-color); /* Use dynamic principle title color */
+    display: flex; /* Enable flexbox for h3 to align image and text */
+    align-items: center; /* Vertically align items */
+    justify-content: center; /* Center content within h3 */
+    gap: 10px; /* Space between image and text */
+    transition: color 0.4s ease; /* Add transition for color */
+}
+
+/* Speaker Image Styling */
+.speaker-img {
+    width: 80px; /* Increased size */
+    height: 80px; /* Increased size */
+    border-radius: 50%; /* Make it round */
+    object-fit: cover; /* Ensures the image covers the area, centering its content within the circle */
+    object-position: center; /* Explicitly centers the image content within the element */
+    border: 2px solid var(--speaker-border-color); /* Use dynamic speaker border color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    flex-shrink: 0; /* Prevent image from shrinking */
+    margin-bottom: 0; /* Remove bottom margin */
+    transition: border-color 0.4s ease; /* Add transition for border color */
+}
 
 /* Blockquote */
 blockquote {
-    margin: 0.5rem 0;
+    margin: 0.8rem 0;
     font-style: italic;
-    color: #555;
-    transition: color 0.5s ease;
+    color: var(--text); /* Use theme text color */
+    opacity: 0.9;
+    font-size: 0.95rem;
 }
 
-body.dark blockquote {
-    color: #aaa;
+.principle p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text);
+    opacity: 0.8;
 }
 
-/* Buttons */
+/* Buttons (if any, though not explicitly in ecotech.html's main content) */
 button {
-    background: linear-gradient(135deg, #a78bfa, #d0bfff);
-    color: #1a1a1a;
+    background: var(--primary);
+    color: white;
     border: none;
     padding: 0.6rem 1.2rem;
     border-radius: 8px;
@@ -186,43 +371,110 @@ button {
 }
 
 button:hover {
-    background: linear-gradient(135deg, #d0bfff, #a78bfa);
+    background: var(--primary-dark);
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(167, 139, 250, 0.8);
 }
 
 body.dark button {
-    background: linear-gradient(135deg, #21382b, #2a4d40);
-    color: #e0f7fa;
+    background: var(--dark-button);
+    color: var(--text);
     box-shadow: 0 4px 12px rgba(33, 56, 43, 0.8);
 }
 
 body.dark button:hover {
-    background: linear-gradient(135deg, #2a4d40, #21382b);
+    background: var(--olive-darker);
     box-shadow: 0 8px 20px rgba(33, 56, 43, 1);
 }
 
-/* Credits */
-#credits {
-    margin-top: 2rem;
-    font-size: 0.9rem;
-    color: #666;
+/* Footer - Replicated from calculator.html */
+footer {
+    background: var(--footer-bg);
+    color: var(--primary-dark);
     text-align: center;
-    transition: color 0.5s ease;
+    padding: 18px 0 10px 0;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    box-shadow: 0 -2px 12px rgba(120, 144, 156, 0.08);
+    margin-top: auto;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+footer:hover {
+    background-color: #f0f0f0;
+    color: var(--primary);
 }
 
-body.dark #credits {
-    color: #999;
+/* Fade-in animation for sections (from calculator) */
+.fade-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.2rem;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    .principles {
+        grid-template-columns: 1fr; /* Stack principles on small screens */
+    }
+    .nav__cont {
+        width: 50px; /* Slightly smaller nav on small screens */
+    }
+    main {
+        margin-left: 60px; /* Adjust main margin for smaller nav */
+        padding: 15px;
+    }
+    .principle {
+        padding: 1rem;
+    }
+    .speaker-img {
+        width: 60px; /* Adjusted for smaller screens */
+        height: 60px; /* Adjusted for smaller screens */
+    }
+    .principle h3 {
+        font-size: 1.2rem;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 20px 10px 40px;
+    }
+    header h1 {
+        font-size: 1.8rem;
+    }
+    .logo {
+        width: 100px;
+    }
+    .theme-toggle {
+        font-size: 1.2rem;
+        top: 10px;
+        right: 10px;
+    }
+    main {
+        margin-left: 50px;
+        padding: 10px;
+    }
+    .intro h2 {
+        font-size: 1.5rem;
+    }
+    .intro p {
+        font-size: 0.95rem;
+    }
+    .principle h3 {
+        font-size: 1rem;
+        gap: 5px;
+    }
+    .speaker-img {
+        width: 45px; /* Adjusted for smallest screens */
+        height: 45px; /* Adjusted for smallest screens */
     }
 }
