@@ -3,136 +3,242 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Knights' Code</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet">
-    <link href="ecotech.css" rel="stylesheet">
+    <title>Our Values | EcoTech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="ecotech.css"> <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
 </head>
 <body class="light">
     <header>
-        <img src="earthicon.png" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" style="cursor: pointer;">
-        <h1>EcoTech</h1>
-        <nav>
-            <button id="themeToggle" class="theme-toggle">☀️</button>
-        </nav>
+        <img src="earthicon.png" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" title="Home">
+        <h1 id="mainTitle"></h1>
+        <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">☀️</button>
     </header>
 
+    <nav class="nav__cont">
+        <ul class="nav">
+            <li class="nav__items">
+                <a href="index.html">🏠 Home</a>
+            </li>
+            <li class="nav__items">
+                <a href="ecotech.html">✨ Our Values</a>
+            </li>
+            <li class="nav__items">
+                <a href="change.html">💪 Forces of Change</a>
+            </li>
+            <li class="nav__items">
+                <a href="calculator.html">🧮 Calculator</a>
+            </li>
+        </ul>
+    </nav>
+
     <main>
-        <section class="intro">
-            <h2>Welcome to the guiding values of Knights House.</h2>
+        <section class="intro fade-section">
+            <h2>Welcome to the guiding values of Knights House. 🛡️</h2>
             <p>
                 At Knights House, we are committed to sustainability, innovation, and responsibility.
-                Here are the 10 core principles that define who we are:
+                Here are the 10 core principles that define who we are: 🌟
             </p>
         </section>
 
-        <section class="principles">
-            <div class="principle">
-                <h3>1. Sustainable Innovation</h3>
-                <blockquote>
-                    "Innovation is the ability to see change as an opportunity – not a threat." - Steve Jobs
-                </blockquote>
-                <p>Focus on long-term, eco-friendly technological advancements.</p>
-            </div>
+        <section class="principles-container">
+            <div class="principles">
+                <div class="principle fade-section">
+                    <h3>
+                        <img src="https://cached.imagescaler.hbpl.co.uk/resize/scaleWidth/743/cached.offlinehbpl.hbpl.co.uk/news/OMC/36360474-F645-CA18-BABB601709CBAC5C.jpg" alt="Steve Jobs" class="speaker-img" onerror="this.onerror=null;this.src='https://placehold.co/40x40/333333/FFFFFF?text=SJ';" />
+                        1. Sustainable Innovation 💡
+                    </h3>
+                    <blockquote>
+                        "Innovation is the ability to see change as an opportunity – not a threat." - Steve Jobs
+                    </blockquote>
+                    <p>Focus on long-term, eco-friendly technological advancements. 🚀</p>
+                </div>
 
-            <div class="principle">
-                <h3>2. Circular Economy</h3>
-                <blockquote>
-                    "The economy is a system that should be circular. Waste should be an input for something else." -
-                    William McDonough
-                </blockquote>
-                <p>Encourage recycling, reducing waste, and designing sustainable systems.</p>
-            </div>
+                <div class="principle fade-section">
+                    <h3>
+                        <img src="https://theecologist.org/sites/default/files/styles/inline_l/public/NG_media/77257.jpg?itok=SS6E7N85" alt="William McDonough" class="speaker-img" onerror="this.onerror=null;this.src='https://placehold.co/40x40/333333/FFFFFF?text=WM';" />
+                        2. Circular Economy ♻️
+                    </h3>
+                    <blockquote>
+                        "The economy is a system that should be circular. Waste should be an input for something else." -
+                        William McDonough
+                    </blockquote>
+                    <p>Encourage recycling, reducing waste, and designing sustainable systems. 🔄</p>
+                </div>
 
-            <div class="principle">
-                <h3>3. Responsibility Toward Future Generations</h3>
-                <blockquote>
-                    "We do not inherit the Earth from our ancestors, we borrow it from our children." - Native American
-                    Proverb
-                </blockquote>
-                <p>Make decisions that protect the environment for future generations.</p>
-            </div>
+                <div class="principle fade-section">
+                    <h3>
+                        <img src="https://images.unsplash.com/photo-1584367152125-cb4f5458f37e?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG5hdGl2ZSUyMGFtZXJpY2FufGVufDB8fDB8fHww" alt="Native American Elder" class="speaker-img" onerror="this.onerror=null;this.src='https://placehold.co/40x40/333333/FFFFFF?text=NA';" />
+                        3. Responsibility Toward Future Generations 👶🌍
+                    </h3>
+                    <blockquote>
+                        "We do not inherit the Earth from our ancestors, we borrow it from our children." - Native American
+                        Proverb
+                    </blockquote>
+                    <p>Make decisions that protect the environment for future generations. 🌱</p>
+                </div>
 
-            <div class="principle">
-                <h3>4. Energy Efficiency</h3>
-                <blockquote>
-                    "The greatest threat to our planet is the belief that someone else will save it." - Robert Swan
-                </blockquote>
-                <p>Adopt energy-efficient technologies and promote renewable energy.</p>
-            </div>
+                <div class="principle fade-section">
+                    <h3>
+                        <img src="https://pi.tedcdn.com/r/pe.tedcdn.com/images/ted/97ac00c5ef241737bb9fb4e0fe9bc1f0d555624e_254x191.jpg?w=255" alt="Robert Swan" class="speaker-img" onerror="this.onerror=null;this.src='https://placehold.co/40x40/333333/FFFFFF?text=RS';" />
+                        4. Energy Efficiency ⚡
+                    </h3>
+                    <blockquote>
+                        "The greatest threat to our planet is the belief that someone else will save it." - Robert Swan
+                    </blockquote>
+                    <p>Adopt energy-efficient technologies and promote renewable energy. 💡</p>
+                </div>
 
-            <div class="principle">
-                <h3>5. Collaboration Over Competition</h3>
-                <blockquote>
-                    "The way forward is to collaborate, not to compete." - Jacinda Ardern
-                </blockquote>
-                <p>Work together to build a sustainable future.</p>
-            </div>
+                <div class="principle fade-section">
+                    <h3>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Rt_Hon_Jacinda_Ardern.jpg" alt="Jacinda Ardern" class="speaker-img" onerror="this.onerror=null;this.src='https://placehold.co/40x40/333333/FFFFFF?text=JA';" />
+                        5. Collaboration Over Competition 🤝
+                    </h3>
+                    <blockquote>
+                        "The way forward is to collaborate, not to compete." - Jacinda Ardern
+                    </blockquote>
+                    <p>Work together to build a sustainable future. 🌐</p>
+                </div>
 
-            <div class="principle">
-                <h3>6. Renewable Resources</h3>
-                <blockquote>
-                    "Look deep into nature, and then you will understand everything better." - Albert Einstein
-                </blockquote>
-                <p>Leverage renewable resources like wind and solar power.</p>
-            </div>
+                <div class="principle fade-section">
+                    <h3>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Albert_Einstein_Head.jpg/800px-Albert_Einstein_Head.jpg" alt="Albert Einstein" class="speaker-img" onerror="this.onerror=null;this.src='https://placehold.co/40x40/333333/FFFFFF?text=AE';" />
+                        6. Renewable Resources ☀️🌬️
+                    </h3>
+                    <blockquote>
+                        "Look deep into nature, and then you will understand everything better." - Albert Einstein
+                    </blockquote>
+                    <p>Leverage renewable resources like wind and solar power. 🌿</p>
+                </div>
 
-            <div class="principle">
-                <h3>7. Local Solutions, Global Impact</h3>
-                <blockquote>
-                    "Think globally, act locally." - Rene Dubos
-                </blockquote>
-                <p>Local actions lead to global environmental improvements.</p>
-            </div>
+                <div class="principle fade-section">
+                    <h3>
+                        <img src="data:image/webp;base64,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" alt="Rene Dubos" class="speaker-img" onerror="this.onerror=null;this.src='https://placehold.co/40x40/333333/FFFFFF?text=RD';" />
+                        7. Local Solutions, Global Impact 🏡➡️🌍
+                    </h3>
+                    <blockquote>
+                        "Think globally, act locally." - Rene Dubos
+                    </blockquote>
+                    <p>Local actions lead to global environmental improvements. 🏞️</p>
+                </div>
 
-            <div class="principle">
-                <h3>8. Resilience and Adaptation</h3>
-                <blockquote>
-                    "It is not the strongest of the species that survive... but the one most responsive to change." -
-                    Charles Darwin
-                </blockquote>
-                <p>Develop resilient systems that adapt to environmental challenges.</p>
-            </div>
+                <div class="principle fade-section">
+                    <h3>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Charles_Darwin_seated_crop.jpg" alt="Charles Darwin" class="speaker-img" onerror="this.onerror=null;this.src='https://placehold.co/40x40/333333/FFFFFF?text=CD';" />
+                        8. Resilience and Adaptation 💪
+                    </h3>
+                    <blockquote>
+                        "It is not the strongest of the species that survive... but the one most responsive to change." -
+                        Charles Darwin
+                    </blockquote>
+                    <p>Develop resilient systems that adapt to environmental challenges. 🔄</p>
+                </div>
 
-            <div class="principle">
-                <h3>9. Ecological Literacy</h3>
-                <blockquote>
-                    "We won’t have a society if we destroy the environment." - Margaret Mead
-                </blockquote>
-                <p>Educate individuals on the importance of sustainability.</p>
-            </div>
+                <div class="principle fade-section">
+                    <h3>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Margaret_Mead_1977_%C2%A9Lynn_Gilbert.jpg" alt="Margaret Mead" class="speaker-img" onerror="this.onerror=null;this.src='https://placehold.co/40x40/333333/FFFFFF?text=MM';" />
+                        9. Ecological Literacy 📚
+                    </h3>
+                    <blockquote>
+                        "We won’t have a society if we destroy the environment." - Margaret Mead
+                    </blockquote>
+                    <p>Educate individuals on the importance of sustainability. 🎓</p>
+                </div>
 
-            <div class="principle">
-                <h3>10. Environmental Justice</h3>
-                <blockquote>
-                    "Injustice anywhere is a threat to justice everywhere." - Martin Luther King Jr.
-                </blockquote>
-                <p>Ensure that sustainability efforts are inclusive and equitable.</p>
+                <div class="principle fade-section">
+                    <h3>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Martin_Luther_King,_Jr..jpg" alt="Martin Luther King Jr." class="speaker-img" onerror="this.onerror=null;this.src='https://placehold.co/40x40/333333/FFFFFF?text=MLK';" />
+                        10. Environmental Justice ⚖️
+                    </h3>
+                    <blockquote>
+                        "Injustice anywhere is a threat to justice everywhere." - Martin Luther King Jr.
+                    </blockquote>
+                    <p>Ensure that sustainability efforts are inclusive and equitable. 🤝</p>
+                </div>
             </div>
         </section>
 
         <footer id="credits">
             <p>
-                © Knights | Dhayancanplay
+                © Knights | TCD TEAM (Summer) ☀️
             </p>
         </footer>
     </main>
 
     <script>
-        const toggle = document.querySelector('#themeToggle');
-        const logo = document.querySelector('.logo');
-
-        toggle.addEventListener('click', () => {
+        function toggleTheme() {
             document.body.classList.toggle('dark');
-            document.body.classList.toggle('light');
-            if (document.body.classList.contains('dark')) {
-                toggle.textContent = '🌑';
-            } else {
-                toggle.textContent = '☀️';
-            }
-        });
+            document.getElementById('themeToggle').textContent =
+                document.body.classList.contains('dark') ? '🌑' : '☀️';
+        }
 
-        logo.addEventListener('click', () => {
-            window.location.href = 'index.html';
+        // Typing animation for the main title
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainTitleElement = document.getElementById('mainTitle');
+            const originalTitleText = "✨ Our Values | EcoTech 🌳";
+            mainTitleElement.textContent = ''; // Clear text initially
+            mainTitleElement.classList.add('typing-animation');
+
+            let i = 0;
+            const speed = 70; // Typing speed in milliseconds
+
+            function typeWriter() {
+                if (i < originalTitleText.length) {
+                    mainTitleElement.textContent += originalTitleText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                } else {
+                    // Remove typing animation and blinking cursor after typing is complete
+                    mainTitleElement.classList.remove('typing-animation');
+                }
+            }
+
+            typeWriter(); // Start the typing animation
+
+            // Initialize fade animations for sections
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-section').forEach((section) => {
+                observer.observe(section);
+            });
+
+            // Hover blur animation for principles
+            const principlesContainer = document.querySelector('.principles-container');
+            const principles = document.querySelectorAll('.principle');
+
+            principles.forEach(principle => {
+                principle.addEventListener('mouseenter', () => {
+                    principle.classList.add('highlighted');
+                    principles.forEach(otherPrinciple => {
+                        if (otherPrinciple !== principle) {
+                            otherPrinciple.classList.add('blurred');
+                        }
+                    });
+                });
+
+                principle.addEventListener('mouseleave', () => {
+                    principles.forEach(otherPrinciple => {
+                        otherPrinciple.classList.remove('highlighted');
+                        otherPrinciple.classList.remove('blurred');
+                    });
+                });
+            });
         });
     </script>
 </body>
