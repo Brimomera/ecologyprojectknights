@@ -7,13 +7,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="light">
-    <div class="background-layer"></div>
     <header>
-        <img src="earthicon.png" alt="EcoTech Logo" class="logo">
+        <img src="earthicon.png" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" title="Home" onerror="this.onerror=null;this.src='https://placehold.co/120x120/333333/FFFFFF?text=Logo';">
         <h1>EcoTech </h1>
         <p>Technology for Good — Eco-Friendly Innovation 💡</p>
         <button class="theme-toggle" onclick="toggleTheme()">
@@ -34,6 +32,9 @@
             <li class="nav__items">
                 <a href="calculator.html">🧮 Carbon Calculator</a>
             </li>
+            <li class="nav__items">
+                <a href="plasticcalc.html">🗑️ Plastic Calculator</a>
+            </li>
         </ul>
     </nav>
     <main>
@@ -41,10 +42,11 @@
             <button onclick="location.href='ecotech.html'">💪 Our Values </button>
             <button onclick="location.href='change.html'">✨ Forces of Change </button>
             <button onclick="location.href='calculator.html'">🧮Carbon Calculator</button>
+            <button onclick="location.href='plasticcalc.html'">🗑️ Plastic Calculator</button>
         </section>
         <section class="fade-section">
              <div style="text-align: center;">
-                <img src="sustainable-tech.jpg" alt="Sustainable Technology" style="max-width: 80%; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
+                <img src="https://placehold.co/800x400/333333/FFFFFF?text=Sustainable+Technology" alt="Sustainable Technology" style="max-width: 80%; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
                 <p style="font-size: 1.1rem; color: var(--text);">
                     We believe that technology should serve both people and the planet. EcoTech is a platform where sustainable innovation meets impactful action. Join our mission to harness the power of code, circuits, and creativity to protect nature 🌍 and empower communities.
                 </p>
@@ -61,7 +63,7 @@
             <p>
                 As Buddha once said, "If you wish to know the divine, feel the
                 wind on your face and the warm sun on your hand." Knights House
-                embodies this spirit — it is more than just a school house; it is
+                embodied this spirit — it is more than just a school house; it is
                 a way of life.
             </p>
             <br>
@@ -72,7 +74,7 @@
             </p>
             <br>
              <div style="text-align: center;">
-                <img src="community.jpg" alt="Community Collaboration" style="max-width: 80%; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
+                <img src="https://placehold.co/800x400/333333/FFFFFF?text=Community+Collaboration" alt="Community Collaboration" style="max-width: 80%; border-radius: 16px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);">
                 <p style="font-size: 1.1rem; color: var(--text);">
                     We value and welcome your thoughts and beliefs. Whether you're a
                     teacher, a student, or a visitor, we encourage you to share your
@@ -88,7 +90,6 @@
     <footer id="knights-footer">
         © Knights
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1vO5uRoyzIJWqC4PAdW5Tqi7uB6v" crossorigin="anonymous"></script>
     <script>
         function toggleTheme() {
             document.body.classList.toggle('dark');
@@ -98,7 +99,6 @@
             footer.classList.toggle('light');
             document.getElementById('theme-icon').textContent =
                 document.body.classList.contains('dark') ? '🌑' : '☀️';
-            // Update button colors on theme switch
             updateButtonColors();
         }
 
@@ -130,10 +130,28 @@
         });
 
         document.getElementById('knights-footer').addEventListener('click', () => {
-            alert('XUHAIB BUILT THIS');
+            const messageBox = document.createElement('div');
+            messageBox.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(255, 255, 255, 0.9);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                text-align: center;
+                color: var(--text);
+                font-family: 'Inter', sans-serif;
+            `;
+            messageBox.innerHTML = `
+                <p>XUHAIB BUILT THIS</p>
+                <button onclick="this.parentNode.remove()" style="margin-top: 10px; padding: 8px 15px; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer;">OK</button>
+            `;
+            document.body.appendChild(messageBox);
         });
 
-        // Initial button color update on page load
         updateButtonColors();
     </script>
 </body>
