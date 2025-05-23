@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carbon Footprint Calculator | EcoTech</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -40,7 +40,10 @@
                 <a href="change.html">💪 Forces of Change</a>
             </li>
             <li class="nav__items">
-                <a href="calculator.html">🧮 Calculator</a>
+                <a href="calculator.html">🧮 Carbon Calculator</a>
+            </li>
+            <li class="nav__items">
+                <a href="plasticcalc.html">♻️ Plastic Waste Calculator</a>
             </li>
         </ul>
     </nav>
@@ -64,7 +67,14 @@
                 <label for="flights">✈️ Number of Flights per Year</label>
                 <input type="number" id="flights" placeholder="e.g., 2">
             </div>
-            <button onclick="calculateFootprint()">Calculate ✨</button>
+            <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                <button onclick="calculateFootprint()" class="flex-1 px-4 py-3 bg-primary text-white font-bold rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300">
+                    Calculate ✨
+                </button>
+                <button onclick="clearInputs()" class="flex-1 px-4 py-3 bg-gray-300 text-gray-800 font-bold rounded-lg shadow-lg hover:bg-gray-400 transition-all duration-300">
+                    Clear 🧹
+                </button>
+            </div>
             
             <div id="result" class="result-section hidden">
                 <div class="chart-title-container">
@@ -76,6 +86,16 @@
                 <div id="combinedInfoAndTips" class="info-and-tips-container">
                     <p id="carbonConsumption"></p>
                     <p id="saveEarthTips" class="mt-2"></p>
+                </div>
+
+                <button onclick="shareFootprint()" class="share-button mt-6 w-full py-3 bg-accent text-white font-bold rounded-lg shadow-lg hover:bg-primary-dark transition-all duration-300">
+                    Share Your Footprint 📤
+                </button>
+                <div id="shareOptions" class="share-options hidden mt-4 p-4 bg-glass-bg backdrop-filter blur-10 rounded-lg shadow-inner border border-white border-opacity-10 text-center">
+                    <p class="text-text mb-2">Choose how you want to share:</p>
+                    <button onclick="copyToClipboard('carbon')" class="inline-block px-4 py-2 bg-primary text-white rounded-md mr-2 hover:bg-primary-dark transition-colors duration-200">
+                        Copy Text 📋
+                    </button>
                 </div>
 
                 <div class="impact-stats-container">
@@ -94,7 +114,11 @@
         </section>
     </main>
 
-    <footer>
+    <div id="likeCard" class="like-card hidden">
+        <p>I LIKE YOU</p>
+    </div>
+
+    <footer id="knights-footer">
         © Knights | TCD TEAM (Summer) ☀️
     </footer>
 
@@ -104,21 +128,18 @@
             document.body.classList.toggle('light');
             document.getElementById('theme-icon').textContent = 
                 document.body.classList.contains('dark') ? '🌑' : '☀️';
-            // Recalculate and redraw chart to apply new theme colors
             if (!document.getElementById('result').classList.contains('hidden')) {
                 calculateFootprint();
             }
         }
 
-        let footprintChart = null; // Initialize footprintChart outside the function
-        let currentChartTypeIndex = 0; // 0: doughnut, 1: bar, 2: line
+        let footprintChart = null;
+        let currentChartTypeIndex = 0;
         const chartTypes = ['doughnut', 'bar', 'line'];
-        let lastCalculatedData = null; // To store the data so advice doesn't change on chart switch
+        let lastCalculatedData = null;
 
-        // Function to toggle chart type
         function toggleChartType() {
             currentChartTypeIndex = (currentChartTypeIndex + 1) % chartTypes.length;
-            // Only update chart if data has been calculated at least once
             if (lastCalculatedData) {
                 const rootStyles = getComputedStyle(document.documentElement);
                 const primaryColor = rootStyles.getPropertyValue('--primary').trim();
@@ -141,50 +162,41 @@
             const car = parseFloat(document.getElementById('car').value) || 0;
             const flights = parseFloat(document.getElementById('flights').value) || 0;
 
-            // Emission factors (converted to kg CO2 for consistency with previous output)
-            const electricityEmissions = electricity * 0.418; // kg CO2 per kWh (approx from 0.92 lbs/kWh)
-            const gasEmissions = gas * 5.3; // kg CO2 per therm (approx from 11.7 lbs/therm)
-            const carEmissions = car * 0.404; // kg CO2 per mile (approx from 0.89 lbs/mile)
-            const flightEmissions = flights * 500; // kg CO2 per short-haul flight (adjusted for kg, rough estimate)
+            const electricityEmissions = electricity * 0.418;
+            const gasEmissions = gas * 5.3;
+            const carEmissions = car * 0.404;
+            const flightEmissions = flights * 500;
 
             const totalEmissions = electricityEmissions + gasEmissions + carEmissions + flightEmissions;
 
-            // Store the calculated data globally
             lastCalculatedData = {
                 electricity: electricityEmissions,
                 gas: gasEmissions,
                 car: carEmissions,
-                flights: flightEmissions
+                flights: flightEmissions,
+                total: totalEmissions
             };
 
-            // Calculate Trees Needed and Compared to Average
-            const CO2_PER_TREE_PER_YEAR_KG = 20; // Average CO2 absorbed by a young tree per year
-            const GLOBAL_AVERAGE_CARBON_FOOTPRINT_KG = 4500; // Global average carbon footprint in kg CO2 per year
+            const CO2_PER_TREE_PER_YEAR_KG = 20;
+            const GLOBAL_AVERAGE_CARBON_FOOTPRINT_KG = 4500;
 
             const treesNeeded = Math.ceil(totalEmissions / CO2_PER_TREE_PER_YEAR_KG);
             const comparedToAverage = ((totalEmissions / GLOBAL_AVERAGE_CARBON_FOOTPRINT_KG) * 100).toFixed(0);
 
-
-            // Get computed styles for theme colors
             const rootStyles = getComputedStyle(document.documentElement);
             const primaryColor = rootStyles.getPropertyValue('--primary').trim();
             const accentColor = rootStyles.getPropertyValue('--accent').trim();
             const oliveLightColor = rootStyles.getPropertyValue('--olive-light').trim();
             const textColor = rootStyles.getPropertyValue('--text').trim();
             const glassBgColor = rootStyles.getPropertyValue('--glass-bg').trim();
-
-            // Get neon colors for the chart
             const neonBlue = rootStyles.getPropertyValue('--neon-blue').trim();
             const neonPurple = rootStyles.getPropertyValue('--neon-purple').trim();
             const neonGreen = rootStyles.getPropertyValue('--neon-green').trim();
             const neonYellow = rootStyles.getPropertyValue('--neon-yellow').trim();
 
-
-            // Display the carbon consumption text
             const carbonConsumptionDiv = document.getElementById('carbonConsumption');
             carbonConsumptionDiv.textContent = `Your estimated annual carbon consumption is: ${totalEmissions.toFixed(2)} kg CO2 💨`;
             
-            // Display "You can do this to save the earth:" tips (only updated when calculate is pressed)
             const tips = [
                 "Consider switching to renewable energy sources.",
                 "Reduce your driving by walking, cycling, or using public transport.",
@@ -201,15 +213,11 @@
             const saveEarthTipsDiv = document.getElementById('saveEarthTips');
             saveEarthTipsDiv.textContent = `You can do this to save the earth: ${randomTip} 🌎`;
 
-            // Update the new stat boxes
             document.getElementById('treesNeededValue').textContent = treesNeeded;
             document.getElementById('comparedToAverageValue').textContent = `${comparedToAverage}%`;
 
-
-            // Show the result section
             document.getElementById('result').classList.remove('hidden');
 
-            // Get the current chart type from the array
             const currentChartType = chartTypes[currentChartTypeIndex];
 
             updateChart(lastCalculatedData, currentChartType, primaryColor, accentColor, oliveLightColor, textColor, glassBgColor, neonBlue, neonPurple, neonGreen, neonYellow);
@@ -240,8 +248,8 @@
                         neonYellow.replace('0.8)', '1)')
                     ],
                     borderWidth: 2,
-                    fill: type === 'line' ? true : false, // Fill area under line graph
-                    tension: type === 'line' ? 0.4 : 0 // Smooth lines
+                    fill: type === 'line' ? true : false,
+                    tension: type === 'line' ? 0.4 : 0
                 }]
             };
 
@@ -280,7 +288,7 @@
                         }
                     },
                     title: {
-                        display: false, /* Hide Chart.js internal title */
+                        display: false,
                         text: 'Your Carbon Footprint Breakdown',
                         font: {
                             size: 18,
@@ -307,11 +315,92 @@
             });
         }
 
-        // Initialize fade animations (from original calculator.html)
+        function showMessageBox(title, message) {
+            const messageBox = document.createElement('div');
+            messageBox.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: var(--glass-bg);
+                backdrop-filter: blur(10px);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                text-align: center;
+                color: var(--text);
+                font-family: 'Inter', sans-serif;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            `;
+            messageBox.innerHTML = `
+                <h3 style="margin-top: 0; color: var(--primary-dark);">${title}</h3>
+                <p>${message}</p>
+                <button onclick="this.parentNode.remove()" style="margin-top: 15px; padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">OK</button>
+            `;
+            document.body.appendChild(messageBox);
+        }
+
+        function copyToClipboard(type) {
+            const totalEmissions = lastCalculatedData ? lastCalculatedData.total.toFixed(2) : 'N/A';
+            const treesNeeded = document.getElementById('treesNeededValue').textContent;
+            const comparedToAverage = document.getElementById('comparedToAverageValue').textContent;
+
+            let message = '';
+            if (type === 'carbon') {
+                message = `My annual carbon footprint is ${totalEmissions} kg CO2! I'd need ${treesNeeded} trees to offset it, and it's ${comparedToAverage} of the global average. Let's make a change! 🌍🌱 #EcoTech #CarbonFootprint`;
+            }
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(message)
+                    .then(() => {
+                        showMessageBox("Results Copied!", "Your carbon footprint summary has been copied to your clipboard. Now go share it!");
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy text: ', err);
+                        showMessageBox("Copy Failed", "Could not copy to clipboard. Please copy the text manually:\n\n" + message);
+                    });
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = message;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showMessageBox("Results Copied!", "Your carbon footprint summary has been copied to your clipboard. Now go share it!");
+                } catch (err) {
+                    console.error('Fallback: Failed to copy text: ', err);
+                    showMessageBox("Copy Failed", "Could not copy to clipboard. Please copy the text manually:\n\n" + message);
+                }
+                document.body.removeChild(textarea);
+            }
+        }
+
+        function shareFootprint() {
+            const shareOptionsDiv = document.getElementById('shareOptions');
+            shareOptionsDiv.classList.toggle('hidden');
+        }
+
+        // Function to clear all input fields and hide results
+        function clearInputs() {
+            document.getElementById('electricity').value = '';
+            document.getElementById('gas').value = '';
+            document.getElementById('car').value = '';
+            document.getElementById('flights').value = '';
+            document.getElementById('result').classList.add('hidden'); // Hide the results section
+            if (footprintChart) {
+                footprintChart.destroy(); // Destroy the chart instance
+                footprintChart = null; // Reset chart variable
+            }
+            lastCalculatedData = null; // Clear last calculated data
+        }
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
                 }
             });
         }, { threshold: 0.1 });
@@ -319,6 +408,17 @@
         document.querySelectorAll('.fade-section').forEach((section) => {
             observer.observe(section);
         });
+
+        const footer = document.getElementById('knights-footer');
+        const likeCard = document.getElementById('likeCard');
+        if (footer) {
+            footer.addEventListener('click', () => {
+                likeCard.classList.add('visible');
+                setTimeout(() => {
+                    likeCard.classList.remove('visible');
+                }, 3000);
+            });
+        }
     </script>
 </body>
 </html>
