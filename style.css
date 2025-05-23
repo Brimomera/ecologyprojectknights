@@ -1,4 +1,3 @@
-/* Enhanced Glassmorphism and Modern UI */
 :root {
     --primary: #7c3aed;
     --primary-dark: #5b21b6;
@@ -10,20 +9,16 @@
     --footer-bg: #ede9fe;
     --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     --border-radius: 18px;
-    /* --- Custom Olive Green Variables --- */
     --olive-light: #6B8E23;
     --olive-dark: #556B2F;
     --olive-darker: #4A5C2A;
-    /* --- Button Colors for Themes --- */
     --light-button: rgb(165, 141, 238);
-    --dark-button: rgba(42, 77, 64, 0.7);        /* Slightly darker shade of the dark background */
-
-    /* New neon-like colors for charts */
-    --neon-blue: rgba(56, 189, 248, 0.8); /* Accent with transparency */
-    --neon-purple: rgba(124, 58, 237, 0.8); /* Primary with transparency */
-    --neon-green: rgba(107, 142, 35, 0.8); /* Olive Light with transparency */
-    --neon-yellow: rgba(255, 255, 0, 0.8); /* New vibrant color */
-    --chart-glow-color: rgba(124, 58, 237, 0.6); /* Primary for glow */
+    --dark-button: rgba(42, 77, 64, 0.7);
+    --neon-blue: rgba(56, 189, 248, 0.8);
+    --neon-purple: rgba(124, 58, 237, 0.8);
+    --neon-green: rgba(107, 142, 35, 0.8);
+    --neon-yellow: rgba(255, 255, 0, 0.8);
+    --chart-glow-color: rgba(124, 58, 237, 0.6);
 }
 body {
     margin: 0;
@@ -46,8 +41,8 @@ body.dark {
     background-size: 200% 200%;
     animation: gradient 12s ease-in-out infinite;
     --light-button: rgb(165, 141, 238);
-    --dark-button: rgba(42, 77, 64, 0.7);  /* Keep olive green for dark mode */
-    --chart-glow-color: rgba(56, 189, 248, 0.6); /* Accent for dark mode glow */
+    --dark-button: rgba(42, 77, 64, 0.7);
+    --chart-glow-color: rgba(56, 189, 248, 0.6);
 }
 @keyframes gradient {
     0% {
@@ -199,7 +194,7 @@ main {
     border-radius: var(--border-radius);
     padding: 32px 24px;
     margin: 24px auto;
-    max-width: 90%; /* Increased max-width */
+    max-width: 90%;
     backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(120, 144, 156, 0.15);
     transition: background 0.4s ease, box-shadow 0.4s ease;
@@ -287,9 +282,139 @@ footer:hover {
     opacity: 1;
     transform: translateY(0);
 }
-/* Calculator Styles */
+* {
+    transition: background 0.4s, color 0.4s, box-shadow 0.3s;
+}
+.info-and-tips-container {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.info-and-tips-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+#footprintChart {
+    margin-top: 2rem;
+    max-height: 400px;
+    height: 300px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+#footprintChart:hover {
+    transform: translateY(-2px);
+}
+.chart-title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.chart-title-container button {
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 1.2rem;
+    line-height: 1;
+}
+.chart-title-container button:hover {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.impact-stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+.stat-box {
+    flex: 1;
+    min-width: 180px;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.stat-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.18);
+}
+.stat-box h3 {
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+}
+.stat-box .value {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 0.5rem 0;
+}
+.stat-box .description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    color: var(--text);
+}
+::-webkit-scrollbar {
+    width: 10px;
+    background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 8px;
+}
+@media (max-width: 700px) {
+    header,
+    main,
+    .card {
+        padding: 18px 8px;
+        max-width: 98vw;
+    }
+}
+.glassmorphism {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow);
+    color: var(--text);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--text); }
+}
 .calculator {
-    max-width: 800px; /* Increased max-width */
+    max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
     background: var(--glass-bg);
@@ -306,7 +431,7 @@ footer:hover {
     color: var(--text);
     font-weight: 500;
 }
-.calculator input {
+.calculator input[type="number"] {
     width: 100%;
     padding: 0.8rem;
     margin: 0.5rem 0;
@@ -337,112 +462,31 @@ footer:hover {
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
-/* Impact Stats */
-.impact-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    text-align: center;
+#plasticWasteChart {
     margin-top: 2rem;
-}
-.stat {
+    max-height: 400px;
+    height: 300px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    border-radius: var(--border-radius);
     padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    backdrop-filter: blur(5px);
-    transition: transform 0.3s ease;
-}
-.stat:hover {
-    transform: translateY(-5px);
-}
-.stat h3 {
-    margin-bottom: 1rem;
-    color: var(--text);
-}
-.counter {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--primary);
-    margin: 0.5rem 0;
-}
-.stat span {
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-::-webkit-scrollbar {
-    width: 10px;
-    background: var(--background);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 8px;
-}
-@media (max-width: 700px) {
-    header,
-    main,
-    .card {
-        padding: 18px 8px;
-        max-width: 98vw;
-    }
-}
-/* Add smooth transitions for theme changes */
-* {
-    transition: background 0.4s, color 0.4s, box-shadow 0.3s;
-}
-
-/* Updated styles for combined info and new stats */
-.info-and-tips-container {
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: var(--text); /* Use theme text color */
-    margin-top: 1.5rem;
-    padding: 1.5rem; /* Increased padding for better appearance */
-    background: var(--glass-bg); /* Use glass background variable */
-    backdrop-filter: blur(10px); /* Apply blur effect */
-    border-radius: var(--border-radius); /* Use theme border radius */
-    box-shadow: var(--shadow); /* Apply theme shadow */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter border for glass effect */
-    text-align: center;
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
-}
-
-.info-and-tips-container:hover {
-    transform: translateY(-2px); /* Slight lift on hover */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
-}
-
-/* Adjust chart styling for better integration with glassmorphism */
-#footprintChart { /* Changed ID to match calculator.html */
-    margin-top: 2rem;
-    max-height: 400px; /* Adjusted max-height for better fit */
-    height: 300px; /* Set a fixed height for the canvas to prevent errors */
-    background: var(--glass-bg); /* Use glass background for chart area */
-    backdrop-filter: blur(8px); /* Apply blur to chart background */
-    border-radius: var(--border-radius); /* Use theme border radius */
-    padding: 1.5rem; /* Consistent padding with other glass elements */
-    /* Removed box-shadow */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter border */
+    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
 }
-
-#footprintChart:hover {
+#plasticWasteChart:hover {
     transform: translateY(-2px);
-    /* Removed box-shadow */
 }
-
-/* Styles for the container holding the button and chart title */
 .chart-title-container {
     display: flex;
     align-items: center;
-    justify-content: center; /* Center the title and button */
-    gap: 1rem; /* Space between button and title */
-    margin-top: 1rem; /* Adjust as needed */
-    margin-bottom: 1rem; /* Space below the title container */
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
-
 .chart-title-container button {
-    padding: 0.5rem 0.75rem; /* Smaller padding for a tiny button */
-    border: none; /* Removed border */
+    padding: 0.5rem 0.75rem;
+    border: none;
     border-radius: 0.5rem;
     background-color: transparent;
     color: var(--primary);
@@ -450,58 +494,102 @@ footer:hover {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    font-size: 1.2rem; /* Make emoji slightly smaller for "tiny" look */
-    line-height: 1; /* Adjust line height for emoji */
+    font-size: 1.2rem;
+    line-height: 1;
 }
-
 .chart-title-container button:hover {
     background-color: var(--primary);
     color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-
-/* Styles for the new stats containers */
-.impact-stats-container {
+.principles-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 1.5rem; /* Space between the two stat boxes */
+    gap: 2rem;
     margin-top: 2rem;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
-
-.stat-box {
-    flex: 1; /* Allow boxes to grow and shrink */
-    min-width: 180px; /* Minimum width for the boxes */
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.1);
+.principle {
+    flex: 1;
+    min-width: 300px;
+    max-width: 45%;
+    background: var(--glass-bg);
     backdrop-filter: blur(10px);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: left;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
-
-.stat-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.18);
+.principle:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
-
-.stat-box h3 {
-    font-size: 1.1rem;
+.principle h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.6rem;
+    color: var(--primary-dark);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.principle blockquote {
+    font-style: italic;
     color: var(--text);
-    margin-bottom: 0.5rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 10px;
 }
-
-.stat-box .value {
-    font-size: 2.2rem;
-    font-weight: bold;
-    color: var(--primary);
-    margin: 0.5rem 0;
-}
-
-.stat-box .description {
-    font-size: 0.9rem;
-    opacity: 0.8;
+.principle p {
     color: var(--text);
+    line-height: 1.6;
+}
+.speaker-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 2px solid var(--accent);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.principle.highlighted {
+    transform: scale(1.03);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+    border-color: var(--accent);
+}
+.principle.blurred {
+    opacity: 0.4;
+    filter: blur(2px);
+}
+@media (max-width: 1024px) {
+    .principles-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .principle {
+        max-width: 90%;
+        margin-bottom: 1.5rem;
+    }
+}
+@media (max-width: 768px) {
+    .principle h3 {
+        font-size: 1.4rem;
+    }
+    .principle blockquote, .principle p {
+        font-size: 0.95rem;
+    }
+}
+@media (max-width: 480px) {
+    .principle h3 {
+        font-size: 1.2rem;
+    }
+    .principle blockquote, .principle p {
+        font-size: 0.9rem;
+    }
 }
