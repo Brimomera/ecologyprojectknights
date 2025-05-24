@@ -21,9 +21,10 @@
     /* New neon-like colors for charts */
     --neon-blue: rgba(56, 189, 248, 0.8); /* Accent with transparency */
     --neon-purple: rgba(124, 58, 237, 0.8); /* Primary with transparency */
-    --neon-green: rgba(107, 142, 35, 0.8); /* Olive Light with transparency */
-    --neon-yellow: rgba(255, 255, 0, 0.8); /* New vibrant color */
-    --chart-glow-color: rgba(124, 58, 237, 0.6); /* Primary for glow */
+    --neon-green: rgba(107, 142, 35, 0.8); /* Olive light with transparency */
+    --neon-yellow: rgba(255, 255, 0, 0.8); /* Bright yellow for contrast */
+
+    --chart-glow-color: rgba(124, 58, 237, 0.6); /* Primary color for chart glow */
 }
 body {
     margin: 0;
@@ -38,6 +39,7 @@ body {
     transition: background-color 0.5s ease, color 0.5s ease;
     overflow-x: hidden;
 }
+
 body.dark {
     --text: #f3f4f6;
     --background: #18181b;
@@ -46,9 +48,10 @@ body.dark {
     background-size: 200% 200%;
     animation: gradient 12s ease-in-out infinite;
     --light-button: rgb(165, 141, 238);
-    --dark-button: rgba(42, 77, 64, 0.7);  /* Keep olive green for dark mode */
-    --chart-glow-color: rgba(56, 189, 248, 0.6); /* Accent for dark mode glow */
+    --dark-button: rgba(42, 77, 64, 0.7);
+    --chart-glow-color: rgba(56, 189, 248, 0.6); /* Neon blue for dark theme chart glow */
 }
+
 @keyframes gradient {
     0% {
         background-position: 0% 50%;
@@ -60,6 +63,7 @@ body.dark {
         background-position: 0% 50%;
     }
 }
+
 header {
     text-align: center;
     padding: 30px 20px 50px;
@@ -72,15 +76,17 @@ header {
     max-width: 100%;
     color: var(--primary-dark);
     transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease;
-    position: relative;
+    position: relative; /* For theme toggle button positioning */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 header:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
 h1 {
     font-family: 'Roboto', sans-serif;
     font-size: 3rem;
@@ -90,6 +96,7 @@ h1 {
     animation: dropIn 1s ease;
     transform-origin: top;
 }
+
 @keyframes dropIn {
     from {
         transform: translateY(-50px) scaleY(0);
@@ -100,28 +107,31 @@ h1 {
         opacity: 1;
     }
 }
+
 .logo {
     width: 120px;
     animation: float 4s ease-in-out infinite;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
+
 .logo:hover {
     transform: scale(1.1);
 }
+
 @keyframes float {
-    0%,
-    100% {
+    0%, 100% {
         transform: translateY(0);
     }
     50% {
         transform: translateY(-5px);
     }
 }
+
 .theme-toggle {
     position: absolute;
-    top: 10px; /* Moved up */
-    right: 60px; /* Moved further right */
+    top: 10px;
+    right: 60px;
     cursor: pointer;
     font-size: 1.5rem;
     border: none;
@@ -130,68 +140,80 @@ h1 {
     transition: transform 0.3s ease;
     color: var(--text);
 }
+
 .theme-toggle:hover {
     transform: scale(1.2);
 }
+
+/* Sidebar navigation */
 .nav__cont {
     position: fixed;
-    width: 60px;
+    width: 60px; /* Default width */
     top: 0;
     height: 100vh;
     z-index: 100;
-    background-color: rgba(32, 32, 32, 0.3);
-    backdrop-filter: blur(10px);
-    overflow: hidden;
-    transition: width 0.3s ease;
-    cursor: pointer;
+    background-color: rgba(32, 32, 32, 0.3); /* Semi-transparent dark background */
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    overflow: hidden; /* Hide text initially */
+    transition: width 0.3s ease; /* Smooth transition for width change */
+    cursor: pointer; /* Indicate it's clickable */
     box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.4);
 }
+
 .nav__cont:hover {
-    width: 200px;
+    width: 200px; /* Expanded width on hover */
 }
+
 @media screen and (min-width: 600px) {
     .nav__cont {
-        width: 80px;
+        width: 80px; /* Slightly larger default width for larger screens */
     }
 }
+
 .nav {
     list-style: none;
     padding: 0;
     margin: 0;
     color: var(--text);
 }
+
 .nav:first-child {
-    padding-top: 1.5rem;
+    padding-top: 1.5rem; /* Add padding to the top of the first item */
 }
+
 .nav__items {
-    padding: 1.2rem 0;
+    padding: 1.2rem 0; /* Vertical padding for each item */
     font-family: 'Inter', sans-serif;
     display: flex;
     align-items: center;
-    gap: 15px;
-    transition: background-color 0.3s ease;
+    gap: 15px; /* Space between icon and text */
+    transition: background-color 0.3s ease; /* Smooth background change on hover */
 }
+
 .nav__items:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.05); /* Slight highlight on hover */
 }
+
 .nav__items a {
     color: var(--text);
     font-size: 0.95rem;
     font-weight: 400;
     text-decoration: none;
-    margin-left: 20px;
-    opacity: 0;
-    white-space: nowrap;
-    transition: opacity 0.3s ease, color 0.3s ease;
-    visibility: hidden;
+    margin-left: 20px; /* Indent text from the left edge */
+    opacity: 0; /* Hide text initially */
+    white-space: nowrap; /* Prevent text wrapping */
+    transition: opacity 0.3s ease, color 0.3s ease; /* Smooth fade-in/out */
+    visibility: hidden; /* Hide from screen readers when not visible */
 }
+
 .nav__cont:hover .nav__items a {
-    opacity: 1;
+    opacity: 1; /* Show text on container hover */
     visibility: visible;
 }
+
 main {
     flex: 1;
-    margin-left: 80px;
+    margin-left: 80px; /* Adjust for sidebar width */
     padding: 20px;
     color: var(--text);
     background: var(--glass-bg);
@@ -199,36 +221,42 @@ main {
     border-radius: var(--border-radius);
     padding: 32px 24px;
     margin: 24px auto;
-    max-width: 90%; /* Increased max-width */
+    max-width: 90%; /* Responsive width */
     backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(120, 144, 156, 0.15);
     transition: background 0.4s ease, box-shadow 0.4s ease;
 }
+
 main:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
 section {
     margin: 20px;
     padding: 30px;
     border-radius: 16px;
-    background: var(--glass-bg);
+    background: var(--glass-bg); /* Glassmorphism effect */
     backdrop-filter: blur(12px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     color: var(--text);
     transition: all 0.3s ease;
 }
+
 section:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
-.glassmorphism { /* Added for article elements */
+
+.glassmorphism {
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
-    box-shadow: var(--shadow); /* Use the shadow variable */
+    box-shadow: var(--shadow);
     color: var(--text);
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Consistent border */
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+/* Card styles */
 .card {
     margin-bottom: 20px;
     background: var(--glass-bg);
@@ -236,10 +264,12 @@ section:hover {
     border-radius: var(--border-radius);
     transition: transform 0.2s, box-shadow 0.2s;
 }
+
 .card:hover {
     transform: translateY(-4px) scale(1.02);
     box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.18);
 }
+
 .nav-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -247,6 +277,7 @@ section:hover {
     gap: 1rem;
     margin-top: 1.5rem;
 }
+
 .nav-buttons button {
     padding: 0.75rem 1.25rem;
     border: 1px solid var(--primary);
@@ -258,17 +289,20 @@ section:hover {
     transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
 .nav-buttons button:hover {
     background-color: var(--primary);
     color: white;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
 .nav-buttons button.active {
     background-color: var(--primary);
     color: white;
     border-color: var(--primary-dark);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
 footer {
     background: var(--footer-bg);
     color: var(--primary-dark);
@@ -281,19 +315,24 @@ footer {
     transition: background-color 0.3s ease, color 0.3s ease;
     cursor: pointer;
 }
+
 footer:hover {
     background-color: #f0f0f0;
     color: var(--primary);
 }
+
+/* Fade-in animation for sections */
 .fade-section {
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 0.6s ease, transform 0.6s ease;
 }
+
 .fade-section.visible {
     opacity: 1;
     transform: translateY(0);
 }
+
 @keyframes float {
     0%, 100% {
         transform: translateY(0);
@@ -302,16 +341,19 @@ footer:hover {
         transform: translateY(-5px);
     }
 }
+
 .typing-animation {
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 2px solid;
+    overflow: hidden; /* Ensures text is hidden until typed */
+    white-space: nowrap; /* Keeps text on a single line */
+    border-right: 2px solid; /* Blinking cursor effect */
     animation: typing 2s steps(20, end), blink-caret .75s step-end infinite;
 }
+
 @keyframes typing {
     from { width: 0 }
     to { width: 100% }
 }
+
 @keyframes blink-caret {
     from, to { border-color: transparent }
     50% { border-color: var(--text); }
