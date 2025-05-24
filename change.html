@@ -1,637 +1,176 @@
-/* Combined CSS from style.css */
-
-:root {
-
-    --primary: #7c3aed;
-
-    --primary-dark: #5b21b6;
-
-    --accent: #38bdf8;
-
-    --text: #222;
-
-    --background: #f3f4f6;
-
-    --glass-bg: rgba(255, 255, 255, 0.25);
-
-    --glass-dark: rgba(30, 50, 30, 0.25);
-
-    --footer-bg: #ede9fe;
-
-    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-
-    --border-radius: 18px;
-
-    /* --- Custom Olive Green Variables --- */
-
-    --olive-light: #6B8E23;
-
-    --olive-dark: #556B2F;
-
-    --olive-darker: #4A5C2A;
-
-    /* --- Button Colors for Themes --- */
-
-    --light-button: rgb(165, 141, 238);
-
-    --dark-button: rgba(42, 77, 64, 0.7);        /* Slightly darker shade of the dark background */
-
-
-    /* New neon-like colors for charts */
-
-    --neon-blue: rgba(56, 189, 248, 0.8); /* Accent with transparency */
-
-    --neon-purple: rgba(124, 58, 237, 0.8); /* Primary with transparency */
-
-    --neon-green: rgba(107, 142, 35, 0.8); /* Olive Light with transparency */
-
-    --neon-yellow: rgba(255, 255, 0, 0.8); /* New vibrant color */
-
-    --chart-glow-color: rgba(124, 58, 237, 0.6); /* Primary for glow */
-
-}
-
-body {
-
-    margin: 0;
-
-    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-
-    background: linear-gradient(135deg, #d0bfff 0%, #a78bfa 50%, #f3e8ff 100%);
-
-    background-size: 200% 200%;
-
-    animation: gradient 12s ease-in-out infinite;
-
-    color: var(--text);
-
-    display: flex;
-
-    flex-direction: column;
-
-    min-height: 100vh;
-
-    transition: background-color 0.5s ease, color 0.5s ease;
-
-    overflow-x: hidden;
-
-}
-
-body.dark {
-
-    --text: #f3f4f6;
-
-    --background: #18181b;
-
-    --footer-bg: #2a2636;
-
-    background: linear-gradient(135deg, #2a4d40 0%, #21382b 50%, #18181b 100%);
-
-    background-size: 200% 200%;
-
-    animation: gradient 12s ease-in-out infinite;
-
-    --light-button: rgb(165, 141, 238);
-
-    --dark-button: rgba(42, 77, 64, 0.7);  /* Keep olive green for dark mode */
-
-    --chart-glow-color: rgba(56, 189, 248, 0.6); /* Accent for dark mode glow */
-
-}
-
-@keyframes gradient {
-
-    0% {
-
-        background-position: 0% 50%;
-
-    }
-
-    50% {
-
-        background-position: 100% 50%;
-
-    }
-
-    100% {
-
-        background-position: 0% 50%;
-
-    }
-
-}
-
-header {
-
-    text-align: center;
-
-    padding: 30px 20px 50px;
-
-    background: var(--glass-bg);
-
-    backdrop-filter: blur(10px);
-
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-
-    border-radius: var(--border-radius);
-
-    box-shadow: var(--shadow);
-
-    margin: 32px auto 24px auto;
-
-    max-width: 100%;
-
-    color: var(--primary-dark);
-
-    transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease;
-
-    position: relative;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-}
-
-header:hover {
-
-    transform: translateY(-2px);
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-
-}
-
-h1 {
-
-    font-family: 'Roboto', sans-serif;
-
-    font-size: 3rem;
-
-    color: var(--text);
-
-    margin: 10px 0 0 0;
-
-    letter-spacing: 3px;
-
-    animation: dropIn 1s ease;
-
-    transform-origin: top;
-
-}
-
-@keyframes dropIn {
-
-    from {
-
-        transform: translateY(-50px) scaleY(0);
-
-        opacity: 0;
-
-    }
-
-    to {
-
-        transform: translateY(0) scaleY(1);
-
-        opacity: 1;
-
-    }
-
-}
-
-.logo {
-
-    width: 120px;
-
-    animation: float 4s ease-in-out infinite;
-
-    cursor: pointer;
-
-    transition: transform 0.2s ease;
-
-}
-
-.logo:hover {
-
-    transform: scale(1.1);
-
-}
-
-@keyframes float {
-
-    0%,
-
-    100% {
-
-        transform: translateY(0);
-
-    }
-
-    50% {
-
-        transform: translateY(-5px);
-
-    }
-
-}
-
-.theme-toggle {
-
-    position: absolute;
-
-    top: 10px; /* Moved up */
-
-    right: 60px; /* Moved further right */
-
-    cursor: pointer;
-
-    font-size: 1.5rem;
-
-    border: none;
-
-    background: transparent;
-
-    padding: 0;
-
-    transition: transform 0.3s ease;
-
-    color: var(--text);
-
-}
-
-.theme-toggle:hover {
-
-    transform: scale(1.2);
-
-}
-
-.nav__cont {
-
-    position: fixed;
-
-    width: 60px;
-
-    top: 0;
-
-    height: 100vh;
-
-    z-index: 100;
-
-    background-color: rgba(32, 32, 32, 0.3);
-
-    backdrop-filter: blur(10px);
-
-    overflow: hidden;
-
-    transition: width 0.3s ease;
-
-    cursor: pointer;
-
-    box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.4);
-
-}
-
-.nav__cont:hover {
-
-    width: 200px;
-
-}
-
-@media screen and (min-width: 600px) {
-
-    .nav__cont {
-
-        width: 80px;
-
-    }
-
-}
-
-.nav {
-
-    list-style: none;
-
-    padding: 0;
-
-    margin: 0;
-
-    color: var(--text);
-
-}
-
-.nav:first-child {
-
-    padding-top: 1.5rem;
-
-}
-
-.nav__items {
-
-    padding: 1.2rem 0;
-
-    font-family: 'Inter', sans-serif;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 15px;
-
-    transition: background-color 0.3s ease;
-
-}
-
-.nav__items:hover {
-
-    background-color: rgba(255, 255, 255, 0.05);
-
-}
-
-.nav__items a {
-
-    color: var(--text);
-
-    font-size: 0.95rem;
-
-    font-weight: 400;
-
-    text-decoration: none;
-
-    margin-left: 20px;
-
-    opacity: 0;
-
-    white-space: nowrap;
-
-    transition: opacity 0.3s ease, color 0.3s ease;
-
-    visibility: hidden;
-
-}
-
-.nav__cont:hover .nav__items a {
-
-    opacity: 1;
-
-    visibility: visible;
-
-}
-
-main {
-
-    flex: 1;
-
-    margin-left: 80px;
-
-    padding: 20px;
-
-    color: var(--text);
-
-    background: var(--glass-bg);
-
-    box-shadow: var(--shadow);
-
-    border-radius: var(--border-radius);
-
-    padding: 32px 24px;
-
-    margin: 24px auto;
-
-    max-width: 90%; /* Increased max-width */
-
-    backdrop-filter: blur(16px) saturate(180%);
-
-    border: 1px solid rgba(120, 144, 156, 0.15);
-
-    transition: background 0.4s ease, box-shadow 0.4s ease;
-
-}
-
-main:hover {
-
-    transform: translateY(-2px);
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-
-}
-
-section {
-
-    margin: 20px;
-
-    padding: 30px;
-
-    border-radius: 16px;
-
-    background: var(--glass-bg);
-
-    backdrop-filter: blur(12px);
-
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-
-    color: var(--text);
-
-    transition: all 0.3s ease;
-
-}
-
-section:hover {
-
-    transform: translateY(-2px);
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-
-}
-
-.glassmorphism { /* Added for article elements */
-
-    background: var(--glass-bg);
-
-    backdrop-filter: blur(12px);
-
-    box-shadow: var(--shadow); /* Use the shadow variable */
-
-    color: var(--text);
-
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Consistent border */
-
-}
-
-.card {
-
-    margin-bottom: 20px;
-
-    background: var(--glass-bg);
-
-    box-shadow: var(--shadow);
-
-    border-radius: var(--border-radius);
-
-    transition: transform 0.2s, box-shadow 0.2s;
-
-}
-
-.card:hover {
-
-    transform: translateY(-4px) scale(1.02);
-
-    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.18);
-
-}
-
-.nav-buttons {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    justify-content: center;
-
-    gap: 1rem;
-
-    margin-top: 1.5rem;
-
-}
-
-.nav-buttons button {
-
-    padding: 0.75rem 1.25rem;
-
-    border: 1px solid var(--primary);
-
-    border-radius: 0.5rem;
-
-    background-color: transparent;
-
-    color: var(--primary);
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: all 0.3s ease;
-
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-}
-
-.nav-buttons button:hover {
-
-    background-color: var(--primary);
-
-    color: white;
-
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-}
-
-.nav-buttons button.active {
-
-    background-color: var(--primary);
-
-    color: white;
-
-    border-color: var(--primary-dark);
-
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-
-}
-
-footer {
-
-    background: var(--footer-bg);
-
-    color: var(--primary-dark);
-
-    text-align: center;
-
-    padding: 18px 0 10px 0;
-
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
-
-    box-shadow: 0 -2px 12px rgba(120, 144, 156, 0.08);
-
-    margin-top: auto;
-
-    font-size: 1rem;
-
-    transition: background-color 0.3s ease, color 0.3s ease;
-
-    cursor: pointer;
-
-}
-
-footer:hover {
-
-    background-color: #f0f0f0;
-
-    color: var(--primary);
-
-}
-
-.fade-section {
-
-    opacity: 0;
-
-    transform: translateY(40px);
-
-    transition: opacity 0.6s ease, transform 0.6s ease;
-
-}
-
-.fade-section.visible {
-
-    opacity: 1;
-
-    transform: translateY(0);
-
-}
-
-@keyframes float {
-
-    0%, 100% {
-
-        transform: translateY(0);
-
-    }
-
-    50% {
-
-        transform: translateY(-5px);
-
-    }
-
-}
-
-.typing-animation {
-
-    overflow: hidden;
-
-    white-space: nowrap;
-
-    border-right: 2px solid;
-
-    animation: typing 2s steps(20, end), blink-caret .75s step-end infinite;
-
-}
-
-@keyframes typing {
-
-    from { width: 0 }
-
-    to { width: 100% }
-
-}
-
-@keyframes blink-caret {
-
-    from, to { border-color: transparent }
-
-    50% { border-color: var(--text); }
-
-}
-
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Forces of Change Page | EcoTech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="change.css"> <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter">
+    <header class="bg-transparent py-4 flex justify-center items-center">
+        <a href="index.html" class="flex flex-column items-center gap-2">
+            <img id="earth-icon" src="earthicon.png" alt="Earth Icon" class="logo">
+        </a>
+        <h1 class="text-xl font-semibold text-black">
+                Forces of Change 🌍
+        </h1>
+        <div class="theme-toggle">
+            <span class="theme-toggle-icon">☀️</span>
+        </div>
+    </header>
+
+    <nav class="nav__cont">
+        <ul class="nav">
+            <li class="nav__items">
+                <a href="index.html">🏠 Home</a>
+            </li>
+            <li class="nav__items">
+                <a href="ecotech.html">✨ Our Values</a>
+            </li>
+            <li class="nav__items">
+                <a href="change.html">💪 Forces of Change</a>
+            </li>
+            <li class="nav__items">
+                <a href="calculator.html">🧮 Carbon Calculator</a>
+            </li>
+            <li class="nav__items">
+                <a href="Plasticcalc.html">♻️ Plastic Calculator</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="text-center mb-8 fade-section">
+            <h2 id="typing-title" class="text-2xl font-semibold mb-4 px-6 py-3 inline-block typing-animation"></h2>
+            <p class="text-lg px-6 py-3 mb-6">
+                Discovering fresh perspectives on driving positive change for a better tomorrow! ✨
+            </p>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 fade-section">
+            <article class="glassmorphism p-6 rounded-xl shadow-md transition-transform duration-300 hover:scale-105">
+                <h2 class="text-xl font-semibold mb-4">New Energy Horizons 💡</h2>
+                <p class="mb-4">
+                    The quest for sustainable energy continues with new breakthroughs. This section explores emerging technologies and innovative approaches beyond traditional renewables, aiming for a truly green future. 🌿
+                </p>
+                 <ul class="list-disc list-inside">
+                    <li><b>Advanced Geothermal:</b> Tapping into Earth's heat with enhanced systems. 🔥</li>
+                    <li><b>Tidal and Wave Power:</b> Harnessing the ocean's consistent energy. 🌊</li>
+                    <li><b>Bio-Energy Innovations:</b> Sustainable fuels from organic waste. ♻️</li>
+                </ul>
+            </article>
+
+            <article class="glassmorphism p-6 rounded-xl shadow-md transition-transform duration-300 hover:scale-105">
+                <h2 class="text-xl font-semibold mb-4">Future of Food Systems 🍎</h2>
+                <p class="mb-4">
+                    Addressing global food security and environmental impact through revolutionary agricultural practices. We delve into methods that promise higher yields with less resource consumption. 🚜
+                </p>
+                <ul class="list-disc list-inside">
+                    <li><b>Vertical Farming:</b> Urban agriculture for reduced land use. 🏙️🌱</li>
+                    <li><b>Hydroponics & Aeroponics:</b> Water-efficient, soil-less cultivation.💧</li>
+                    <li><b>AI-Driven Crop Optimization:</b> Smart farming for maximum efficiency. 🤖🌾</li>
+                </ul>
+            </article>
+
+            <article class="glassmorphism p-6 rounded-xl shadow-md transition-transform duration-300 hover:scale-105">
+                <h2 class="text-xl font-semibold mb-4">Next-Gen Mobility 🚀</h2>
+                <p class="mb-4">
+                    Redefining how we move, focusing on ultra-low emission and highly efficient transportation. From personal vehicles to public transit, the future is cleaner and smarter. 🚗💨
+                </p>
+                <ul class="list-disc list-inside">
+                    <li><b>Hydrogen Fuel Cells:</b> Clean energy for long-range transport. 💧⚡</li>
+                    <li><b>Hyperloop Technology:</b> High-speed, low-friction travel. 🚄</li>
+                    <li><b>Autonomous Electric Fleets:</b> Shared, efficient, and driverless vehicles. 🤖🚌</li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="text-center fade-section">
+            <h2 class="text-2xl font-semibold mb-4 px-6 py-3 rounded-xl inline-block">
+                Our Evolving Vision 🌟
+            </h2>
+            <p class="text-lg px-6 py-3 mb-6">
+                At EcoTech Innovations, our commitment to a sustainable future is constantly evolving. We are dedicated to exploring and implementing the next generation of eco-friendly solutions, pushing the boundaries of what's possible for a healthier planet. 🌎💚
+            </p>
+        </section>
+    </main>
+
+    <footer class="bg-transparent py-6 text-center">
+        <p>© 2024 EcoTech Innovations. All rights reserved. 🌿</p>
+    </footer>
+
+    <script>
+        const body = document.body;
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeToggleIcon = document.querySelector('.theme-toggle-icon');
+        const logo = document.querySelector('.logo');
+        const sections = document.querySelectorAll('.fade-section');
+        const typingTitle = document.getElementById('typing-title');
+
+        let isDark = false;
+        let typingText = "Exploring New Transformations 🚀";
+        let charIndex = 0;
+
+        if (localStorage.getItem('theme') === 'dark') {
+            isDark = true;
+            body.classList.add('dark');
+            themeToggleIcon.textContent = '☀️';
+        } else {
+            themeToggleIcon.textContent = '🌑';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            isDark = !isDark;
+            body.classList.toggle('dark', isDark);
+            themeToggleIcon.textContent = isDark ? '☀️' : '🌑';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        logo.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+
+        function revealSections() {
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight * 0.8) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+
+        function typeWriter() {
+            if (charIndex < typingText.length) {
+                typingTitle.textContent += typingText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 100);
+            } else {
+                setTimeout(removeTypingAnimation, 2000);
+            }
+        }
+
+        function removeTypingAnimation() {
+            typingTitle.classList.remove('typing-animation');
+        }
+
+        window.addEventListener('scroll', revealSections);
+        revealSections();
+        
+        typingTitle.classList.add('typing-animation');
+        typeWriter();
+    </script>
+</body>
+</html>
