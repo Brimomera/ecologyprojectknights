@@ -3,37 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoTech | Plastic Waste Calculator</title>
+    <title>Plastic Waste Calculator | EcoTech</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href=Plasticcalc.css rel ="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        roboto: ['Roboto', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="light">
     <nav class="nav__cont">
         <ul class="nav">
             <li class="nav__items">
-                <a href="index.html">🏠 Home</a>
+                <a href="index.html" data-icon="🏠">Home</a>
             </li>
             <li class="nav__items">
-                <a href="ecotech.html">✨ Our Values</a>
+                <a href="ecotech.html" data-icon="✨">Our Values</a>
             </li>
             <li class="nav__items">
-                <a href="change.html">💪 Forces of Change</a>
+                <a href="change.html" data-icon="💪">Forces of Change</a>
             </li>
             <li class="nav__items">
-                <a href="calculator.html">🧮 Carbon Calculator</a>
+                <a href="calculator.html" data-icon="🧮">Carbon Calculator</a>
             </li>
             <li class="nav__items">
-                <a href="plasticcalc.html">🗑️ Plastic Calculator</a>
+                <a href="plasticcalc.html" data-icon="🗑️">Plastic Calculator</a>
             </li>
         </ul>
     </nav>
 
     <header>
-       <img src="earthicon.png" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" title="Home" onerror="this.onerror=null;this.src='https://placehold.co/120x120/333333/FFFFFF?text=Logo';">
+        <img src="https://placehold.co/120x120/333333/FFFFFF?text=EcoTech+Logo" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" title="Home" onerror="this.onerror=null;this.src='https://placehold.co/120x120/333333/FFFFFF?text=EcoTech+Logo';">
         <h1>🗑️ Plastic Waste Calculator 🌊</h1>
         <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
             <span id="theme-icon">☀️</span>
@@ -76,7 +87,7 @@
                 <button id="resetButton" class="bg-gray-400 hover:bg-gray-500">Reset 🔄</button>
                 <button id="clearAllButton" class="bg-red-500 hover:bg-red-600">Clear All 🗑️</button>
             </div>
-            
+
             <div id="result" class="result-section hidden">
                 <h3 class="text-xl font-semibold mt-8 mb-4 text-center">📈 Your Plastic Waste Breakdown</h3>
                 <div class="chart-container-with-button">
@@ -109,6 +120,11 @@
                         <h3>🔬 Microplastics (grams/year)</h3>
                         <div class="value" id="microplasticsValue">0</div>
                         <div class="description">estimated microplastic generation 🦠</div>
+                    </div>
+                    <div class="stat-box">
+                        <h3>🔄 Recycling Rate (simulated)</h3>
+                        <div class="value" id="recyclingRateValue">0%</div>
+                        <div class="description">estimated local recycling efficiency ♻️</div>
                     </div>
                 </div>
                 <div class="button-group mt-6">
@@ -189,7 +205,7 @@
         const reducePlasticTipsDiv = document.getElementById('reducePlasticTips');
         const totalWasteValue = document.getElementById('totalWasteValue');
         const oceanImpactValue = document.getElementById('oceanImpactValue');
-        const bagsSavedValue = document = document.getElementById('bagsSavedValue');
+        const bagsSavedValue = document.getElementById('bagsSavedValue');
         const microplasticsValue = document.getElementById('microplasticsValue');
         const recyclingRateValue = document.getElementById('recyclingRateValue');
         const toggleChartTypeBtn = document.getElementById('toggleChartTypeBtn');
@@ -339,7 +355,7 @@
                 resultSection.classList.add('visible');
 
                 updateChart(lastCalculatedData, chartTypes[currentChartTypeIndex], neonBlue, neonPurple, neonGreen, neonYellow, textColor, glassBgColor);
-                
+
                 hideLoadingSpinner();
             }, 1000);
         }
@@ -391,7 +407,7 @@
 
         function updateChart(data, type, neonBlue, neonPurple, neonGreen, neonYellow, textColor, glassBgColor) {
             const ctx = document.getElementById('plasticChart').getContext('2d');
-            
+
             if (plasticChart) {
                 plasticChart.destroy();
             }
@@ -496,17 +512,8 @@
             const totalWasteFormatted = totalPlasticWasteKg.toFixed(2);
             const oceanImpact = oceanImpactValue.textContent;
             const message = `My estimated annual plastic waste is ${totalWasteFormatted} kg, which is equivalent to ${oceanImpact} plastic bottles in the ocean! Let's reduce our plastic footprint together. #EcoTech #PlasticWaste`;
-            
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(message)
-                    .then(() => {
-                        showMessageBox("Results Copied!", "Your plastic footprint summary has been copied to your clipboard. Now go share it!");
-                    })
-                    .catch(err => {
-                        console.error('Failed to copy text: ', err);
-                        showMessageBox("Copy Failed", "Could not copy to clipboard. Please copy the text manually:\\n\\n" + message);
-                    });
-            } else {
+
+            if (document.execCommand) {
                 const textarea = document.createElement('textarea');
                 textarea.value = message;
                 document.body.appendChild(textarea);
@@ -515,10 +522,12 @@
                     document.execCommand('copy');
                     showMessageBox("Results Copied!", "Your plastic footprint summary has been copied to your clipboard. Now go share it!");
                 } catch (err) {
-                    console.error('Fallback: Failed to copy text: ', err);
-                    showMessageBox("Copy Failed", "Could not copy to clipboard. Please copy the text manually:\\n\\n" + message);
+                    console.error('Failed to copy text: ', err);
+                    showMessageBox("Copy Failed", "Could not copy to clipboard. Please copy the text manually:\n\n" + message);
                 }
                 document.body.removeChild(textarea);
+            } else {
+                 showMessageBox("Copy Not Supported", "Your browser does not support automatic clipboard copying. Please copy the text manually:\n\n" + message);
             }
         }
 
