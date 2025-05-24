@@ -3,199 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plastic Waste Calculator | EcoTech</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Plastic Footprint Calculator</title>
     <link rel="stylesheet" href="Plasticcalc.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        roboto: ['Roboto', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body class="light">
-    <nav class="nav__cont">
-        <ul class="nav">
-            <li class="nav__items">
-                <a href="index.html" data-icon="🏠">Home</a>
-            </li>
-            <li class="nav__items">
-                <a href="ecotech.html" data-icon="✨">Our Values</a>
-            </li>
-            <li class="nav__items">
-                <a href="change.html" data-icon="💪">Forces of Change</a>
-            </li>
-            <li class="nav__items">
-                <a href="calculator.html" data-icon="🧮">Carbon Calculator</a>
-            </li>
-            <li class="nav__items">
-                <a href="plasticcalc.html" data-icon="🗑️">Plastic Calculator</a>
-            </li>
-        </ul>
-    </nav>
+    <div class="message-box-overlay" id="messageBoxOverlay">
+        <div class="message-box-content">
+            <h3 id="messageBoxTitle"></h3>
+            <p id="messageBoxContent"></p>
+            <button class="close-button" onclick="hideMessageBox()">Close</button>
+        </div>
+    </div>
+
+    <div class="loading-spinner-overlay" id="loadingSpinnerOverlay">
+        <div class="spinner"></div>
+        <p>Calculating your footprint...</p>
+    </div>
 
     <header>
-        <img src="https://placehold.co/120x120/333333/FFFFFF?text=EcoTech+Logo" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" title="Home" onerror="this.onerror=null;this.src='https://placehold.co/120x120/333333/FFFFFF?text=EcoTech+Logo';">
-        <h1>🗑️ Plastic Waste Calculator 🌊</h1>
-        <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+        <h1 class="logo">EcoTech</h1>
+        <button id="themeToggle" class="theme-toggle" title="Toggle Dark/Light Mode">
             <span id="theme-icon">☀️</span>
         </button>
     </header>
 
     <main>
-        <section class="calculator fade-section">
-            <h2>Calculate Your Plastic Footprint ♻️</h2>
-            <div class="input-group">
-                <label for="bottles">💧 Plastic Bottles Used (per week)</label>
-                <input type="number" id="bottles" placeholder="e.g., 7">
+        <section class="hero-section fade-section">
+            <div class="hero-content">
+                <h2>Calculate Your Plastic Footprint</h2>
+                <p>Understand your impact and discover ways to reduce plastic waste.</p>
             </div>
-            <div class="input-group">
-                <label for="bags">🛍️ Plastic Bags Used (per week)</label>
-                <input type="number" id="bags" placeholder="e.g., 5">
+            <div class="hero-image">
+                <img src="images/ocean-hero.jpg" alt="Clean ocean with a turtle">
             </div>
-            <div class="input-group">
-                <label for="packaging">📦 Plastic Packaging Consumed (per month, in grams)</label>
-                <input type="number" id="packaging" placeholder="e.g., 200">
-            </div>
-            <div class="input-group">
-                <label for="straws">🥤 Plastic Straws Used (per day)</label>
-                <input type="number" id="straws" placeholder="e.g., 1">
-            </div>
-            <div class="input-group">
-                <label for="cutlery">🍴 Plastic Cutlery Used (per week)</label>
-                <input type="number" id="cutlery" placeholder="e.g., 3">
-            </div>
-            <div class="input-group">
-                <label for="containers">🥡 Plastic Takeout Containers Used (per week)</label>
-                <input type="number" id="containers" placeholder="e.g., 2">
-            </div>
-            <div class="input-group">
-                <label for="toys">🧸 Other Plastic Items (per month, in grams)</label>
-                <input type="number" id="toys" placeholder="e.g., 100">
+        </section>
+
+        <hr>
+
+        <section class="calculator-section fade-section">
+            <h3>Enter Your Weekly/Monthly/Annual Consumption:</h3>
+            <div class="calculator-grid">
+                <div class="input-group">
+                    <label for="bottles">Plastic Bottles (per week):</label>
+                    <input type="number" id="bottles" min="0" placeholder="e.g., 5">
+                </div>
+                <div class="input-group">
+                    <label for="bags">Plastic Bags (per week):</label>
+                    <input type="number" id="bags" min="0" placeholder="e.g., 10">
+                </div>
+                <div class="input-group">
+                    <label for="packaging">Plastic Packaging (per month in grams):</label>
+                    <input type="number" id="packaging" min="0" placeholder="e.g., 500">
+                </div>
+                <div class="input-group">
+                    <label for="straws">Plastic Straws (per day):</label>
+                    <input type="number" id="straws" min="0" placeholder="e.g., 1">
+                </div>
+                <div class="input-group">
+                    <label for="cutlery">Disposable Cutlery (per week):</label>
+                    <input type="number" id="cutlery" min="0" placeholder="e.g., 2">
+                </div>
+                <div class="input-group">
+                    <label for="containers">Plastic Containers (per week):</label>
+                    <input type="number" id="containers" min="0" placeholder="e.g., 3">
+                </div>
+                <div class="input-group">
+                    <label for="toys">Plastic Toys/Other Items (per year in grams):</label>
+                    <input type="number" id="toys" min="0" placeholder="e.g., 200">
+                </div>
             </div>
             <div class="button-group">
-                <button id="calculateButton">Calculate ✨</button>
-                <button id="resetButton" class="bg-gray-400 hover:bg-gray-500">Reset 🔄</button>
-                <button id="clearAllButton" class="bg-red-500 hover:bg-red-600">Clear All 🗑️</button>
+                <button id="calculateButton">Calculate Footprint</button>
+                <button id="resetButton">Reset Results</button>
+                <button id="clearAllButton">Clear All Inputs</button>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="result" class="result-section hidden fade-section">
+            <h3>Your Plastic Footprint Summary:</h3>
+            <p id="plasticConsumption"></p>
+            <p id="reducePlasticTips"></p>
+
+            <div class="impact-stats">
+                <div class="stat-card">
+                    <h4>Total Waste</h4>
+                    <p><span id="totalWasteValue">0</span> kg/year</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Ocean Impact</h4>
+                    <p>~<span id="oceanImpactValue">0</span> plastic bottles</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Bags Saved</h4>
+                    <p><span id="bagsSavedValue">0</span> bags</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Microplastics</h4>
+                    <p>~<span id="microplasticsValue">0</span> grams</p>
+                </div>
+                <div class="stat-card">
+                    <h4>Simulated Recycling Rate</h4>
+                    <p><span id="recyclingRateValue">0%</span></p>
+                </div>
             </div>
 
-            <div id="result" class="result-section hidden">
-                <h3 class="text-xl font-semibold mt-8 mb-4 text-center">📈 Your Plastic Waste Breakdown</h3>
-                <div class="chart-container-with-button">
-                    <button id="toggleChartTypeBtn" onclick="toggleChartType()" title="Switch Graphs">📊</button>
-                    <canvas id="plasticChart"></canvas>
-                </div>
-
-                <div id="plasticConsumption" class="info-and-tips-container">
-                    </div>
-                <div id="reducePlasticTips" class="info-and-tips-container mt-4">
-                    </div>
-
-                <div class="impact-stats-container">
-                    <div class="stat-box">
-                        <h3>🗑️ Total Waste (kg/year)</h3>
-                        <div class="value" id="totalWasteValue">0</div>
-                        <div class="description">estimated annual plastic waste 🌍</div>
-                    </div>
-                    <div class="stat-box">
-                        <h3>🐠 Ocean Impact</h3>
-                        <div class="value" id="oceanImpactValue">0</div>
-                        <div class="description">equivalent to plastic bottles in the ocean 🌊</div>
-                    </div>
-                    <div class="stat-box">
-                        <h3>♻️ Bags Saved (per year)</h3>
-                        <div class="value" id="bagsSavedValue">0</div>
-                        <div class="description">by reducing your bag usage 🛍️</div>
-                    </div>
-                    <div class="stat-box">
-                        <h3>🔬 Microplastics (grams/year)</h3>
-                        <div class="value" id="microplasticsValue">0</div>
-                        <div class="description">estimated microplastic generation 🦠</div>
-                    </div>
-                    <div class="stat-box">
-                        <h3>🔄 Recycling Rate (simulated)</h3>
-                        <div class="value" id="recyclingRateValue">0%</div>
-                        <div class="description">estimated local recycling efficiency ♻️</div>
-                    </div>
-                </div>
-                <div class="button-group mt-6">
-                    <button id="shareResultsButton">Share Your Results 🔗</button>
-                </div>
+            <h3 class="chart-title">Your Plastic Waste Breakdown</h3>
+            <div class="chart-container">
+                <canvas id="plasticChart"></canvas>
+                <button id="toggleChartTypeBtn" class="toggle-chart-button" title="Toggle Chart Type">📊</button>
             </div>
+            <button id="shareResultsButton">Share My Results</button>
         </section>
     </main>
 
-    <footer class="bg-transparent py-6 text-center">
-        <span id="footerText" class="hidden-link">© KNIGHTS</span>
+    <footer>
+        <p id="footerText">&copy; 2023 EcoTech. All rights reserved.</p>
         <div id="likeCard" class="like-card">
-            <span class="heart-icon">❤️</span>
-            <span>I like u</span>
+            Thanks for using EcoTech!
         </div>
     </footer>
 
-    <div id="messageBoxOverlay" class="message-box-overlay">
-        <div class="message-box">
-            <h3 id="messageBoxTitle"></h3>
-            <p id="messageBoxContent"></p>
-            <button onclick="hideMessageBox()">OK</button>
-        </div>
-    </div>
-
-    <div id="loadingSpinnerOverlay" class="loading-spinner-overlay">
-        <div class="spinner"></div>
-    </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Declare isDark globally and initialize it.
+        // It will be updated by initializeTheme based on localStorage.
+        let isDark = false;
+
+        // Get references to DOM elements
         const body = document.body;
         const themeToggle = document.getElementById('themeToggle');
         const themeToggleIcon = document.getElementById('theme-icon');
-
-        let isDark = false;
-
-        function initializeTheme() {
-            if (localStorage.getItem('theme') === 'dark') {
-                isDark = true;
-                body.classList.add('dark');
-                if (themeToggleIcon) {
-                    themeToggleIcon.textContent = '🌑';
-                }
-            } else {
-                if (themeToggleIcon) {
-                    themeToggleIcon.textContent = '☀️';
-                }
-            }
-        }
-
-        function toggleTheme() {
-            isDark = !isDark;
-            body.classList.toggle('dark', isDark);
-            body.classList.toggle('light', !isDark);
-            themeToggleIcon.textContent = isDark ? '🌑' : '☀️';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            if (plasticChart && lastCalculatedData) {
-                const rootStyles = getComputedStyle(document.documentElement);
-                const neonBlue = rootStyles.getPropertyValue('--neon-blue').trim();
-                const neonPurple = rootStyles.getPropertyValue('--neon-purple').trim();
-                const neonGreen = rootStyles.getPropertyValue('--neon-green').trim();
-                const neonYellow = rootStyles.getPropertyValue('--neon-yellow').trim();
-                const textColor = rootStyles.getPropertyValue('--text').trim();
-                const glassBgColor = rootStyles.getPropertyValue('--glass-bg').trim();
-                updateChart(lastCalculatedData, chartTypes[currentChartTypeIndex], neonBlue, neonPurple, neonGreen, neonYellow, textColor, glassBgColor);
-            }
-        }
-        document.addEventListener('DOMContentLoaded', initializeTheme);
-
-
         const logo = document.querySelector('.logo');
         const sections = document.querySelectorAll('.fade-section');
         const calculateButton = document.getElementById('calculateButton');
@@ -213,63 +153,142 @@
         const shareResultsButton = document.getElementById('shareResultsButton');
         const footerText = document.getElementById('footerText');
         const likeCard = document.getElementById('likeCard');
-
         const messageBoxOverlay = document.getElementById('messageBoxOverlay');
         const messageBoxTitle = document.getElementById('messageBoxTitle');
         const messageBoxContent = document.getElementById('messageBoxContent');
-
         const loadingSpinnerOverlay = document.getElementById('loadingSpinnerOverlay');
 
-        let plasticChart = null;
-        let currentChartTypeIndex = 0;
-        const chartTypes = ['doughnut', 'bar', 'line'];
-        let lastCalculatedData = null;
-        let totalPlasticWasteKg = 0;
+        let plasticChart = null; // Variable to hold the Chart.js instance
+        let currentChartTypeIndex = 0; // Index for current chart type
+        const chartTypes = ['doughnut', 'bar', 'line']; // Available chart types
+        let lastCalculatedData = null; // Stores the last calculated data for chart updates
+        let totalPlasticWasteKg = 0; // Stores the total plastic waste
 
+        /**
+         * @function showMessageBox
+         * @description Displays a custom message box with a title and content.
+         * @param {string} title - The title of the message box.
+         * @param {string} message - The content message to display.
+         */
         function showMessageBox(title, message) {
             messageBoxTitle.textContent = title;
             messageBoxContent.textContent = message;
             messageBoxOverlay.classList.add('visible');
         }
 
+        /**
+         * @function hideMessageBox
+         * @description Hides the custom message box.
+         */
         function hideMessageBox() {
             messageBoxOverlay.classList.remove('visible');
         }
 
+        /**
+         * @function showLoadingSpinner
+         * @description Displays the loading spinner overlay.
+         */
         function showLoadingSpinner() {
             loadingSpinnerOverlay.classList.add('visible');
         }
 
+        /**
+         * @function hideLoadingSpinner
+         * @description Hides the loading spinner overlay.
+         */
         function hideLoadingSpinner() {
             loadingSpinnerOverlay.classList.remove('visible');
         }
 
+        /**
+         * @function initializeTheme
+         * @description Initializes the theme based on localStorage preference.
+         */
+        function initializeTheme() {
+            if (localStorage.getItem('theme') === 'dark') {
+                isDark = true;
+                body.classList.add('dark');
+                // Remove 'light' class if it exists to ensure consistency, though CSS primarily relies on 'dark'
+                body.classList.remove('light');
+                if (themeToggleIcon) {
+                    themeToggleIcon.textContent = '🌑';
+                }
+            } else {
+                isDark = false;
+                body.classList.remove('dark'); // Ensure 'dark' class is removed if theme is light
+                // Add 'light' class as initial class in HTML, or rely on default body styles
+                body.classList.add('light');
+                if (themeToggleIcon) {
+                    themeToggleIcon.textContent = '☀️';
+                }
+            }
+        }
+
+        /**
+         * @function toggleTheme
+         * @description Toggles between light and dark themes and updates localStorage.
+         */
+        function toggleTheme() {
+            isDark = !isDark;
+            body.classList.toggle('dark', isDark);
+            // The 'light' class toggle is largely redundant if base body styles are light,
+            // as CSS targets 'body.dark'. Keeping 'light' for explicit state management.
+            body.classList.toggle('light', !isDark);
+            themeToggleIcon.textContent = isDark ? '🌑' : '☀️';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            // If chart exists and data is available, update chart colors
+            if (plasticChart && lastCalculatedData) {
+                const rootStyles = getComputedStyle(document.documentElement);
+                const neonBlue = rootStyles.getPropertyValue('--neon-blue').trim();
+                const neonPurple = rootStyles.getPropertyValue('--neon-purple').trim();
+                const neonGreen = rootStyles.getPropertyValue('--neon-green').trim();
+                const neonYellow = rootStyles.getPropertyValue('--neon-yellow').trim();
+                const textColor = rootStyles.getPropertyValue('--text').trim();
+                const glassBgColor = rootStyles.getPropertyValue('--glass-bg').trim();
+                updateChart(lastCalculatedData, chartTypes[currentChartTypeIndex], neonBlue, neonPurple, neonGreen, neonYellow, textColor, glassBgColor);
+            }
+        }
+
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', initializeTheme);
+
+        // Event listener for logo click to navigate to home
         logo.addEventListener('click', () => {
             window.location.href = 'index.html';
         });
 
+        // Intersection Observer for fade-in animations on sections
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.1 }); // Trigger when 10% of the section is visible
 
+        // Observe all sections with 'fade-section' class
         document.querySelectorAll('.fade-section').forEach((section) => {
             observer.observe(section);
         });
 
+        // Event Listeners for calculator buttons
         calculateButton.addEventListener('click', calculatePlasticFootprint);
         resetButton.addEventListener('click', resetCalculator);
         clearAllButton.addEventListener('click', clearAllInputs);
         toggleChartTypeBtn.addEventListener('click', toggleChartType);
         shareResultsButton.addEventListener('click', shareResults);
 
+        /**
+         * @function calculatePlasticFootprint
+         * @description Calculates the user's estimated annual plastic waste based on inputs.
+         * Displays results, a chart, and tips.
+         */
         function calculatePlasticFootprint() {
-            showLoadingSpinner();
+            showLoadingSpinner(); // Show loading spinner
 
+            // Simulate a delay for calculation for better UX
             setTimeout(() => {
+                // Get input values, default to 0 if empty or invalid
                 const bottles = parseFloat(document.getElementById('bottles').value) || 0;
                 const bags = parseFloat(document.getElementById('bags').value) || 0;
                 const packaging = parseFloat(document.getElementById('packaging').value) || 0;
@@ -278,22 +297,27 @@
                 const containers = parseFloat(document.getElementById('containers').value) || 0;
                 const toys = parseFloat(document.getElementById('toys').value) || 0;
 
+                // Input validation: ensure no negative values
                 if (bottles < 0 || bags < 0 || packaging < 0 || straws < 0 || cutlery < 0 || containers < 0 || toys < 0) {
                     hideLoadingSpinner();
                     showMessageBox("Invalid Input", "Please enter non-negative values for plastic consumption.");
                     return;
                 }
 
-                const bottlesPerYear = bottles * 52 * 0.02;
-                const bagsPerYear = bags * 52 * 0.005;
-                const packagingPerYear = packaging * 12 / 1000;
-                const strawsPerYear = straws * 365 * 0.002;
-                const cutleryPerYear = cutlery * 52 * 0.005;
-                const containersPerYear = containers * 52 * 0.03;
-                const toysPerYear = toys * 12 / 1000;
+                // Convert weekly/daily/monthly usage to annual kilograms
+                // (Approximate weights: bottle ~20g, bag ~5g, straw ~2g, cutlery ~5g, container ~30g)
+                const bottlesPerYear = bottles * 52 * 0.02; // kg
+                const bagsPerYear = bags * 52 * 0.005; // kg
+                const packagingPerYear = packaging * 12 / 1000; // kg
+                const strawsPerYear = straws * 365 * 0.002; // kg
+                const cutleryPerYear = cutlery * 52 * 0.005; // kg
+                const containersPerYear = containers * 52 * 0.03; // kg
+                const toysPerYear = toys * 12 / 1000; // kg
 
+                // Calculate total plastic waste
                 totalPlasticWasteKg = bottlesPerYear + bagsPerYear + packagingPerYear + strawsPerYear + cutleryPerYear + containersPerYear + toysPerYear;
 
+                // Store data for chart updates
                 lastCalculatedData = {
                     bottles: bottlesPerYear,
                     bags: bagsPerYear,
@@ -304,18 +328,20 @@
                     toys: toysPerYear
                 };
 
-                const KG_PER_STANDARD_BOTTLE = 0.02;
-                const oceanImpactBottles = Math.ceil(totalPlasticWasteKg / KG_PER_STANDARD_BOTTLE);
+                // Calculate impact metrics
+                const KG_PER_STANDARD_BOTTLE = 0.02; // 20 grams per bottle
+                const oceanImpactBottles = Math.ceil(totalPlasticWasteKg / KG_PER_STANDARD_BOTTLE); // Rounded up
 
-                const averageBagsPerYear = 300;
+                const averageBagsPerYear = 300; // Example average bags used per year
                 const currentBagsPerYear = bags * 52;
-                const bagsSaved = Math.max(0, averageBagsPerYear - currentBagsPerYear);
+                const bagsSaved = Math.max(0, averageBagsPerYear - currentBagsPerYear); // Cannot be negative
 
-                const MICROPLASTIC_CONVERSION_FACTOR = 0.005;
+                const MICROPLASTIC_CONVERSION_FACTOR = 0.005; // 0.5% of plastic waste becomes microplastic
                 const microplasticsGeneratedGrams = (totalPlasticWasteKg * 1000 * MICROPLASTIC_CONVERSION_FACTOR).toFixed(2);
 
-                const simulatedRecyclingRate = (Math.random() * 20 + 20).toFixed(0);
+                const simulatedRecyclingRate = (Math.random() * 20 + 20).toFixed(0); // Random rate between 20-40%
 
+                // Get CSS variable values for chart colors (to adapt to theme)
                 const rootStyles = getComputedStyle(document.documentElement);
                 const neonBlue = rootStyles.getPropertyValue('--neon-blue').trim();
                 const neonPurple = rootStyles.getPropertyValue('--neon-purple').trim();
@@ -324,9 +350,11 @@
                 const textColor = rootStyles.getPropertyValue('--text').trim();
                 const glassBgColor = rootStyles.getPropertyValue('--glass-bg').trim();
 
+                // Update consumption summary text
                 plasticConsumptionDiv.textContent = `Your estimated annual plastic waste is: ${totalPlasticWasteKg.toFixed(2)} kg 🗑️`;
                 plasticConsumptionDiv.classList.remove('hidden');
 
+                // Generate a random tip for reducing plastic waste
                 const tips = [
                     "Carry a reusable water bottle and coffee cup.",
                     "Always use reusable shopping bags.",
@@ -345,25 +373,32 @@
                 reducePlasticTipsDiv.textContent = `You can do this to reduce plastic: ${randomTip} 🌊`;
                 reducePlasticTipsDiv.classList.remove('hidden');
 
+                // Update impact statistics values
                 totalWasteValue.textContent = totalPlasticWasteKg.toFixed(2);
                 oceanImpactValue.textContent = oceanImpactBottles;
                 bagsSavedValue.textContent = bagsSaved;
                 microplasticsValue.textContent = microplasticsGeneratedGrams;
                 recyclingRateValue.textContent = `${simulatedRecyclingRate}%`;
 
+                // Show and animate the result section
                 resultSection.classList.remove('hidden');
-                void resultSection.offsetWidth;
+                void resultSection.offsetWidth; // Trigger reflow for animation
                 resultSection.classList.add('visible');
 
+                // Update the chart with new data
                 updateChart(lastCalculatedData, chartTypes[currentChartTypeIndex], neonBlue, neonPurple, neonGreen, neonYellow, textColor, glassBgColor);
 
-                hideLoadingSpinner();
-            }, 1000);
+                hideLoadingSpinner(); // Hide loading spinner
+            }, 1000); // Simulate 1 second loading time
         }
 
+        /**
+         * @function resetCalculator
+         * @description Resets the result section and chart to their initial states.
+         */
         function resetCalculator() {
             if (plasticChart) {
-                plasticChart.destroy();
+                plasticChart.destroy(); // Destroy existing chart instance
                 plasticChart = null;
             }
             lastCalculatedData = null;
@@ -376,10 +411,15 @@
             microplasticsValue.textContent = '0';
             recyclingRateValue.textContent = '0%';
 
+            // Hide and animate out the result section
             resultSection.classList.remove('visible');
             resultSection.classList.add('hidden');
         }
 
+        /**
+         * @function clearAllInputs
+         * @description Clears all input fields and then resets the calculator.
+         */
         function clearAllInputs() {
             document.getElementById('bottles').value = '';
             document.getElementById('bags').value = '';
@@ -389,12 +429,17 @@
             document.getElementById('containers').value = '';
             document.getElementById('toys').value = '';
 
-            resetCalculator();
+            resetCalculator(); // Call reset to clear results and chart
         }
 
+        /**
+         * @function toggleChartType
+         * @description Cycles through different chart types (doughnut, bar, line).
+         */
         function toggleChartType() {
             currentChartTypeIndex = (currentChartTypeIndex + 1) % chartTypes.length;
             if (lastCalculatedData) {
+                // Get current theme colors to update chart
                 const rootStyles = getComputedStyle(document.documentElement);
                 const neonBlue = rootStyles.getPropertyValue('--neon-blue').trim();
                 const neonPurple = rootStyles.getPropertyValue('--neon-purple').trim();
@@ -406,9 +451,22 @@
             }
         }
 
+        /**
+         * @function updateChart
+         * @description Creates or updates the Chart.js graph with new data and type.
+         * @param {object} data - The data object containing plastic waste breakdown.
+         * @param {string} type - The type of chart to display ('doughnut', 'bar', 'line').
+         * @param {string} neonBlue - CSS variable for neon blue color.
+         * @param {string} neonPurple - CSS variable for neon purple color.
+         * @param {string} neonGreen - CSS variable for neon green color.
+         * @param {string} neonYellow - CSS variable for neon yellow color.
+         * @param {string} textColor - CSS variable for text color.
+         * @param {string} glassBgColor - CSS variable for glass background color.
+         */
         function updateChart(data, type, neonBlue, neonPurple, neonGreen, neonYellow, textColor, glassBgColor) {
             const ctx = document.getElementById('plasticChart').getContext('2d');
 
+            // Destroy existing chart before creating a new one
             if (plasticChart) {
                 plasticChart.destroy();
             }
@@ -426,12 +484,12 @@
                         neonGreen,
                         neonPurple,
                         neonYellow,
-                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(255, 99, 132, 0.8)', // Fallback/additional colors
                         'rgba(54, 162, 235, 0.8)',
                         'rgba(255, 159, 64, 0.8)'
                     ],
                     borderColor: [
-                        neonBlue.replace('0.8)', '1)'),
+                        neonBlue.replace('0.8)', '1)'), // Solid border for colors
                         neonGreen.replace('0.8)', '1)'),
                         neonPurple.replace('0.8)', '1)'),
                         neonYellow.replace('0.8)', '1)'),
@@ -440,18 +498,18 @@
                         'rgba(255, 159, 64, 1)'
                     ],
                     borderWidth: 2,
-                    fill: type === 'line' ? true : false,
-                    tension: type === 'line' ? 0.4 : 0
+                    fill: type === 'line' ? true : false, // Fill area for line chart
+                    tension: type === 'line' ? 0.4 : 0 // Smooth lines for line chart
                 }]
             };
 
             const chartOptions = {
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: false, // Allow canvas to resize freely
                 scales: {
                     y: {
                         beginAtZero: true,
-                        display: type !== 'doughnut',
+                        display: type !== 'doughnut', // Hide Y-axis for doughnut chart
                         title: {
                             display: type !== 'doughnut',
                             text: 'Plastic Waste (kg/year)',
@@ -461,16 +519,16 @@
                             color: textColor
                         },
                         grid: {
-                            color: 'rgba(0, 0, 0, 0.1)'
+                            color: 'rgba(0, 0, 0, 0.1)' // Light grid lines
                         }
                     },
                     x: {
-                        display: type !== 'doughnut',
+                        display: type !== 'doughnut', // Hide X-axis for doughnut chart
                         ticks: {
                             color: textColor
                         },
                         grid: {
-                            color: 'rgba(0, 0, 0, 0.1)'
+                            color: 'rgba(0, 0, 0, 0.1)' // Light grid lines
                         }
                     }
                 },
@@ -478,11 +536,11 @@
                     legend: {
                         position: 'bottom',
                         labels: {
-                            color: textColor
+                            color: textColor // Legend text color
                         }
                     },
                     title: {
-                        display: false,
+                        display: false, // Title handled by H3 above chart
                         text: 'Your Plastic Waste Breakdown',
                         font: {
                             size: 18,
@@ -491,7 +549,7 @@
                         color: textColor
                     },
                     tooltip: {
-                        backgroundColor: glassBgColor,
+                        backgroundColor: glassBgColor, // Tooltip background matches glassmorphism
                         titleColor: textColor,
                         bodyColor: textColor,
                         borderColor: 'rgba(255, 255, 255, 0.2)',
@@ -502,6 +560,7 @@
                 }
             };
 
+            // Create new Chart.js instance
             plasticChart = new Chart(ctx, {
                 type: type,
                 data: chartData,
@@ -509,11 +568,17 @@
             });
         }
 
+        /**
+         * @function shareResults
+         * @description Copies the plastic footprint summary to the clipboard.
+         * Uses document.execCommand('copy') for broader compatibility in iframes.
+         */
         function shareResults() {
             const totalWasteFormatted = totalPlasticWasteKg.toFixed(2);
             const oceanImpact = oceanImpactValue.textContent;
             const message = `My estimated annual plastic waste is ${totalWasteFormatted} kg, which is equivalent to ${oceanImpact} plastic bottles in the ocean! Let's reduce our plastic footprint together. #EcoTech #PlasticWaste`;
 
+            // Use document.execCommand('copy') for clipboard functionality
             if (document.execCommand) {
                 const textarea = document.createElement('textarea');
                 textarea.value = message;
@@ -528,15 +593,16 @@
                 }
                 document.body.removeChild(textarea);
             } else {
-                 showMessageBox("Copy Not Supported", "Your browser does not support automatic clipboard copying. Please copy the text manually:\n\n" + message);
+                showMessageBox("Copy Not Supported", "Your browser does not support automatic clipboard copying. Please copy the text manually:\n\n" + message);
             }
         }
 
+        // Event listener for footer text to show "like card"
         footerText.addEventListener('click', () => {
             likeCard.classList.add('visible');
             setTimeout(() => {
                 likeCard.classList.remove('visible');
-            }, 3000);
+            }, 3000); // Hide after 3 seconds
         });
     </script>
 </body>
