@@ -1,4 +1,3 @@
-/* Enhanced Glassmorphism and Modern UI */
 :root {
     --primary: #7c3aed;
     --primary-dark: #5b21b6;
@@ -10,56 +9,50 @@
     --footer-bg: #ede9fe;
     --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
     --border-radius: 18px;
-    /* --- Custom Olive Green Variables (from original ecotech.css, kept for potential use) --- */
     --olive-light: #6B8E23;
     --olive-dark: #556B2F;
     --olive-darker: #4A5C2A;
-    /* --- Button Colors for Themes (from calculator.html) --- */
     --light-button: rgb(165, 141, 238);
     --dark-button: rgba(42, 77, 64, 0.7);
-    --header-border: rgba(255, 255, 255, 0.1); /* Default light mode header border */
+    --header-border: rgba(255, 255, 255, 0.1);
 
-    /* New variables for dynamic colors */
-    --speaker-border-color: var(--primary); /* Default to primary in light mode */
-    --principle-title-color: var(--primary); /* Default to primary in light mode */
+    --speaker-border-color: var(--primary);
+    --principle-title-color: var(--primary);
 }
 
-/* Base Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* Apply transition to all elements for smooth theme changes */
-    transition: background 0.4s, color 0.4s, box-shadow 0.3s, transform 0.3s, filter 0.3s, opacity 0.3s; /* Added filter and opacity for blur effect */
+    transition: background 0.4s, color 0.4s, box-shadow 0.3s, transform 0.3s, filter 0.3s, opacity 0.3s;
 }
 
 body {
-    font-family: 'Inter', 'Segoe UI', Arial, sans-serif; /* Consistent with calculator */
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background: linear-gradient(135deg, #d0bfff 0%, #a78bfa 50%, #f3e8ff 100%); /* From calculator */
+    background: linear-gradient(135deg, #d0bfff 0%, #a78bfa 50%, #f3e8ff 100%);
     background-size: 200% 200%;
-    animation: gradient 12s ease-in-out infinite; /* From calculator */
+    animation: gradient 12s ease-in-out infinite;
     color: var(--text);
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
 body.dark {
     --text: #f3f4f6;
     --background: #18181b;
     --footer-bg: #2a2636;
-    --glass-bg: rgba(0, 0, 0, 0.25); /* Use a darker glass background for dark mode */
-    background: linear-gradient(135deg, #2a4d40 0%, #21382b 50%, #18181b 100%); /* From calculator */
+    --glass-bg: rgba(0, 0, 0, 0.25);
+    background: linear-gradient(135deg, #2a4d40 0%, #21382b 50%, #18181b 100%);
     background-size: 200% 200%;
-    animation: gradient 12s ease-in-out infinite; /* From calculator */
+    animation: gradient 12s ease-in-out infinite;
     --light-button: rgb(165, 141, 238);
     --dark-button: rgba(42, 77, 64, 0.7);
-    --header-border: rgba(0, 0, 0, 0.2); /* Dark mode header border */
+    --header-border: rgba(0, 0, 0, 0.2);
 
-    /* Dark mode specific colors for speaker image border and principle title */
-    --speaker-border-color: #0A6A4A; /* Dark emerald green */
-    --principle-title-color: #0A6A4A; /* Dark emerald green */
+    --speaker-border-color: #0A6A4A;
+    --principle-title-color: #0A6A4A;
 }
 
 @keyframes gradient {
@@ -74,19 +67,18 @@ body.dark {
     }
 }
 
-/* Header - Replicated from calculator.html */
 header {
     text-align: center;
     padding: 30px 20px 50px;
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--header-border); /* Use dynamic border color */
+    border-bottom: 1px solid var(--header-border);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     margin: 32px auto 24px auto;
     max-width: 100%;
-    color: var(--text); /* Changed to use --text for consistency */
-    transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease, border-color 0.4s ease; /* Added border-color transition */
+    color: var(--text);
+    transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease, border-color 0.4s ease;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -96,13 +88,12 @@ header:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
-header h1 { /* Specific h1 styling for header */
+header h1 {
     font-family: 'Roboto', sans-serif;
     font-size: 3rem;
-    color: var(--text); /* This is correct for dynamic text color */
+    color: var(--text);
     margin: 10px 0 0 0;
     letter-spacing: 3px;
-    /* animation: dropIn 1s ease; /* Removed for typing animation */
     transform-origin: top;
 }
 @keyframes dropIn {
@@ -116,15 +107,14 @@ header h1 { /* Specific h1 styling for header */
     }
 }
 
-/* Typing Animation CSS */
 .typing-animation {
-    overflow: hidden; /* Ensures text is hidden until typed */
-    white-space: nowrap; /* Keeps text on a single line */
-    border-right: 0.15em solid var(--text); /* Blinking cursor */
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 0.15em solid var(--text);
     animation:
-        typing 3.5s steps(40, end), /* Typing animation duration */
-        blink-caret 0.75s step-end infinite; /* Blinking cursor animation */
-    width: 0; /* Start with zero width */
+        typing 3.5s steps(40, end),
+        blink-caret 0.75s step-end infinite;
+    width: 0;
 }
 
 @keyframes typing {
@@ -138,7 +128,7 @@ header h1 { /* Specific h1 styling for header */
 }
 
 
-.logo { /* Replicated from calculator.html */
+.logo {
     width: 120px;
     animation: float 4s ease-in-out infinite;
     cursor: pointer;
@@ -157,7 +147,6 @@ header h1 { /* Specific h1 styling for header */
     }
 }
 
-/* Theme Toggle Button - Replicated from calculator.html */
 .theme-toggle {
     position: absolute;
     top: 20px;
@@ -174,14 +163,13 @@ header h1 { /* Specific h1 styling for header */
     transform: scale(1.2);
 }
 
-/* Navigation - Replicated from calculator.html */
 .nav__cont {
     position: fixed;
     width: 60px;
     top: 0;
     height: 100vh;
     z-index: 100;
-    background-color: var(--glass-bg); /* Changed to use variable */
+    background-color: var(--glass-bg);
     backdrop-filter: blur(10px);
     overflow: hidden;
     transition: width 0.3s ease;
@@ -232,10 +220,9 @@ header h1 { /* Specific h1 styling for header */
     visibility: visible;
 }
 
-/* Main Content - Replicated from calculator.html */
 main {
     flex: 1;
-    margin-left: 80px; /* To account for fixed nav */
+    margin-left: 80px;
     padding: 20px;
     color: var(--text);
     background: var(--glass-bg);
@@ -243,7 +230,7 @@ main {
     border-radius: var(--border-radius);
     padding: 32px 24px;
     margin: 24px auto;
-    max-width: 90%; /* Increased max-width for more space */
+    max-width: 90%;
     backdrop-filter: blur(16px) saturate(180%);
     border: 1px solid rgba(120, 144, 156, 0.15);
     transition: background 0.4s ease, box-shadow 0.4s ease;
@@ -253,46 +240,43 @@ main:hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Intro Section */
 .intro {
     margin-bottom: 2rem;
-    color: var(--text); /* Use theme text color */
+    color: var(--text);
     transition: color 0.5s ease;
-    text-align: center; /* Center the intro text */
+    text-align: center;
 }
 .intro h2 {
-    font-size: 2rem; /* Adjust font size for consistency */
+    font-size: 2rem;
     margin-bottom: 1rem;
-    color: var(--primary-dark); /* Use primary-dark for headings */
+    color: var(--primary-dark);
 }
 .intro p {
     font-size: 1.1rem;
     line-height: 1.6;
 }
 
-/* Principles Grid - Adjusted for glassmorphism */
 .principles {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax for better fit */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
 }
 
-/* Principle Boxes - Replicated from calculator's stat-box/glass-bg elements */
 .principle {
     padding: 1.5rem;
-    border-radius: var(--border-radius); /* Use theme border radius */
-    background: var(--glass-bg); /* Use glass background variable */
-    backdrop-filter: blur(10px); /* Apply blur effect */
-    box-shadow: var(--shadow); /* Apply theme shadow */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Lighter border for glass effect */
+    border-radius: var(--border-radius);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, opacity 0.3s ease; /* Added filter and opacity */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    aspect-ratio: 1; /* Keep aspect ratio for uniform boxes */
-    position: relative; /* Needed for z-index to work */
+    aspect-ratio: 1;
+    position: relative;
 }
 
 .principle:hover {
@@ -300,52 +284,47 @@ main:hover {
     box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.18);
 }
 
-/* New classes for hover effect */
 .principle.blurred {
-    filter: blur(5px);
     opacity: 0.6;
     transform: scale(0.98);
 }
 
 .principle.highlighted {
-    transform: translateY(-8px) scale(1.05); /* More pronounced lift */
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25); /* Stronger shadow */
-    z-index: 10; /* Bring to front */
-    filter: none; /* Remove blur if it was applied by mistake */
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+    z-index: 10;
+    filter: none;
     opacity: 1;
 }
 
-
 .principle h3 {
-    font-size: 1.4rem; /* Adjust font size */
+    font-size: 1.4rem;
     margin-bottom: 0.8rem;
-    color: var(--principle-title-color); /* Use dynamic principle title color */
-    display: flex; /* Enable flexbox for h3 to align image and text */
-    align-items: center; /* Vertically align items */
-    justify-content: center; /* Center content within h3 */
-    gap: 10px; /* Space between image and text */
-    transition: color 0.4s ease; /* Add transition for color */
+    color: var(--principle-title-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: color 0.4s ease;
 }
 
-/* Speaker Image Styling */
 .speaker-img {
-    width: 80px; /* Increased size */
-    height: 80px; /* Increased size */
-    border-radius: 50%; /* Make it round */
-    object-fit: cover; /* Ensures the image covers the area, centering its content within the circle */
-    object-position: center; /* Explicitly centers the image content within the element */
-    border: 2px solid var(--speaker-border-color); /* Use dynamic speaker border color */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    flex-shrink: 0; /* Prevent image from shrinking */
-    margin-bottom: 0; /* Remove bottom margin */
-    transition: border-color 0.4s ease; /* Add transition for border color */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 2px solid var(--speaker-border-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+    margin-bottom: 0;
+    transition: border-color 0.4s ease;
 }
 
-/* Blockquote */
 blockquote {
     margin: 0.8rem 0;
     font-style: italic;
-    color: var(--text); /* Use theme text color */
+    color: var(--text);
     opacity: 0.9;
     font-size: 0.95rem;
 }
@@ -357,7 +336,6 @@ blockquote {
     opacity: 0.8;
 }
 
-/* Buttons (if any, though not explicitly in ecotech.html's main content) */
 button {
     background: var(--primary);
     color: white;
@@ -387,7 +365,6 @@ body.dark button:hover {
     box-shadow: 0 8px 20px rgba(33, 56, 43, 1);
 }
 
-/* Footer - Replicated from calculator.html */
 footer {
     background: var(--footer-bg);
     color: var(--primary-dark);
@@ -405,7 +382,6 @@ footer:hover {
     color: var(--primary);
 }
 
-/* Fade-in animation for sections (from calculator) */
 .fade-section {
     opacity: 0;
     transform: translateY(40px);
@@ -416,27 +392,26 @@ footer:hover {
     transform: translateY(0);
 }
 
-/* Media queries for responsiveness */
 @media (max-width: 768px) {
     header h1 {
         font-size: 2.2rem;
     }
     .principles {
-        grid-template-columns: 1fr; /* Stack principles on small screens */
+        grid-template-columns: 1fr;
     }
     .nav__cont {
-        width: 50px; /* Slightly smaller nav on small screens */
+        width: 50px;
     }
     main {
-        margin-left: 60px; /* Adjust main margin for smaller nav */
+        margin-left: 60px;
         padding: 15px;
     }
     .principle {
         padding: 1rem;
     }
     .speaker-img {
-        width: 60px; /* Adjusted for smaller screens */
-        height: 60px; /* Adjusted for smaller screens */
+        width: 60px;
+        height: 60px;
     }
     .principle h3 {
         font-size: 1.2rem;
@@ -474,7 +449,7 @@ footer:hover {
         gap: 5px;
     }
     .speaker-img {
-        width: 45px; /* Adjusted for smallest screens */
-        height: 45px; /* Adjusted for smallest screens */
+        width: 45px;
+        height: 45px;
     }
 }
