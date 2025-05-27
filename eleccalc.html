@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity & Solar Calculator | EcoTech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="eleccalc.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind CSS configuration for custom font families
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        roboto: ['Roboto', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="electricity-calc.css">
+</head>
+<body class="light">
+    <nav class="nav__cont">
+        <ul class="nav">
+            <li class="nav__items">
+                <a href="index.html" data-icon="🏠">Home</a>
+            </li>
+            <li class="nav__items">
+                <a href="ecotech.html" data-icon="✨">Our Values</a>
+            </li>
+            <li class="nav__items">
+                <a href="change.html" data-icon="💪">Forces of Change</a>
+            </li>
+            <li class="nav__items">
+                <a href="calculator.html" data-icon="🧮">Carbon Calculator</a>
+            </li>
+            <li class="nav__items">
+                <a href="plasticcalc.html" data-icon="🗑️">Plastic Calculator</a>
+            </li>
+            <li class="nav__items">
+                <a href="solarcalc.html" data-icon="☀️">Solar Calculator</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="contentWrapper">
+        <header>
+            <img src="https://placehold.co/120x120/333333/FFFFFF?text=EcoTech+Logo" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" title="Home" onerror="this.onerror=null;this.src='https://placehold.co/120x120/333333/FFFFFF?text=EcoTech+Logo';">
+            <h1>☀️ Solar & Electricity Calculator ⚡</h1>
+            <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                <span id="theme-icon">☀️</span>
+            </button>
+        </header>
+
+        <main>
+            <section class="calculator fade-section">
+                <h2>Estimate Your Solar Potential 🏡</h2>
+                <div class="input-group">
+                    <label for="monthlyBill">💰 Average Monthly Electricity Bill (₹)</label>
+                    <input type="number" id="monthlyBill" placeholder="e.g., 1500">
+                </div>
+                <div class="input-group">
+                    <label for="electricityCost">⚡ Electricity Cost per kWh (₹)</label>
+                    <input type="number" id="electricityCost" placeholder="e.g., 8.00">
+                </div>
+                <div class="input-group">
+                    <label for="dailySunlight">☀️ Average Daily Peak Sunlight Hours</label>
+                    <input type="number" id="dailySunlight" placeholder="e.g., 4">
+                </div>
+                <div class="input-group">
+                    <label for="roofArea">🏠 Available Roof Area (sq meters)</label>
+                    <input type="number" id="roofArea" placeholder="e.g., 50">
+                </div>
+                <div class="input-group">
+                    <label for="panelEfficiency">📊 Desired Solar Panel Efficiency (%)</label>
+                    <input type="number" id="panelEfficiency" placeholder="e.g., 18">
+                </div>
+                <div class="input-group">
+                    <label for="installCostPerWatt">💲 Installation Cost per Watt (₹)</label>
+                    <input type="number" id="installCostPerWatt" placeholder="e.g., 55.00">
+                </div>
+                <div class="button-group">
+                    <button id="calculateButton">Calculate ✨</button>
+                    <button id="resetButton" class="bg-gray-400 hover:bg-gray-500">Reset 🔄</button>
+                    <button id="clearAllButton" class="bg-red-500 hover:bg-red-600">Clear All 🗑️</button>
+                </div>
+
+                <div id="result" class="result-section hidden">
+                    <h3 class="text-xl font-semibold mt-8 mb-4 text-center">📈 Your Solar Potential Breakdown</h3>
+                    <div class="chart-container-with-button">
+                        <button id="toggleChartTypeBtn" onclick="toggleChartType()" title="Switch Graphs">📊</button>
+                        <canvas id="solarChart"></canvas>
+                    </div>
+
+                    <div id="solarSummary" class="info-and-tips-container">
+                        </div>
+                    <div id="solarTips" class="info-and-tips-container mt-4">
+                        </div>
+
+                    <div class="impact-stats-container">
+                        <div class="stat-box">
+                            <h3>⚡ Annual Consumption (kWh)</h3>
+                            <div class="value" id="annualConsumptionValue">0</div>
+                            <div class="description">estimated yearly electricity use 💡</div>
+                        </div>
+                        <div class="stat-box">
+                            <h3>☀️ Required Capacity (kW)</h3>
+                            <div class="value" id="requiredCapacityValue">0</div>
+                            <div class="description">solar system needed to offset 🏡</div>
+                        </div>
+                        <div class="stat-box">
+                            <h3>📏 Area Required (sq meters)</h3>
+                            <div class="value" id="areaRequiredValue">0</div>
+                            <div class="description">estimated roof space needed 📐</div>
+                        </div>
+                        <div class="stat-box">
+                            <h3>💲 Estimated Cost (₹)</h3>
+                            <div class="value" id="estimatedCostValue">0</div>
+                            <div class="description">approximate installation cost 💸</div>
+                        </div>
+                        <div class="stat-box">
+                            <h3>📈 Annual Savings (₹)</h3>
+                            <div class="value" id="annualSavingsValue">0</div>
+                            <div class="description">potential yearly electricity savings 💰</div>
+                        </div>
+                    </div>
+                    <div class="button-group mt-6">
+                        <button id="shareResultsButton">Share Your Results 🔗</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-transparent py-6 text-center">
+            <span id="footerText" class="hidden-link">© KNIGHTS</span>
+            <div id="likeCard" class="like-card">
+                <span class="heart-icon">❤️</span>
+                <span>I like u</span>
+            </div>
+        </footer>
+    </div>
+
+    <div id="messageBoxOverlay" class="message-box-overlay">
+        <div class="message-box">
+            <h3 id="messageBoxTitle"></h3>
+            <p id="messageBoxContent"></p>
+            <button onclick="hideMessageBox()">OK</button>
+        </div>
+    </div>
+
+    <div id="loadingSpinnerOverlay" class="loading-spinner-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <script>
+        // Theme Toggle Logic
+        const body = document.body;
+        const themeToggle = document.getElementById('themeToggle');
+        const themeToggleIcon = document.getElementById('theme-icon');
+
+        let isDark = false;
+
+        // Function to initialize theme based on local storage
+        function initializeTheme() {
+            if (localStorage.getItem('theme') === 'dark') {
+                isDark = true;
+                body.classList.add('dark');
+                if (themeToggleIcon) {
+                    themeToggleIcon.textContent = '🌑'; // Dark mode icon
+                }
+            } else {
+                if (themeToggleIcon) {
+                    themeToggleIcon.textContent = '☀️'; // Light mode icon
+                }
+            }
+        }
+
+        // Function to toggle theme
+        function toggleTheme() {
+            isDark = !isDark;
+            body.classList.toggle('dark', isDark);
+            body.classList.toggle('light', !isDark);
+            themeToggleIcon.textContent = isDark ? '🌑' : '☀️'; // Update icon
+            localStorage.setItem('theme', isDark ? 'dark' : 'light'); // Save theme preference
+
+            // If chart exists, update its colors for the new theme
+            if (solarChart && lastCalculatedData) {
+                const rootStyles = getComputedStyle(document.documentElement);
+                const neonBlue = rootStyles.getPropertyValue('--neon-blue').trim();
+                const neonPurple = rootStyles.getPropertyValue('--neon-purple').trim();
+                const neonGreen = rootStyles.getPropertyValue('--neon-green').trim();
+                const neonYellow = rootStyles.getPropertyValue('--neon-yellow').trim();
+                const textColor = rootStyles.getPropertyValue('--text').trim();
+                const glassBgColor = rootStyles.getPropertyValue('--glass-bg').trim();
+                updateChart(lastCalculatedData, chartTypes[currentChartTypeIndex], neonBlue, neonPurple, neonGreen, neonYellow, textColor, glassBgColor);
+            }
+        }
+        // Initialize theme when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeTheme);
+
+
+        // DOM Elements
+        const logo = document.querySelector('.logo');
+        const sections = document.querySelectorAll('.fade-section');
+        const calculateButton = document.getElementById('calculateButton');
+        const resetButton = document.getElementById('resetButton');
+        const clearAllButton = document.getElementById('clearAllButton');
+        const resultSection = document.getElementById('result');
+        const solarSummaryDiv = document.getElementById('solarSummary');
+        const solarTipsDiv = document.getElementById('solarTips');
+        const annualConsumptionValue = document.getElementById('annualConsumptionValue');
+        const requiredCapacityValue = document.getElementById('requiredCapacityValue');
+        const areaRequiredValue = document.getElementById('areaRequiredValue');
+        const estimatedCostValue = document.getElementById('estimatedCostValue');
+        const annualSavingsValue = document.getElementById('annualSavingsValue');
+        const toggleChartTypeBtn = document.getElementById('toggleChartTypeBtn');
+        const shareResultsButton = document.getElementById('shareResultsButton');
+        const footerText = document.getElementById('footerText');
+        const likeCard = document.getElementById('likeCard');
+
+        // Message Box Elements
+        const messageBoxOverlay = document.getElementById('messageBoxOverlay');
+        const messageBoxTitle = document.getElementById('messageBoxTitle');
+        const messageBoxContent = document.getElementById('messageBoxContent');
+
+        // Loading Spinner Elements
+        const loadingSpinnerOverlay = document.getElementById('loadingSpinnerOverlay');
+
+        // Chart Variables
+        let solarChart = null;
+        let currentChartTypeIndex = 0;
+        const chartTypes = ['doughnut', 'bar', 'line'];
+        let lastCalculatedData = null; // Stores the last calculated data for chart updates
+
+        // Default Constants for Calculations (in Rupees)
+        const DEFAULT_ELECTRICITY_COST_PER_KWH = 8.00; // ₹/kWh (e.g., average in India)
+        const DEFAULT_DAILY_SUNLIGHT_HOURS = 4; // hours
+        const DEFAULT_PANEL_WATTAGE = 300; // Watts per panel
+        const DEFAULT_PANEL_AREA_SQM = 1.6; // Square meters per 300W panel
+        const DEFAULT_INSTALLATION_COST_PER_WATT = 55.00; // ₹/Watt (e.g., average in India)
+
+        // Function to display a custom message box
+        function showMessageBox(title, message) {
+            messageBoxTitle.textContent = title;
+            messageBoxContent.textContent = message;
+            messageBoxOverlay.classList.add('visible');
+        }
+
+        // Function to hide the custom message box
+        function hideMessageBox() {
+            messageBoxOverlay.classList.remove('visible');
+        }
+
+        // Function to show the loading spinner
+        function showLoadingSpinner() {
+            loadingSpinnerOverlay.classList.add('visible');
+            // Ensure display is block/flex when visible
+            loadingSpinnerOverlay.style.display = 'flex';
+        }
+
+        // Function to hide the loading spinner
+        function hideLoadingSpinner() {
+            loadingSpinnerOverlay.classList.remove('visible');
+            // Hide completely after transition
+            setTimeout(() => {
+                loadingSpinnerOverlay.style.display = 'none';
+            }, 300); // Match CSS transition duration
+        }
+
+        // Event Listeners
+        logo.addEventListener('click', () => {
+            window.location.href = 'index.html'; // Navigate to home page
+        });
+
+        // Intersection Observer for fade-in sections
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-section').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // Button Event Listeners
+        calculateButton.addEventListener('click', calculateSolarPotential);
+        resetButton.addEventListener('click', resetCalculator);
+        clearAllButton.addEventListener('click', clearAllInputs);
+        toggleChartTypeBtn.addEventListener('click', toggleChartType);
+        shareResultsButton.addEventListener('click', shareResults);
+
+        // Main calculation function
+        function calculateSolarPotential() {
+            showLoadingSpinner(); // Show loading spinner
+
+            setTimeout(() => { // Simulate a delay for calculation
+                // Get input values, using defaults if empty or invalid
+                const monthlyBill = parseFloat(document.getElementById('monthlyBill').value) || 0;
+                const electricityCost = parseFloat(document.getElementById('electricityCost').value) || DEFAULT_ELECTRICITY_COST_PER_KWH;
+                const dailySunlight = parseFloat(document.getElementById('dailySunlight').value) || DEFAULT_DAILY_SUNLIGHT_HOURS;
+                const roofArea = parseFloat(document.getElementById('roofArea').value) || 0;
+                const panelEfficiency = parseFloat(document.getElementById('panelEfficiency').value) || 18; // Default to 18%
+                const installCostPerWatt = parseFloat(document.getElementById('installCostPerWatt').value) || DEFAULT_INSTALLATION_COST_PER_WATT;
+
+                // Input validation
+                if (monthlyBill < 0 || electricityCost <= 0 || dailySunlight <= 0 || roofArea < 0 || panelEfficiency <= 0 || installCostPerWatt <= 0) {
+                    hideLoadingSpinner();
+                    showMessageBox("Invalid Input", "Please enter valid non-negative values. Electricity cost, sunlight hours, panel efficiency, and installation cost per watt must be greater than zero.");
+                    return;
+                }
+
+                // Calculations
+                const annualConsumptionKWH = (monthlyBill / electricityCost) * 12; // kWh per year
+                const dailyConsumptionKWH = annualConsumptionKWH / 365; // kWh per day
+
+                // Required system capacity in kW (kilowatts)
+                const requiredCapacityKW = dailyConsumptionKWH / dailySunlight;
+
+                // Number of panels needed (assuming 300W panels)
+                // Convert requiredCapacityKW to Watts: requiredCapacityKW * 1000
+                // Adjust for panel efficiency: (requiredCapacityKW * 1000) / (panelEfficiency / 100)
+                const actualPanelWattage = DEFAULT_PANEL_WATTAGE * (panelEfficiency / 100); // Effective wattage per panel based on efficiency
+                const numberOfPanels = Math.ceil((requiredCapacityKW * 1000) / actualPanelWattage);
+
+                // Total area required for panels
+                const totalAreaRequiredSQM = numberOfPanels * DEFAULT_PANEL_AREA_SQM;
+
+                // Estimated installation cost
+                const estimatedInstallationCost = (requiredCapacityKW * 1000) * installCostPerWatt; // Convert kW to Watts for cost calculation
+
+                // Annual savings
+                const annualSavings = annualConsumptionKWH * electricityCost;
+
+                // Store data for chart updates
+                lastCalculatedData = {
+                    annualConsumption: annualConsumptionKWH,
+                    requiredCapacity: requiredCapacityKW,
+                    numberOfPanels: numberOfPanels,
+                    totalAreaRequired: totalAreaRequiredSQM,
+                    estimatedCost: estimatedInstallationCost,
+                    annualSavings: annualSavings
+                };
+
+                // Update UI with results
+                solarSummaryDiv.innerHTML = `
+                    <p>Your estimated annual electricity consumption is: <strong>${annualConsumptionKWH.toFixed(2)} kWh</strong>.</p>
+                    <p>To offset this, you would need a solar system with a capacity of approximately <strong>${requiredCapacityKW.toFixed(2)} kW</strong>.</p>
+                    <p>This would require around <strong>${numberOfPanels} solar panels</strong>, covering an estimated area of <strong>${totalAreaRequiredSQM.toFixed(2)} sq meters</strong>.</p>
+                    <p>The estimated installation cost would be: <strong>₹${estimatedInstallationCost.toFixed(2)}</strong>.</p>
+                    <p>Potential annual savings on your electricity bill: <strong>₹${annualSavings.toFixed(2)}</strong>.</p>
+                `;
+                solarSummaryDiv.classList.remove('hidden');
+
+                const tips = [
+                    "Consider energy-efficient appliances (Energy Star rated).",
+                    "Unplug electronics when not in use (phantom load).",
+                    "Switch to LED lighting throughout your home.",
+                    "Optimize your thermostat settings for heating and cooling.",
+                    "Seal drafts around windows and doors.",
+                    "Insulate your home properly to reduce energy loss.",
+                    "Utilize natural light during the day.",
+                    "Wash clothes in cold water.",
+                    "Air dry clothes when possible.",
+                    "Regularly clean or replace HVAC filters.",
+                    "Explore smart home devices for energy management.",
+                    "Get a home energy audit to identify inefficiencies."
+                ];
+                const randomTip = tips[Math.floor(Math.random() * tips.length)];
+                solarTipsDiv.textContent = `💡 Energy Saving Tip: ${randomTip}`;
+                solarTipsDiv.classList.remove('hidden');
+
+                annualConsumptionValue.textContent = annualConsumptionKWH.toFixed(2);
+                requiredCapacityValue.textContent = requiredCapacityKW.toFixed(2);
+                areaRequiredValue.textContent = totalAreaRequiredSQM.toFixed(2);
+                estimatedCostValue.textContent = estimatedInstallationCost.toFixed(2);
+                annualSavingsValue.textContent = annualSavings.toFixed(2);
+
+                resultSection.classList.remove('hidden');
+                void resultSection.offsetWidth; // Trigger reflow for animation
+                resultSection.classList.add('visible');
+
+                // Update chart with new data
+                const rootStyles = getComputedStyle(document.documentElement);
+                const neonBlue = rootStyles.getPropertyValue('--neon-blue').trim();
+                const neonPurple = rootStyles.getPropertyValue('--neon-purple').trim();
+                const neonGreen = rootStyles.getPropertyValue('--neon-green').trim();
+                const neonYellow = rootStyles.getPropertyValue('--neon-yellow').trim();
+                const textColor = rootStyles.getPropertyValue('--text').trim();
+                const glassBgColor = rootStyles.getPropertyValue('--glass-bg').trim();
+                updateChart(lastCalculatedData, chartTypes[currentChartTypeIndex], neonBlue, neonPurple, neonGreen, neonYellow, textColor, glassBgColor);
+            }, 1000); // 1-second delay
+        }
+
+        // Function to reset the calculator to initial state
+        function resetCalculator() {
+            if (solarChart) {
+                solarChart.destroy();
+                solarChart = null;
+            }
+            lastCalculatedData = null;
+            solarSummaryDiv.textContent = '';
+            solarTipsDiv.textContent = '';
+            annualConsumptionValue.textContent = '0';
+            requiredCapacityValue.textContent = '0';
+            areaRequiredValue.textContent = '0';
+            estimatedCostValue.textContent = '0';
+            annualSavingsValue.textContent = '0';
+
+            resultSection.classList.remove('visible');
+            resultSection.classList.add('hidden');
+        }
+
+        // Function to clear all input fields and reset calculator
+        function clearAllInputs() {
+            document.getElementById('monthlyBill').value = '';
+            document.getElementById('electricityCost').value = '';
+            document.getElementById('dailySunlight').value = '';
+            document.getElementById('roofArea').value = '';
+            document.getElementById('panelEfficiency').value = '';
+            document.getElementById('installCostPerWatt').value = '';
+
+            resetCalculator(); // Call reset to clear results and chart
+        }
+
+        // Function to toggle chart type (Doughnut, Bar, Line)
+        function toggleChartType() {
+            currentChartTypeIndex = (currentChartTypeIndex + 1) % chartTypes.length;
+            if (lastCalculatedData) { // Only update if there's data
+                const rootStyles = getComputedStyle(document.documentElement);
+                const neonBlue = rootStyles.getPropertyValue('--neon-blue').trim();
+                const neonPurple = rootStyles.getPropertyValue('--neon-purple').trim();
+                const neonGreen = rootStyles.getPropertyValue('--neon-green').trim();
+                const neonYellow = rootStyles.getPropertyValue('--neon-yellow').trim();
+                const textColor = rootStyles.getPropertyValue('--text').trim();
+                const glassBgColor = rootStyles.getPropertyValue('--glass-bg').trim();
+                updateChart(lastCalculatedData, chartTypes[currentChartTypeIndex], neonBlue, neonPurple, neonGreen, neonYellow, textColor, glassBgColor);
+            }
+        }
+
+        // Function to update or create the Chart.js graph
+        function updateChart(data, type, neonBlue, neonPurple, neonGreen, neonYellow, textColor, glassBgColor) {
+            const ctx = document.getElementById('solarChart').getContext('2d');
+
+            // Destroy existing chart instance if it exists
+            if (solarChart) {
+                solarChart.destroy();
+            }
+
+            // Define chart labels and data values
+            const chartLabels = ['Annual Consumption (kWh)', 'Required Capacity (kW)', 'Estimated Cost (₹)', 'Annual Savings (₹)'];
+            const chartDataValues = [data.annualConsumption, data.requiredCapacity, data.estimatedCost, data.annualSavings];
+
+            const chartData = {
+                labels: chartLabels,
+                datasets: [{
+                    label: 'Solar Metrics',
+                    data: chartDataValues,
+                    backgroundColor: [
+                        neonBlue,
+                        neonGreen,
+                        neonPurple,
+                        neonYellow
+                    ],
+                    borderColor: [
+                        neonBlue.replace('0.8)', '1)'),
+                        neonGreen.replace('0.8)', '1)'),
+                        neonPurple.replace('0.8)', '1)'),
+                        neonYellow.replace('0.8)', '1)')
+                    ],
+                    borderWidth: 2,
+                    fill: type === 'line' ? true : false, // Fill area under line chart
+                    tension: type === 'line' ? 0.4 : 0 // Smoothness for line chart
+                }]
+            };
+
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        display: type !== 'doughnut', // Hide Y-axis for doughnut chart
+                        title: {
+                            display: type !== 'doughnut',
+                            text: 'Value',
+                            color: textColor
+                        },
+                        ticks: {
+                            color: textColor
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    },
+                    x: {
+                        display: type !== 'doughnut', // Hide X-axis for doughnut chart
+                        ticks: {
+                            color: textColor
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: textColor
+                        }
+                    },
+                    title: {
+                        display: false, // Title is in H3 above chart
+                        text: 'Your Solar Potential Breakdown',
+                        font: {
+                            size: 18,
+                            color: textColor
+                        },
+                        color: textColor
+                    },
+                    tooltip: {
+                        backgroundColor: glassBgColor,
+                        titleColor: textColor,
+                        bodyColor: textColor,
+                        borderColor: 'rgba(255, 255, 255, 0.2)',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        displayColors: true
+                    }
+                }
+            };
+
+            // Create new chart instance
+            solarChart = new Chart(ctx, {
+                type: type,
+                data: chartData,
+                options: chartOptions
+            });
+        }
+
+        // Function to share results (copies to clipboard)
+        function shareResults() {
+            if (!lastCalculatedData) {
+                showMessageBox("No Results", "Please calculate your solar potential first!");
+                return;
+            }
+            const annualConsumptionFormatted = lastCalculatedData.annualConsumption.toFixed(2);
+            const requiredCapacityFormatted = lastCalculatedData.requiredCapacity.toFixed(2);
+            const estimatedCostFormatted = lastCalculatedData.estimatedCost.toFixed(2);
+            const annualSavingsFormatted = lastCalculatedData.annualSavings.toFixed(2);
+
+            const message = `My estimated annual electricity consumption is ${annualConsumptionFormatted} kWh. To offset this, I'd need a solar system of ${requiredCapacityFormatted} kW, costing approximately ₹${estimatedCostFormatted}. This could save me ₹${annualSavingsFormatted} annually! ☀️ #EcoTech #SolarPower`;
+
+            if (document.execCommand) {
+                const textarea = document.createElement('textarea');
+                textarea.value = message;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showMessageBox("Results Copied!", "Your solar potential summary has been copied to your clipboard. Share it with others!");
+                } catch (err) {
+                    console.error('Failed to copy text: ', err);
+                    showMessageBox("Copy Failed", "Could not copy to clipboard. Please copy the text manually:\n\n" + message);
+                }
+                document.body.removeChild(textarea);
+            } else {
+                 showMessageBox("Copy Not Supported", "Your browser does not support automatic clipboard copying. Please copy the text manually:\n\n" + message);
+            }
+        }
+
+        // Footer "Like" card functionality
+        footerText.addEventListener('click', () => {
+            likeCard.classList.add('visible');
+            setTimeout(() => {
+                likeCard.classList.remove('visible');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
