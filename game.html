@@ -373,19 +373,16 @@
             border-radius: 50%; /* Ensure click area is round */
             overflow: hidden; /* Hide overflow from visual upgrades */
             pointer-events: auto; /* Ensure clicks are captured by this element */
-        }
-
-        .eco-logo {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
+            /* Base planet visual - a simple Earth drawing */
+            background-image: url('https://placehold.co/250x250/A78BFA/FFFFFF?text=🌍'); /* Placeholder Earth */
+            background-size: cover;
+            background-position: center;
             box-shadow: 0 0 25px var(--plant-color); /* Green glow */
             transition: transform 0.1s ease-out;
             animation: spin 10s linear infinite; /* Spin animation */
-            z-index: 1; /* Ensure logo is behind visual upgrades */
         }
 
-        .eco-logo:active {
+        .click-area:active {
             transform: scale(0.95);
         }
 
@@ -425,7 +422,7 @@
             height: 100%;
             border-radius: 50%;
             overflow: hidden; /* Keep within circle */
-            z-index: 2; /* Above logo, below feedback */
+            z-index: 2; /* Above base, below feedback */
             pointer-events: none; /* Crucial: allow clicks to pass through */
         }
 
@@ -444,56 +441,48 @@
             transform: scale(1);
         }
 
-        /* Specific upgrade styles - placeholders for now */
+        /* Removed background-image from upgrade-visual classes */
         .forest-visual {
             width: 50%;
             height: 50%;
             top: 0;
             left: 0;
-            background-image: url('https://placehold.co/100x100/6B8E23/FFFFFF?text=🌲');
         }
         .ocean-cleanup-visual {
             width: 60%;
             height: 60%;
             bottom: 0;
             right: 0;
-            background-image: url('https://placehold.co/100x100/2196F3/FFFFFF?text=🐠');
         }
         .solar-panels-visual {
             width: 30%;
             height: 30%;
             top: 10%;
             right: 10%;
-            background-image: url('https://placehold.co/100x100/FFD700/FFFFFF?text=☀️');
         }
         .wind-turbines-visual {
             width: 40%;
             height: 40%;
             bottom: 10%;
             left: 10%;
-            background-image: url('https://placehold.co/100x100/A0A0A0/FFFFFF?text=💨');
         }
         .idle-gain-visual {
             width: 40%;
             height: 40%;
             top: 30%;
             left: 30%;
-            background-image: url('https://placehold.co/100x100/FF5722/FFFFFF?text=⏳');
         }
-        /* New visual classes for higher levels if needed, or just reuse base */
         .eco-city-visual {
             width: 70%;
             height: 70%;
             top: 15%;
             left: 15%;
-            background-image: url('https://placehold.co/120x120/4CAF50/FFFFFF?text=🏙️');
         }
         .wildlife-sanctuary-visual {
             width: 55%;
             height: 55%;
             bottom: 20%;
             right: 20%;
-            background-image: url('https://placehold.co/110x110/8BC34A/FFFFFF?text=🐾');
         }
 
 
@@ -652,123 +641,46 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Message Box specific styling */
+        /* Removed message box styling */
         .message-box-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-        .message-box-overlay.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        .message-box {
-            background: var(--game-card-bg); /* Use game card background */
-            color: var(--text);
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            text-align: center;
-            max-width: 400px;
-            transform: translateY(-20px);
-            opacity: 0;
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        }
-        body.dark .message-box {
-            background: var(--game-card-bg-dark);
-        }
-        .message-box-overlay.visible .message-box {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        .message-box h3 {
-            font-size: 1.8rem;
-            color: var(--primary-dark);
-            margin-bottom: 15px;
-        }
-        body.dark .message-box h3 {
-            color: var(--accent);
-        }
-        .message-box p {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-        .message-box-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        .message-box button {
-            background-color: var(--accent);
-            color: #fff;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.2s ease;
-        }
-        .message-box button.cancel-btn {
-            background-color: var(--danger-button-bg); /* Use theme variable */
-            box-shadow: 0 2px 10px var(--danger-button-shadow); /* Shadow for consistency */
-        }
-        .message-box button:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-        .message-box button.cancel-btn:hover {
-            background-color: var(--danger-button-hover); /* Use theme variable */
-            transform: translateY(-2px);
+            display: none; /* Hide the overlay */
         }
     </style>
 </head>
 <body class="light">
-  <nav class="nav__cont">
+    <nav class="nav__cont">
         <ul class="nav">
-              <li class="nav__items">
-                <a href="index.html">🏠 Home</a>
-               <li class="nav__items">
-                <a href="Plasticcalc.html">🗑️ Plastic Calculator</a>
-            </li>
-              <li class="nav__items">
-                <a href="calculator.html">🧮 Carbon Calculator</a>
-              </li>
-               <li class="nav__items">
-                <a href="eleccalc.html">⚡ Electricity Calculator</a>
-              </li>
-             <li class="nav__items">
-                <a href="watercalc.html">💧 Water Calculator</a>
-            </li>
-             <li class="nav__items">
-                <a href="game.html">🎮 Planet builder</a>
-            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="🏠">Home</a>
             </li>
             <li class="nav__items">
-                <a href="ecotech.html">✨ Our Values</a>
+                <a href="javascript:void(0);" data-icon="🗑️">Plastic Calculator</a>
             </li>
             <li class="nav__items">
-                <a href="change.html">💪 Forces of Change</a>
+                <a href="javascript:void(0);" data-icon="🧮">Carbon Calculator</a>
             </li>
-          
-            
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="⚡">Electricity Calculator</a>
+            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="💧">Water Calculator</a>
+            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="🌍">Planet Builder</a>
+            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="✨">Our Values</a>
+            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="💪">Forces of Change</a>
+            </li>
         </ul>
     </nav>
 
     <div id="contentWrapper">
         <header>
-         <img src="earthicon.png" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" title="Home" onerror="this.onerror=null;this.src='https://placehold.co/120x120/333333/FFFFFF?text=Logo';">
-            <h1 id="gameTitle">Planet Builder</h1>
+            <img src="earthicon.png" alt="EcoTech Logo" class="logo" title="Home" onerror="this.onerror=null;this.src='https://placehold.co/120x120/333333/FFFFFF?text=EcoTech+Logo';">
+            <h1 id="gameTitle">Planet Builder: Grow Your Eco-Paradise!</h1>
             <button id="themeToggle" class="theme-toggle" title="Toggle Dark/Light Mode">
                 <span id="theme-icon">☀️</span>
             </button>
@@ -785,8 +697,7 @@
                 </div>
                 <p id="idleGainDisplay" class="hidden">Idle Gain: +<span id="idleRateDisplay">0</span> 🌱/sec</p>
 
-                <div class="click-area">
-                    <img src="earthicon.png" alt="EcoTech Logo" id="ecoLogo" class="eco-logo">
+                <div class="click-area" id="ecoLogo">
                     <div id="planetVisuals">
                         </div>
                     <div id="clickFeedback" class="click-feedback"></div>
@@ -807,8 +718,10 @@
     </div>
 
     <script>
+        console.log("Planet Builder script started."); // Debugging log
+
         // --- DOM Elements ---
-        const ecoLogo = document.getElementById('ecoLogo');
+        const ecoLogo = document.getElementById('ecoLogo'); // This now refers to the .click-area div
         const plantCountDisplay = document.getElementById('plantCountDisplay');
         const waterCountDisplay = document.getElementById('waterCountDisplay');
         const planetScoreDisplay = document.getElementById('planetScoreDisplay');
@@ -927,21 +840,31 @@
         let isDark = false;
 
         function initializeTheme() {
-            if (localStorage.getItem('planetBuilderTheme') === 'dark') {
-                isDark = true;
-                document.body.classList.add('dark');
-                themeToggleIcon.textContent = '🌑';
-            } else {
-                themeToggleIcon.textContent = '☀️';
+            try {
+                if (localStorage.getItem('planetBuilderTheme') === 'dark') {
+                    isDark = true;
+                    document.body.classList.add('dark');
+                    themeToggleIcon.textContent = '🌑';
+                } else {
+                    themeToggleIcon.textContent = '☀️';
+                }
+                console.log("Theme initialized.");
+            } catch (error) {
+                console.error("Error initializing theme:", error);
             }
         }
 
         function toggleTheme() {
-            isDark = !isDark;
-            document.body.classList.toggle('dark', isDark);
-            document.body.classList.toggle('light', !isDark);
-            themeToggleIcon.textContent = isDark ? '🌑' : '☀️';
-            localStorage.setItem('planetBuilderTheme', isDark ? 'dark' : 'light');
+            try {
+                isDark = !isDark;
+                document.body.classList.toggle('dark', isDark);
+                document.body.classList.toggle('light', !isDark);
+                themeToggleIcon.textContent = isDark ? '🌑' : '☀️';
+                localStorage.setItem('planetBuilderTheme', isDark ? 'dark' : 'light');
+                console.log("Theme toggled.");
+            } catch (error) {
+                console.error("Error toggling theme:", error);
+            }
         }
 
         // --- Helper Functions for Upgrade Costs/Effects ---
@@ -954,272 +877,290 @@
 
         function getIdleRateIncrease(upgrade, level) {
             // Idle rate increases linearly per level
-            return upgrade.effect.rate * (level + 1); // Level 0 gives base rate, Level 1 gives 2*base rate, etc.
+            // Level 0 gives base rate, Level 1 gives 2*base rate, etc.
+            return upgrade.effect.rate * (level + 1);
         }
 
         // --- Game Functions ---
 
         function updateDisplay() {
-            plantCountDisplay.textContent = plants.toFixed(0);
-            waterCountDisplay.textContent = water.toFixed(0);
-            planetScoreDisplay.textContent = planetScore.toFixed(0);
-            maxPlanetScoreDisplay.textContent = MAX_PLANET_SCORE; // Ensure this is updated
+            try {
+                plantCountDisplay.textContent = plants.toFixed(0);
+                waterCountDisplay.textContent = water.toFixed(0);
+                planetScoreDisplay.textContent = planetScore.toFixed(0);
+                maxPlanetScoreDisplay.textContent = MAX_PLANET_SCORE; // Ensure this is updated
 
-            idleRateDisplay.textContent = idleRate;
-            if (idleRate > 0) {
-                idleGainDisplay.classList.remove('hidden');
-            } else {
-                idleGainDisplay.classList.add('hidden');
-            }
+                idleRateDisplay.textContent = idleRate;
+                if (idleRate > 0) {
+                    idleGainDisplay.classList.remove('hidden');
+                } else {
+                    idleGainDisplay.classList.add('hidden');
+                }
 
-            // Check for max level
-            if (planetScore >= MAX_PLANET_SCORE) {
-                maxLevelMessage.classList.remove('hidden');
-                ecoLogo.removeEventListener('click', generateResources); // Stop clicking once maxed
-                // Disable all upgrade buttons if maxed
+                // Check for max level
+                if (planetScore >= MAX_PLANET_SCORE) {
+                    maxLevelMessage.classList.remove('hidden');
+                    // Disable all upgrade buttons if maxed
+                    UPGRADES_DATA.forEach(upgrade => {
+                        const button = document.getElementById(`buy-${upgrade.id}`);
+                        if (button) {
+                            button.disabled = true;
+                            button.textContent = 'Planet Maxed!';
+                        }
+                    });
+                } else {
+                    maxLevelMessage.classList.add('hidden');
+                }
+
+                // Update upgrade button states
                 UPGRADES_DATA.forEach(upgrade => {
                     const button = document.getElementById(`buy-${upgrade.id}`);
-                    if (button) {
+                    if (!button) return; // Skip if button not rendered yet
+
+                    const currentLevel = upgrades[upgrade.id] || 0;
+                    const nextLevel = currentLevel + 1;
+
+                    if (currentLevel >= upgrade.maxLevel) {
+                        button.disabled = true;
+                        button.textContent = 'Max Level!';
+                    } else if (planetScore >= MAX_PLANET_SCORE) { // If overall planet is maxed
                         button.disabled = true;
                         button.textContent = 'Planet Maxed!';
+                    } else {
+                        const { plants: nextPlantCost, water: nextWaterCost } = getUpgradeCost(upgrade, currentLevel);
+                        if (plants < nextPlantCost || water < nextWaterCost) {
+                            button.disabled = true;
+                            button.textContent = `Buy (Lvl ${nextLevel})`;
+                        } else {
+                            button.disabled = false;
+                            button.textContent = `Buy (Lvl ${nextLevel})`;
+                        }
                     }
                 });
-            } else {
-                maxLevelMessage.classList.add('hidden');
-                // Re-add event listener if not maxed (in case it was removed)
-                if (!ecoLogo.onclick) { // Check if listener is not already attached
-                    ecoLogo.addEventListener('click', generateResources);
-                }
+                console.log("Display updated.");
+            } catch (error) {
+                console.error("Error updating display:", error);
             }
-
-            // Update upgrade button states
-            UPGRADES_DATA.forEach(upgrade => {
-                const button = document.getElementById(`buy-${upgrade.id}`);
-                if (!button) return; // Skip if button not rendered yet
-
-                const currentLevel = upgrades[upgrade.id] || 0;
-                const nextLevel = currentLevel + 1;
-
-                if (currentLevel >= upgrade.maxLevel) {
-                    button.disabled = true;
-                    button.textContent = 'Max Level!';
-                } else if (planetScore >= MAX_PLANET_SCORE) { // If overall planet is maxed
-                    button.disabled = true;
-                    button.textContent = 'Planet Maxed!';
-                } else {
-                    const { plants: nextPlantCost, water: nextWaterCost } = getUpgradeCost(upgrade, currentLevel);
-                    if (plants < nextPlantCost || water < nextWaterCost) {
-                        button.disabled = true;
-                        button.textContent = `Buy (Lvl ${nextLevel})`;
-                    } else {
-                        button.disabled = false;
-                        button.textContent = `Buy (Lvl ${nextLevel})`;
-                    }
-                }
-            });
         }
 
         function saveGame() {
-            localStorage.setItem('pbPlants', plants);
-            localStorage.setItem('pbWater', water);
-            localStorage.setItem('pbPlanetScore', planetScore);
-            localStorage.setItem('pbUpgrades', JSON.stringify(upgrades));
-            localStorage.setItem('pbIdleRate', idleRate);
+            try {
+                localStorage.setItem('pbPlants', plants);
+                localStorage.setItem('pbWater', water);
+                localStorage.setItem('pbPlanetScore', planetScore);
+                localStorage.setItem('pbUpgrades', JSON.stringify(upgrades));
+                localStorage.setItem('pbIdleRate', idleRate);
+                console.log("Game saved.");
+            } catch (error) {
+                console.error("Error saving game:", error);
+            }
         }
 
         function loadGame() {
-            plants = parseFloat(localStorage.getItem('pbPlants') || '0');
-            water = parseFloat(localStorage.getItem('pbWater') || '0');
-            planetScore = parseFloat(localStorage.getItem('pbPlanetScore') || '0');
-            upgrades = JSON.parse(localStorage.getItem('pbUpgrades') || '{}');
-            idleRate = parseFloat(localStorage.getItem('pbIdleRate') || '0');
+            try {
+                plants = parseFloat(localStorage.getItem('pbPlants') || '0');
+                water = parseFloat(localStorage.getItem('pbWater') || '0');
+                planetScore = parseFloat(localStorage.getItem('pbPlanetScore') || '0');
+                upgrades = JSON.parse(localStorage.getItem('pbUpgrades') || '{}');
+                idleRate = parseFloat(localStorage.getItem('pbIdleRate') || '0');
 
-            // Apply visual upgrades and idle effect from loaded state
-            UPGRADES_DATA.forEach(upgrade => {
-                const currentLevel = upgrades[upgrade.id] || 0;
-                if (currentLevel > 0) { // If upgrade has any level purchased
-                    applyVisualUpgrade(upgrade.id, upgrade.visualClass); // Only apply visual once per upgrade type
-                    if (upgrade.effect && upgrade.effect.type === 'idle') {
-                        // Recalculate idle rate based on loaded level
-                        idleRate = getIdleRateIncrease(upgrade, currentLevel - 1); // currentLevel - 1 because getIdleRateIncrease takes level index
-                        startIdleGain();
+                // Apply visual upgrades and idle effect from loaded state
+                UPGRADES_DATA.forEach(upgrade => {
+                    const currentLevel = upgrades[upgrade.id] || 0;
+                    if (currentLevel > 0) { // If upgrade has any level purchased
+                        applyVisualUpgrade(upgrade.id, upgrade.visualClass); // Only apply visual once per upgrade type
+                        if (upgrade.effect && upgrade.effect.type === 'idle') {
+                            // Recalculate idle rate based on loaded level
+                            idleRate = getIdleRateIncrease(upgrade, currentLevel - 1); // currentLevel - 1 because getIdleRateIncrease takes level index
+                            startIdleGain();
+                        }
                     }
-                }
-            });
-            updateDisplay();
+                });
+                console.log("Game loaded.");
+            } catch (error) {
+                console.error("Error loading game:", error);
+            }
         }
 
         function generateResources() {
-            if (planetScore >= MAX_PLANET_SCORE) return; // Prevent generating if maxed
+            try {
+                if (planetScore >= MAX_PLANET_SCORE) {
+                    // No message box, just log to console or do nothing
+                    console.log("Planet Maxed! Cannot generate more resources.");
+                    return; // Prevent generating if maxed
+                }
 
-            if (Math.random() < WATER_RARITY_CHANCE) {
-                water += 1;
-                showFeedback('+1 💧', 'water-feedback');
-            } else {
-                plants += CLICK_PLANTS;
-                showFeedback(`+${CLICK_PLANTS} 🌱`);
+                if (Math.random() < WATER_RARITY_CHANCE) {
+                    water += 1;
+                    showFeedback('+1 💧', 'water-feedback');
+                } else {
+                    plants += CLICK_PLANTS;
+                    showFeedback(`+${CLICK_PLANTS} 🌱`);
+                }
+                updateDisplay();
+                saveGame();
+                console.log("Resources generated.");
+            } catch (error) {
+                console.error("Error generating resources:", error);
             }
-            updateDisplay();
-            saveGame();
         }
 
         function renderUpgrades() {
-            upgradeList.innerHTML = ''; // Clear existing list
-            UPGRADES_DATA.forEach(upgrade => {
-                const currentLevel = upgrades[upgrade.id] || 0;
-                const nextLevel = currentLevel + 1;
-                const { plants: nextPlantCost, water: nextWaterCost } = getUpgradeCost(upgrade, currentLevel);
+            try {
+                upgradeList.innerHTML = ''; // Clear existing list
+                UPGRADES_DATA.forEach(upgrade => {
+                    const currentLevel = upgrades[upgrade.id] || 0;
+                    const nextLevel = currentLevel + 1;
+                    const { plants: nextPlantCost, water: nextWaterCost } = getUpgradeCost(upgrade, currentLevel);
 
-                const upgradeItem = document.createElement('div');
-                upgradeItem.classList.add('upgrade-item');
-                upgradeItem.innerHTML = `
-                    <h3>${upgrade.name}</h3>
-                    <p class="level-info">Level: ${currentLevel} / ${upgrade.maxLevel}</p>
-                    <p>${upgrade.description}</p>
-                    <p class="cost">
-                        ${nextPlantCost > 0 ? `<span class="plant-cost">${nextPlantCost} 🌱</span>` : ''}
-                        ${nextWaterCost > 0 ? `<span class="water-cost">${nextWaterCost} 💧</span>` : ''}
-                    </p>
-                    <button id="buy-${upgrade.id}">Buy (Lvl ${nextLevel})</button>
-                `;
-                upgradeList.appendChild(upgradeItem);
+                    const upgradeItem = document.createElement('div');
+                    upgradeItem.classList.add('upgrade-item');
+                    upgradeItem.innerHTML = `
+                        <h3>${upgrade.name}</h3>
+                        <p class="level-info">Level: ${currentLevel} / ${upgrade.maxLevel}</p>
+                        <p>${upgrade.description}</p>
+                        <p class="cost">
+                            ${nextPlantCost > 0 ? `<span class="plant-cost">${nextPlantCost} 🌱</span>` : ''}
+                            ${nextWaterCost > 0 ? `<span class="water-cost">${nextWaterCost} 💧</span>` : ''}
+                        </p>
+                        <button id="buy-${upgrade.id}">Buy (Lvl ${nextLevel})</button>
+                    `;
+                    upgradeList.appendChild(upgradeItem);
 
-                const buyButton = document.getElementById(`buy-${upgrade.id}`);
-                buyButton.addEventListener('click', () => buyUpgrade(upgrade));
-            });
-            updateDisplay(); // Set initial button states
+                    const buyButton = document.getElementById(`buy-${upgrade.id}`);
+                    buyButton.addEventListener('click', () => buyUpgrade(upgrade));
+                });
+                updateDisplay(); // Set initial button states
+                console.log("Upgrades rendered.");
+            } catch (error) {
+                console.error("Error rendering upgrades:", error);
+            }
         }
 
         function buyUpgrade(upgrade) {
-            let currentLevel = upgrades[upgrade.id] || 0;
-            const nextLevel = currentLevel + 1;
+            try {
+                let currentLevel = upgrades[upgrade.id] || 0;
+                const nextLevel = currentLevel + 1;
 
-            if (currentLevel >= upgrade.maxLevel) {
-                showMessageBox("Max Level Reached", `"${upgrade.name}" is already at its maximum level (${upgrade.maxLevel}).`);
-                return;
+                if (currentLevel >= upgrade.maxLevel) {
+                    console.log(`Max Level Reached: "${upgrade.name}" is already at its maximum level (${upgrade.maxLevel}).`);
+                    return;
+                }
+                if (planetScore >= MAX_PLANET_SCORE) {
+                     console.log("Planet Maxed! Cannot buy more upgrades.");
+                     return;
+                }
+
+                const { plants: requiredPlants, water: requiredWater } = getUpgradeCost(upgrade, currentLevel);
+
+                if (plants < requiredPlants || water < requiredWater) {
+                    console.log(`Not Enough Resources: You need ${requiredPlants} 🌱 and ${requiredWater} 💧 to upgrade "${upgrade.name}" to Level ${nextLevel}.`);
+                    return;
+                }
+
+                plants -= requiredPlants;
+                water -= requiredWater;
+                upgrades[upgrade.id] = nextLevel; // Increment level
+
+                // Increase planet score only if the upgrade contributes to it
+                if (upgrade.planetScorePerLevel > 0) { // Check for planetScorePerLevel
+                    planetScore = Math.min(MAX_PLANET_SCORE, planetScore + upgrade.planetScorePerLevel);
+                }
+
+                // Apply visual only when first level is purchased
+                if (currentLevel === 0) {
+                    applyVisualUpgrade(upgrade.id, upgrade.visualClass);
+                }
+
+                if (upgrade.effect && upgrade.effect.type === 'idle') {
+                    idleRate = getIdleRateIncrease(upgrade, currentLevel); // Update total idle rate
+                    startIdleGain(); // Restart interval with new rate
+                }
+
+                renderUpgrades(); // Re-render upgrades to update costs and levels
+                updateDisplay();
+                saveGame();
+                console.log(`Upgrade "${upgrade.name}" bought.`);
+            } catch (error) {
+                console.error("Error buying upgrade:", error);
             }
-            if (planetScore >= MAX_PLANET_SCORE) {
-                 showMessageBox("Planet Maxed!", "Your planet is already at its maximum ecological potential!");
-                 return;
-            }
-
-            const { plants: requiredPlants, water: requiredWater } = getUpgradeCost(upgrade, currentLevel);
-
-            if (plants < requiredPlants || water < requiredWater) {
-                showMessageBox("Not Enough Resources", `You need ${requiredPlants} 🌱 and ${requiredWater} 💧 to upgrade "${upgrade.name}" to Level ${nextLevel}.`);
-                return;
-            }
-
-            plants -= requiredPlants;
-            water -= requiredWater;
-            upgrades[upgrade.id] = nextLevel; // Increment level
-
-            // Increase planet score only if the upgrade contributes to it
-            if (upgrade.planetScorePerLevel > 0) { // Check for planetScorePerLevel
-                planetScore = Math.min(MAX_PLANET_SCORE, planetScore + upgrade.planetScorePerLevel);
-            }
-
-            // Apply visual only when first level is purchased or if visuals change per level
-            // For now, it just ensures the visual is active if it's the first level
-            if (currentLevel === 0) {
-                applyVisualUpgrade(upgrade.id, upgrade.visualClass);
-            }
-
-            if (upgrade.effect && upgrade.effect.type === 'idle') {
-                idleRate = getIdleRateIncrease(upgrade, currentLevel); // Update total idle rate
-                startIdleGain(); // Restart interval with new rate
-            }
-
-            renderUpgrades(); // Re-render upgrades to update costs and levels
-            updateDisplay();
-            saveGame();
         }
 
         function applyVisualUpgrade(id, visualClass) {
-            let visualElement = document.getElementById(`visual-${id}`);
-            if (!visualElement) {
-                visualElement = document.createElement('div');
-                visualElement.id = `visual-${id}`;
-                visualElement.classList.add('upgrade-visual', visualClass);
-                planetVisuals.appendChild(visualElement);
-                // Trigger reflow for animation
-                void visualElement.offsetWidth;
+            try {
+                let visualElement = document.getElementById(`visual-${id}`);
+                if (!visualElement) {
+                    visualElement = document.createElement('div');
+                    visualElement.id = `visual-${id}`;
+                    visualElement.classList.add('upgrade-visual', visualClass);
+                    planetVisuals.appendChild(visualElement);
+                    // Trigger reflow for animation
+                    void visualElement.offsetWidth;
+                }
+                visualElement.classList.add('active');
+                console.log(`Visual upgrade "${id}" applied.`);
+            } catch (error) {
+                console.error("Error applying visual upgrade:", error);
             }
-            visualElement.classList.add('active');
         }
 
         function startIdleGain() {
-            if (idleInterval) clearInterval(idleInterval); // Clear existing interval if any
-            if (idleRate > 0) {
-                idleInterval = setInterval(() => {
-                    plants += idleRate;
-                    updateDisplay();
-                    saveGame();
-                }, 1000); // Every second
+            try {
+                if (idleInterval) clearInterval(idleInterval); // Clear existing interval if any
+                if (idleRate > 0) {
+                    idleInterval = setInterval(() => {
+                        plants += idleRate;
+                        updateDisplay();
+                        saveGame();
+                    }, 1000); // Every second
+                    console.log("Idle gain started with rate:", idleRate);
+                } else {
+                    console.log("Idle gain not started, rate is 0.");
+                }
+            } catch (error) {
+                console.error("Error starting idle gain:", error);
             }
         }
 
         function showFeedback(text, feedbackClass = '') {
-            // Create a new feedback element for each click
-            const newFeedback = document.createElement('div');
-            newFeedback.classList.add('click-feedback');
-            if (feedbackClass) {
-                newFeedback.classList.add(feedbackClass);
-            }
-            newFeedback.textContent = text;
+            try {
+                // Create a new feedback element for each click
+                const newFeedback = document.createElement('div');
+                newFeedback.classList.add('click-feedback');
+                if (feedbackClass) {
+                    newFeedback.classList.add(feedbackClass);
+                }
+                newFeedback.textContent = text;
 
-            // Position the feedback near the logo
-            newFeedback.style.left = '50%';
-            newFeedback.style.top = '50%';
-            newFeedback.style.transform = 'translate(-50%, -50%)';
-            newFeedback.style.position = 'absolute'; // Ensure it's positioned correctly
-            newFeedback.style.opacity = '0'; // Start invisible
+                // Position the feedback near the logo
+                newFeedback.style.left = '50%';
+                newFeedback.style.top = '50%';
+                newFeedback.style.transform = 'translate(-50%, -50%)';
+                newFeedback.style.position = 'absolute'; // Ensure it's positioned correctly
+                newFeedback.style.opacity = '0'; // Start invisible
 
-            ecoLogo.parentElement.appendChild(newFeedback);
+                ecoLogo.appendChild(newFeedback); // Append to ecoLogo (which is now click-area)
 
-            // Trigger reflow to apply initial styles before animation
-            void newFeedback.offsetWidth;
+                // Trigger reflow to apply initial styles before animation
+                void newFeedback.offsetWidth;
 
-            // Add 'show' class to trigger animation
-            newFeedback.classList.add('show');
+                // Add 'show' class to trigger animation
+                newFeedback.classList.add('show');
 
-            // Remove element after animation completes
-            newFeedback.addEventListener('transitionend', () => {
-                newFeedback.remove();
-            });
-        }
-
-        // Function to display a custom message box
-        function showMessageBox(title, message, onConfirm = null, showCancel = false) {
-            const overlay = document.createElement('div');
-            overlay.classList.add('message-box-overlay');
-            overlay.innerHTML = `
-                <div class="message-box">
-                    <h3 id="messageBoxTitle">${title}</h3>
-                    <p id="messageBoxContent">${message}</p>
-                    <div class="message-box-buttons">
-                        <button class="confirm-btn">OK</button>
-                        ${showCancel ? '<button class="cancel-btn">Cancel</button>' : ''}
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(overlay);
-            overlay.classList.add('visible'); // Make it visible immediately
-
-            const confirmBtn = overlay.querySelector('.confirm-btn');
-            const cancelBtn = overlay.querySelector('.cancel-btn');
-
-            confirmBtn.onclick = () => {
-                overlay.remove();
-                if (onConfirm) onConfirm();
-            };
-
-            if (cancelBtn) {
-                cancelBtn.onclick = () => {
-                    overlay.remove();
-                };
+                // Remove element after animation completes
+                newFeedback.addEventListener('transitionend', () => {
+                    newFeedback.remove();
+                });
+                console.log("Click feedback shown:", text);
+            } catch (error) {
+                console.error("Error showing feedback:", error);
             }
         }
+
+        // Removed the showMessageBox function entirely
+        // function showMessageBox(title, message, onConfirm = null, showCancel = false) {
+        //     // ... (function content removed)
+        // }
 
         // --- Event Listeners ---
         ecoLogo.addEventListener('click', generateResources);
@@ -1227,12 +1168,18 @@
 
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
-            // MAX_PLANET_SCORE is now a constant, no need to calculate
-            maxPlanetScoreDisplay.textContent = MAX_PLANET_SCORE;
-            initializeTheme();
-            loadGame(); // Load game state from local storage
-            renderUpgrades(); // Render upgrade shop
-            updateDisplay(); // Update display with loaded data
+            console.log("DOMContentLoaded fired."); // Debugging log
+            try {
+                // MAX_PLANET_SCORE is now a constant, no need to calculate
+                maxPlanetScoreDisplay.textContent = MAX_PLANET_SCORE;
+                initializeTheme();
+                loadGame(); // Load game state from local storage
+                renderUpgrades(); // Render upgrade shop
+                updateDisplay(); // Update display with loaded data
+                console.log("Initial rendering complete.");
+            } catch (error) {
+                console.error("Error during initial rendering in DOMContentLoaded:", error);
+            }
         });
     </script>
 </body>
