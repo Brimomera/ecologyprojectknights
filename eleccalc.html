@@ -23,32 +23,29 @@
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="electricity-calc.css">
+    <link rel="stylesheet" href="eleccalc.css">
 </head>
 <body class="light">
     <nav class="nav__cont">
-       <nav class="nav__cont">
         <ul class="nav">
-              <li class="nav__items">
-                <a href="index.html">🏠 Home</a>
-               <li class="nav__items">
-                <a href="Plasticcalc.html">🗑️ Plastic Calculator</a>
-            </li>
-              <li class="nav__items">
-                <a href="calculator.html">🧮 Carbon Calculator</a>
-              </li>
-               <li class="nav__items">
-                <a href="eleccalc.html">⚡ Electricity Calculator</a>
-              </li>
+            <li class="nav__items">
+                <a href="index.html" data-icon="🏠">Home</a>
             </li>
             <li class="nav__items">
-                <a href="ecotech.html">✨ Our Values</a>
+                <a href="Plasticcalc.html" data-icon="🗑️">Plastic Calculator</a>
             </li>
             <li class="nav__items">
-                <a href="change.html">💪 Forces of Change</a>
+                <a href="calculator.html" data-icon="🧮">Carbon Calculator</a>
             </li>
-          
-            
+            <li class="nav__items">
+                <a href="eleccalc.html" data-icon="⚡">Electricity Calculator</a>
+            </li>
+            <li class="nav__items">
+                <a href="ecotech.html" data-icon="✨">Our Values</a>
+            </li>
+            <li class="nav__items">
+                <a href="change.html" data-icon="💪">Forces of Change</a>
+            </li>
         </ul>
     </nav>
 
@@ -102,9 +99,9 @@
                     </div>
 
                     <div id="solarSummary" class="info-and-tips-container">
-                        </div>
+                    </div>
                     <div id="solarTips" class="info-and-tips-container mt-4">
-                        </div>
+                    </div>
 
                     <div class="impact-stats-container">
                         <div class="stat-box">
@@ -400,6 +397,7 @@
                 const textColor = rootStyles.getPropertyValue('--text').trim();
                 const glassBgColor = rootStyles.getPropertyValue('--glass-bg').trim();
                 updateChart(lastCalculatedData, chartTypes[currentChartTypeIndex], neonBlue, neonPurple, neonGreen, neonYellow, textColor, glassBgColor);
+                hideLoadingSpinner(); // Hide loading spinner after calculations and chart update
             }, 1000); // 1-second delay
         }
 
@@ -577,7 +575,7 @@
                 }
                 document.body.removeChild(textarea);
             } else {
-                 showMessageBox("Copy Not Supported", "Your browser does not support automatic clipboard copying. Please copy the text manually:\n\n" + message);
+                showMessageBox("Copy Not Supported", "Your browser does not support automatic clipboard copying. Please copy the text manually:\n\n" + message);
             }
         }
 
