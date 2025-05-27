@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planet Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind CSS configuration for custom font families
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        roboto: ['Roboto', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Original theme variables from water calculator */
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #5b21b6;
+            --accent: #38bdf8;
+            --text: #5b21b6; /* Changed to purple for light theme */
+            --text-light-contrast: #333; /* For contrast on light backgrounds like medal colors */
+            --background: #f3f4f6;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-dark: rgba(30, 50, 30, 0.25);
+            --footer-bg: #ede9fe;
+            --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            --border-radius: 18px;
+            --olive-light: #6B8E23;
+            --olive-dark: #556B2F;
+            --olive-darker: #4A5C2A;
+            --light-button: rgb(165, 141, 238);
+            --dark-button: rgba(42, 77, 64, 0.7);
+            --neon-blue: rgba(56, 189, 248, 0.8);
+            --neon-purple: rgba(124, 58, 237, 0.8);
+            --neon-green: rgba(107, 142, 35, 0.8);
+            --neon-yellow: rgba(255, 255, 0, 0.8);
+            --chart-glow-color: rgba(124, 58, 237, 0.6);
+
+            /* Game-specific colors, adapted to new theme */
+            --game-title-color: var(--primary-dark);
+            --game-title-color-dark: var(--primary);
+            --game-card-bg: var(--glass-bg);
+            --game-card-bg-dark: var(--glass-dark);
+            --game-border: rgba(255, 255, 255, 0.1);
+            --game-border-dark: rgba(255, 255, 255, 0.05);
+            --game-button-bg: var(--primary);
+            --game-button-bg-dark: var(--light-button);
+            --game-button-hover: var(--primary-dark);
+            --game-button-hover-dark: var(--primary);
+            --game-button-disabled: #9ca3af;
+            --game-button-disabled-dark: #666;
+            --plant-color: var(--olive-light); /* Color for plants */
+            --water-color: var(--accent); /* Color for water */
+            --planet-score-color: var(--primary-dark); /* Color for planet score */
+            --upgrade-cost-color: #e67e22; /* Orange for upgrade costs */
+            --upgrade-disabled-color: #7f8c8d; /* Gray for disabled upgrade text */
+
+            /* Danger button for clear leaderboard (removed, but keeping variables for consistency) */
+            --danger-button-bg: #ef4444; /* Bright red */
+            --danger-button-hover: #dc2626; /* Darker red on hover */
+            --danger-button-shadow: rgba(239, 68, 68, 0.3); /* Red shadow */
+        }
+
+        body.dark {
+            --text: #A7D9B9; /* Changed to green for dark theme */
+            --text-light-contrast: #eee; /* For contrast on light backgrounds */
+            --background: #18181b;
+            --footer-bg: #2a2636;
+            background: linear-gradient(135deg, #2a4d40 0%, #21382b 50%, #18181b 100%);
+            background-size: 200% 200%;
+            animation: gradient 12s ease-in-out infinite;
+            --light-button: rgb(165, 141, 238);
+            --dark-button: rgba(42, 77, 64, 0.7);
+            --chart-glow-color: rgba(56, 189, 248, 0.6);
+
+            /* Dark theme specific for danger button */
+            --danger-button-bg: #b91c1c; /* Darker red for dark mode */
+            --danger-button-hover: #991b1b; /* Even darker red on hover */
+            --danger-button-shadow: rgba(185, 28, 28, 0.3); /* Darker red shadow */
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #d0bfff 0%, #a78bfa 50%, #f3e8ff 100%);
+            background-size: 200% 200%;
+            animation: gradient 12s ease-in-out infinite;
+            color: var(--text); /* Uses the --text variable */
+            display: flex; /* Use flexbox for body */
+            flex-direction: row; /* Sidebar and content wrapper side-by-side */
+            min-height: 100vh;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Navigation Styles */
+        .nav__cont {
+            position: sticky; /* Sticky positioning to keep it in place */
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 60px; /* Default collapsed width */
+            background-color: rgba(32, 32, 32, 0.3);
+            backdrop-filter: blur(10px);
+            overflow-x: hidden; /* Hide horizontal scroll */
+            overflow-y: auto; /* Make vertical scrollable */
+            transition: width 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.4);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 1.5rem;
+            flex-shrink: 0; /* Prevent it from shrinking */
+        }
+
+        .nav__cont:hover {
+            width: 200px; /* Expanded width on hover */
+        }
+
+        body.dark .nav__cont {
+            background: var(--glass-dark);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            color: var(--text); /* Uses the --text variable */
+        }
+
+        .nav__items {
+            padding: 1.2rem 0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            justify-content: center; /* Center content when collapsed */
+        }
+
+        .nav__items:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav__items a {
+            color: var(--text); /* Uses the --text variable */
+            font-size: 0.95rem;
+            font-weight: 400;
+            text-decoration: none;
+            margin-left: 0; /* No initial margin-left */
+            opacity: 0; /* Hide text initially */
+            white-space: nowrap;
+            transition: opacity 0.3s ease, color 0.3s ease;
+            visibility: hidden;
+            display: flex;
+            align-items: center;
+            padding-left: 20px; /* Padding for text when expanded */
+            width: 100%;
+        }
+        .nav__items a::before { /* Icon styling */
+            content: attr(data-icon);
+            font-size: 1.2rem;
+            margin-right: 15px;
+            opacity: 1; /* Always visible */
+            visibility: visible; /* Always visible */
+            transition: margin-right 0.3s ease;
+        }
+
+        .nav__cont:hover .nav__items a { /* Show text and align left on hover */
+            opacity: 1;
+            visibility: visible;
+            justify-content: flex-start;
+        }
+        .nav__cont:hover .nav__items a::before {
+            margin-right: 15px; /* Ensure space between icon and text */
+        }
+
+        /* Content Wrapper for Centering */
+        #contentWrapper {
+            flex-grow: 1; /* Allows content to take remaining space */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center items horizontally within the wrapper */
+            padding: 20px;
+            transition: margin-left 0.3s ease; /* For potential future dynamic margins if needed */
+        }
+
+        /* Header styles - now centered within contentWrapper */
+        header {
+            text-align: center;
+            padding: 30px 20px 50px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin: 32px auto 24px auto; /* Centered horizontally with auto margins */
+            max-width: 900px; /* Max width for header content */
+            width: 100%; /* Take full width up to max-width */
+            color: var(--primary-dark);
+            transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        #gameTitle { /* Specific style for game title */
+            font-family: 'Roboto', sans-serif;
+            font-size: 3rem;
+            color: var(--game-title-color);
+            margin: 10px 0 0 0;
+            letter-spacing: 3px;
+            animation: dropIn 1s ease;
+            transform-origin: top;
+        }
+        body.dark #gameTitle {
+            color: var(--game-title-color-dark);
+        }
+        @keyframes dropIn {
+            from {
+                transform: translateY(-50px) scaleY(0);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0) scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .logo:hover {
+            transform: scale(1.08) rotate(5deg);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--light-button);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 1.5rem;
+        }
+
+        body.dark .theme-toggle {
+            background: var(--dark-button);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        main {
+            flex: 1; /* Allows main to grow and push footer down */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content within main */
+            padding: 0 20px; /* Adjust padding to leave space for centering */
+            margin: 20px auto; /* Centered horizontally with auto margins */
+            max-width: 900px; /* Max width for main content area */
+            width: 100%;
+        }
+
+        section {
+            background: var(--game-card-bg); /* Use game card background */
+            backdrop-filter: blur(12px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin: 0 auto 30px auto; /* Explicitly center horizontally with auto margins */
+            width: 100%;
+            max-width: 800px; /* Section specific max-width for internal content */
+            text-align: center;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            opacity: 1; /* Always visible */
+            transform: translateY(0); /* Always at position */
+        }
+        body.dark section {
+            background: var(--game-card-bg-dark);
+        }
+
+
+        .stats-board {
+            display: flex;
+            justify-content: center; /* Centered for eco-points */
+            gap: 30px;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text); /* Use general text color */
+        }
+
+        body.dark .stats-board {
+            color: var(--text);
+        }
+
+        .stats-board span {
+            margin-left: 10px;
+        }
+        .stats-board #plantCountDisplay {
+            color: var(--plant-color);
+        }
+        .stats-board #waterCountDisplay {
+            color: var(--water-color);
+        }
+        .stats-board #planetScoreDisplay {
+            color: var(--planet-score-color);
+        }
+
+
+        .click-area {
+            position: relative;
+            width: min(250px, 40vw); /* Responsive width */
+            height: min(250px, 40vw); /* Responsive height */
+            margin: 0 auto 40px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 50%; /* Ensure click area is round */
+            overflow: hidden; /* Hide overflow from visual upgrades */
+            pointer-events: auto; /* Ensure clicks are captured by this element */
+        }
+
+        .eco-logo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 25px var(--plant-color); /* Green glow */
+            transition: transform 0.1s ease-out;
+            animation: spin 10s linear infinite; /* Spin animation */
+            z-index: 1; /* Ensure logo is behind visual upgrades */
+        }
+
+        .eco-logo:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .click-feedback {
+            position: absolute;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--plant-color); /* Default to plant color */
+            pointer-events: none; /* Crucial: allow clicks to pass through */
+            opacity: 0;
+            transform: translateY(0);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            text-shadow: 0 0 10px rgba(0,0,0,0.3);
+            z-index: 10; /* Above everything */
+        }
+
+        .click-feedback.show {
+            opacity: 1;
+            transform: translateY(-50px);
+        }
+        .click-feedback.water-feedback {
+            color: var(--water-color); /* Specific color for water feedback */
+        }
+
+
+        /* Visual upgrades container */
+        #planetVisuals {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden; /* Keep within circle */
+            z-index: 2; /* Above logo, below feedback */
+            pointer-events: none; /* Crucial: allow clicks to pass through */
+        }
+
+        /* Individual upgrade visual elements */
+        .upgrade-visual {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-out;
+            transform: scale(0);
+        }
+        .upgrade-visual.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Specific upgrade styles - placeholders for now */
+        .forest-visual {
+            width: 50%;
+            height: 50%;
+            top: 0;
+            left: 0;
+            background-image: url('https://placehold.co/100x100/6B8E23/FFFFFF?text=🌲');
+        }
+        .ocean-cleanup-visual {
+            width: 60%;
+            height: 60%;
+            bottom: 0;
+            right: 0;
+            background-image: url('https://placehold.co/100x100/2196F3/FFFFFF?text=🐠');
+        }
+        .solar-panels-visual {
+            width: 30%;
+            height: 30%;
+            top: 10%;
+            right: 10%;
+            background-image: url('https://placehold.co/100x100/FFD700/FFFFFF?text=☀️');
+        }
+        .wind-turbines-visual {
+            width: 40%;
+            height: 40%;
+            bottom: 10%;
+            left: 10%;
+            background-image: url('https://placehold.co/100x100/A0A0A0/FFFFFF?text=💨');
+        }
+        .idle-gain-visual {
+            width: 40%;
+            height: 40%;
+            top: 30%;
+            left: 30%;
+            background-image: url('https://placehold.co/100x100/FF5722/FFFFFF?text=⏳');
+        }
+        /* New visual classes for higher levels if needed, or just reuse base */
+        .eco-city-visual {
+            width: 70%;
+            height: 70%;
+            top: 15%;
+            left: 15%;
+            background-image: url('https://placehold.co/120x120/4CAF50/FFFFFF?text=🏙️');
+        }
+        .wildlife-sanctuary-visual {
+            width: 55%;
+            height: 55%;
+            bottom: 20%;
+            right: 20%;
+            background-image: url('https://placehold.co/110x110/8BC34A/FFFFFF?text=🐾');
+        }
+
+
+        .upgrade-shop {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--game-border);
+            text-align: center;
+        }
+        body.dark .upgrade-shop {
+            border-top: 1px solid var(--game-border-dark);
+        }
+
+        .upgrade-shop h2 {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .upgrade-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .upgrade-item {
+            background: var(--game-card-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 150px;
+        }
+        body.dark .upgrade-item {
+            background: var(--game-card-bg-dark);
+        }
+
+        .upgrade-item h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 5px; /* Adjusted margin */
+        }
+        body.dark .upgrade-item h3 {
+            color: var(--accent);
+        }
+        .upgrade-item .level-info {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        body.dark .upgrade-item .level-info {
+            color: #bbb;
+        }
+
+        .upgrade-item p {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .upgrade-item .cost {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--upgrade-cost-color);
+            margin-bottom: 15px;
+            display: flex; /* For horizontal alignment of costs */
+            justify-content: flex-start;
+            flex-wrap: wrap; /* Allow costs to wrap */
+            gap: 10px;
+        }
+        .upgrade-item .cost span {
+            margin-right: 0; /* Remove default margin */
+        }
+        .upgrade-item .cost .plant-cost {
+            color: var(--plant-color);
+        }
+        .upgrade-item .cost .water-cost {
+            color: var(--water-color);
+        }
+
+
+        .upgrade-item button {
+            padding: 10px 20px;
+            background-color: var(--game-button-bg);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        body.dark .upgrade-item button {
+            background-color: var(--game-button-bg-dark);
+        }
+        .upgrade-item button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            background-color: var(--game-button-hover);
+        }
+        body.dark .upgrade-item button:hover:not(:disabled) {
+            background-color: var(--game-button-hover-dark);
+        }
+        .upgrade-item button:disabled {
+            background-color: var(--game-button-disabled);
+            cursor: not-allowed;
+            box-shadow: none;
+            color: var(--upgrade-disabled-color);
+        }
+        body.dark .upgrade-item button:disabled {
+            background-color: var(--game-button-disabled-dark);
+            color: var(--upgrade-disabled-color);
+        }
+
+        #maxLevelMessage {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--planet-score-color);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        body.dark #maxLevelMessage {
+            color: var(--accent);
+        }
+
+
+        footer {
+            background-color: var(--footer-bg);
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666; /* Specific color, not `--text` */
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.05);
+            margin: 40px auto 0 auto; /* Centered horizontally with auto margins */
+            max-width: 900px; /* Max width for footer content */
+            width: 100%;
+            position: relative;
+        }
+
+        body.dark footer {
+            background-color: var(--footer-bg);
+            color: #aaa; /* Specific color for dark footer */
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Message Box specific styling */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .message-box-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .message-box {
+            background: var(--game-card-bg); /* Use game card background */
+            color: var(--text);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            max-width: 400px;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        }
+        body.dark .message-box {
+            background: var(--game-card-bg-dark);
+        }
+        .message-box-overlay.visible .message-box {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .message-box h3 {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        body.dark .message-box h3 {
+            color: var(--accent);
+        }
+        .message-box p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        .message-box-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .message-box button {
+            background-color: var(--accent);
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .message-box button.cancel-btn {
+            background-color: var(--danger-button-bg); /* Use theme variable */
+            box-shadow: 0 2px 10px var(--danger-button-shadow); /* Shadow for consistency */
+        }
+        .message-box button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .message-box button.cancel-btn:hover {
+            background-color: var(--danger-button-hover); /* Use theme variable */
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="light">
+    <nav class="nav__cont">
+        <ul class="nav">
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="🏠">Home</a>
+            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="🗑️">Plastic Calculator</a>
+            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="🧮">Carbon Calculator</a>
+            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="⚡">Electricity Calculator</a>
+            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="💧">Water Calculator</a>
+            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="🌍">Planet Builder</a>
+            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="✨">Our Values</a>
+            </li>
+            <li class="nav__items">
+                <a href="javascript:void(0);" data-icon="💪">Forces of Change</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="contentWrapper">
+        <header>
+         <img src="earthicon.png" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" title="Home" onerror="this.onerror=null;this.src='https://placehold.co/120x120/333333/FFFFFF?text=Logo';">
+            <h1 id="gameTitle">Planet Builder</h1>
+            <button id="themeToggle" class="theme-toggle" title="Toggle Dark/Light Mode">
+                <span id="theme-icon">☀️</span>
+            </button>
+        </header>
+
+        <main>
+            <section class="game-area">
+                <div class="stats-board">
+                    <p>Plants: <span id="plantCountDisplay">0</span> 🌱</p>
+                    <p>Water: <span id="waterCountDisplay">0</span> 💧</p>
+                </div>
+                <div class="stats-board">
+                    <p>Planet Score: <span id="planetScoreDisplay">0</span> / <span id="maxPlanetScoreDisplay">0</span> 🌍</p>
+                </div>
+                <p id="idleGainDisplay" class="hidden">Idle Gain: +<span id="idleRateDisplay">0</span> 🌱/sec</p>
+
+                <div class="click-area">
+                    <img src="earthicon.png" alt="EcoTech Logo" id="ecoLogo" class="eco-logo">
+                    <div id="planetVisuals">
+                        </div>
+                    <div id="clickFeedback" class="click-feedback"></div>
+                </div>
+                <div id="maxLevelMessage" class="hidden">Congratulations! Your planet is a fully maxed-out Eco-Paradise! 🎉</div>
+            </section>
+
+            <section class="upgrade-shop">
+                <h2>Upgrade Shop 🛍️</h2>
+                <div class="upgrade-list" id="upgradeList">
+                    </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; KNIGHTS Planet Builder</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const ecoLogo = document.getElementById('ecoLogo');
+        const plantCountDisplay = document.getElementById('plantCountDisplay');
+        const waterCountDisplay = document.getElementById('waterCountDisplay');
+        const planetScoreDisplay = document.getElementById('planetScoreDisplay');
+        const maxPlanetScoreDisplay = document.getElementById('maxPlanetScoreDisplay');
+        const planetVisuals = document.getElementById('planetVisuals');
+        const clickFeedback = document.getElementById('clickFeedback');
+        const themeToggle = document.getElementById('themeToggle');
+        const themeToggleIcon = document.getElementById('theme-icon');
+        const upgradeList = document.getElementById('upgradeList');
+        const idleGainDisplay = document.getElementById('idleGainDisplay');
+        const idleRateDisplay = document.getElementById('idleRateDisplay');
+        const maxLevelMessage = document.getElementById('maxLevelMessage');
+
+        // --- Game State Variables ---
+        let plants = 0;
+        let water = 0;
+        let planetScore = 0;
+        let upgrades = {}; // Object to store unlocked upgrades: { upgradeId: currentLevel }
+        let idleRate = 0; // Plants per second from idle gain
+        let idleInterval;
+        const MAX_PLANET_SCORE = 10000; // Fixed maximum planet score
+
+        // --- Constants ---
+        const CLICK_PLANTS = 1; // Plants gained per click
+        const WATER_RARITY_CHANCE = 0.15; // 15% chance to get water instead of plant
+
+        // --- Upgrade Data ---
+        const UPGRADES_DATA = [
+            {
+                id: 'forests',
+                name: 'Plant Forests',
+                description: 'Transform barren lands into lush green forests.',
+                basePlantCost: 10,
+                baseWaterCost: 0,
+                costMultiplier: 1.1, // Cost increases by 10% per level
+                planetScorePerLevel: 10, // Fixed score increase per level
+                maxLevel: 10,
+                visualClass: 'forest-visual',
+                effect: { type: 'visual' }
+            },
+            {
+                id: 'oceanCleanup',
+                name: 'Ocean Cleanup',
+                description: 'Clean up plastic and pollution from the oceans.',
+                basePlantCost: 30,
+                baseWaterCost: 1,
+                costMultiplier: 1.15,
+                planetScorePerLevel: 20,
+                maxLevel: 10,
+                visualClass: 'ocean-cleanup-visual',
+                effect: { type: 'visual' }
+            },
+            {
+                id: 'solarPanels',
+                name: 'Install Solar Panels',
+                description: 'Harness the sun\'s energy for a sustainable future.',
+                basePlantCost: 80,
+                baseWaterCost: 3,
+                costMultiplier: 1.2,
+                planetScorePerLevel: 50,
+                maxLevel: 10,
+                visualClass: 'solar-panels-visual',
+                effect: { type: 'visual' }
+            },
+            {
+                id: 'windTurbines',
+                name: 'Build Wind Turbines',
+                description: 'Generate clean energy with powerful wind turbines.',
+                basePlantCost: 150,
+                baseWaterCost: 6,
+                costMultiplier: 1.25,
+                planetScorePerLevel: 100,
+                maxLevel: 10,
+                visualClass: 'wind-turbines-visual',
+                effect: { type: 'visual' }
+            },
+            {
+                id: 'idleGain',
+                name: 'Idle Plant Gain',
+                description: 'Automatically generate plants over time. Increases per level.',
+                basePlantCost: 200,
+                baseWaterCost: 10,
+                costMultiplier: 1.3,
+                planetScorePerLevel: 0, // Idle gain doesn't directly increase score
+                maxLevel: 10,
+                visualClass: 'idle-gain-visual',
+                effect: { type: 'idle', rate: 5 } // Base rate of 5 plants/sec
+            },
+            {
+                id: 'ecoCity',
+                name: 'Eco-City Development',
+                description: 'Build a sustainable city powered by green energy.',
+                basePlantCost: 500,
+                baseWaterCost: 20,
+                costMultiplier: 1.35,
+                planetScorePerLevel: 300,
+                maxLevel: 10,
+                visualClass: 'eco-city-visual',
+                effect: { type: 'visual' }
+            },
+            {
+                id: 'wildlifeSanctuary',
+                name: 'Wildlife Sanctuary',
+                description: 'Create safe havens for endangered species.',
+                basePlantCost: 300,
+                baseWaterCost: 15,
+                costMultiplier: 1.3,
+                planetScorePerLevel: 520, /* Adjusted to make total score 10000 */
+                maxLevel: 10,
+                visualClass: 'wildlife-sanctuary-visual',
+                effect: { type: 'visual' }
+            }
+        ];
+
+        // --- Theme Toggle Logic ---
+        let isDark = false;
+
+        function initializeTheme() {
+            if (localStorage.getItem('planetBuilderTheme') === 'dark') {
+                isDark = true;
+                document.body.classList.add('dark');
+                themeToggleIcon.textContent = '🌑';
+            } else {
+                themeToggleIcon.textContent = '☀️';
+            }
+        }
+
+        function toggleTheme() {
+            isDark = !isDark;
+            document.body.classList.toggle('dark', isDark);
+            document.body.classList.toggle('light', !isDark);
+            themeToggleIcon.textContent = isDark ? '🌑' : '☀️';
+            localStorage.setItem('planetBuilderTheme', isDark ? 'dark' : 'light');
+        }
+
+        // --- Helper Functions for Upgrade Costs/Effects ---
+        function getUpgradeCost(upgrade, level) {
+            // Costs increase exponentially with level
+            const plantCost = upgrade.basePlantCost * Math.pow(upgrade.costMultiplier, level);
+            const waterCost = upgrade.baseWaterCost * Math.pow(upgrade.costMultiplier, level);
+            return { plants: Math.round(plantCost), water: Math.round(waterCost) };
+        }
+
+        function getIdleRateIncrease(upgrade, level) {
+            // Idle rate increases linearly per level
+            return upgrade.effect.rate * (level + 1); // Level 0 gives base rate, Level 1 gives 2*base rate, etc.
+        }
+
+        // --- Game Functions ---
+
+        function updateDisplay() {
+            plantCountDisplay.textContent = plants.toFixed(0);
+            waterCountDisplay.textContent = water.toFixed(0);
+            planetScoreDisplay.textContent = planetScore.toFixed(0);
+            maxPlanetScoreDisplay.textContent = MAX_PLANET_SCORE; // Ensure this is updated
+
+            idleRateDisplay.textContent = idleRate;
+            if (idleRate > 0) {
+                idleGainDisplay.classList.remove('hidden');
+            } else {
+                idleGainDisplay.classList.add('hidden');
+            }
+
+            // Check for max level
+            if (planetScore >= MAX_PLANET_SCORE) {
+                maxLevelMessage.classList.remove('hidden');
+                ecoLogo.removeEventListener('click', generateResources); // Stop clicking once maxed
+                // Disable all upgrade buttons if maxed
+                UPGRADES_DATA.forEach(upgrade => {
+                    const button = document.getElementById(`buy-${upgrade.id}`);
+                    if (button) {
+                        button.disabled = true;
+                        button.textContent = 'Planet Maxed!';
+                    }
+                });
+            } else {
+                maxLevelMessage.classList.add('hidden');
+                // Re-add event listener if not maxed (in case it was removed)
+                if (!ecoLogo.onclick) { // Check if listener is not already attached
+                    ecoLogo.addEventListener('click', generateResources);
+                }
+            }
+
+            // Update upgrade button states
+            UPGRADES_DATA.forEach(upgrade => {
+                const button = document.getElementById(`buy-${upgrade.id}`);
+                if (!button) return; // Skip if button not rendered yet
+
+                const currentLevel = upgrades[upgrade.id] || 0;
+                const nextLevel = currentLevel + 1;
+
+                if (currentLevel >= upgrade.maxLevel) {
+                    button.disabled = true;
+                    button.textContent = 'Max Level!';
+                } else if (planetScore >= MAX_PLANET_SCORE) { // If overall planet is maxed
+                    button.disabled = true;
+                    button.textContent = 'Planet Maxed!';
+                } else {
+                    const { plants: nextPlantCost, water: nextWaterCost } = getUpgradeCost(upgrade, currentLevel);
+                    if (plants < nextPlantCost || water < nextWaterCost) {
+                        button.disabled = true;
+                        button.textContent = `Buy (Lvl ${nextLevel})`;
+                    } else {
+                        button.disabled = false;
+                        button.textContent = `Buy (Lvl ${nextLevel})`;
+                    }
+                }
+            });
+        }
+
+        function saveGame() {
+            localStorage.setItem('pbPlants', plants);
+            localStorage.setItem('pbWater', water);
+            localStorage.setItem('pbPlanetScore', planetScore);
+            localStorage.setItem('pbUpgrades', JSON.stringify(upgrades));
+            localStorage.setItem('pbIdleRate', idleRate);
+        }
+
+        function loadGame() {
+            plants = parseFloat(localStorage.getItem('pbPlants') || '0');
+            water = parseFloat(localStorage.getItem('pbWater') || '0');
+            planetScore = parseFloat(localStorage.getItem('pbPlanetScore') || '0');
+            upgrades = JSON.parse(localStorage.getItem('pbUpgrades') || '{}');
+            idleRate = parseFloat(localStorage.getItem('pbIdleRate') || '0');
+
+            // Apply visual upgrades and idle effect from loaded state
+            UPGRADES_DATA.forEach(upgrade => {
+                const currentLevel = upgrades[upgrade.id] || 0;
+                if (currentLevel > 0) { // If upgrade has any level purchased
+                    applyVisualUpgrade(upgrade.id, upgrade.visualClass); // Only apply visual once per upgrade type
+                    if (upgrade.effect && upgrade.effect.type === 'idle') {
+                        // Recalculate idle rate based on loaded level
+                        idleRate = getIdleRateIncrease(upgrade, currentLevel - 1); // currentLevel - 1 because getIdleRateIncrease takes level index
+                        startIdleGain();
+                    }
+                }
+            });
+            updateDisplay();
+        }
+
+        function generateResources() {
+            if (planetScore >= MAX_PLANET_SCORE) return; // Prevent generating if maxed
+
+            if (Math.random() < WATER_RARITY_CHANCE) {
+                water += 1;
+                showFeedback('+1 💧', 'water-feedback');
+            } else {
+                plants += CLICK_PLANTS;
+                showFeedback(`+${CLICK_PLANTS} 🌱`);
+            }
+            updateDisplay();
+            saveGame();
+        }
+
+        function renderUpgrades() {
+            upgradeList.innerHTML = ''; // Clear existing list
+            UPGRADES_DATA.forEach(upgrade => {
+                const currentLevel = upgrades[upgrade.id] || 0;
+                const nextLevel = currentLevel + 1;
+                const { plants: nextPlantCost, water: nextWaterCost } = getUpgradeCost(upgrade, currentLevel);
+
+                const upgradeItem = document.createElement('div');
+                upgradeItem.classList.add('upgrade-item');
+                upgradeItem.innerHTML = `
+                    <h3>${upgrade.name}</h3>
+                    <p class="level-info">Level: ${currentLevel} / ${upgrade.maxLevel}</p>
+                    <p>${upgrade.description}</p>
+                    <p class="cost">
+                        ${nextPlantCost > 0 ? `<span class="plant-cost">${nextPlantCost} 🌱</span>` : ''}
+                        ${nextWaterCost > 0 ? `<span class="water-cost">${nextWaterCost} 💧</span>` : ''}
+                    </p>
+                    <button id="buy-${upgrade.id}">Buy (Lvl ${nextLevel})</button>
+                `;
+                upgradeList.appendChild(upgradeItem);
+
+                const buyButton = document.getElementById(`buy-${upgrade.id}`);
+                buyButton.addEventListener('click', () => buyUpgrade(upgrade));
+            });
+            updateDisplay(); // Set initial button states
+        }
+
+        function buyUpgrade(upgrade) {
+            let currentLevel = upgrades[upgrade.id] || 0;
+            const nextLevel = currentLevel + 1;
+
+            if (currentLevel >= upgrade.maxLevel) {
+                showMessageBox("Max Level Reached", `"${upgrade.name}" is already at its maximum level (${upgrade.maxLevel}).`);
+                return;
+            }
+            if (planetScore >= MAX_PLANET_SCORE) {
+                 showMessageBox("Planet Maxed!", "Your planet is already at its maximum ecological potential!");
+                 return;
+            }
+
+            const { plants: requiredPlants, water: requiredWater } = getUpgradeCost(upgrade, currentLevel);
+
+            if (plants < requiredPlants || water < requiredWater) {
+                showMessageBox("Not Enough Resources", `You need ${requiredPlants} 🌱 and ${requiredWater} 💧 to upgrade "${upgrade.name}" to Level ${nextLevel}.`);
+                return;
+            }
+
+            plants -= requiredPlants;
+            water -= requiredWater;
+            upgrades[upgrade.id] = nextLevel; // Increment level
+
+            // Increase planet score only if the upgrade contributes to it
+            if (upgrade.planetScorePerLevel > 0) { // Check for planetScorePerLevel
+                planetScore = Math.min(MAX_PLANET_SCORE, planetScore + upgrade.planetScorePerLevel);
+            }
+
+            // Apply visual only when first level is purchased or if visuals change per level
+            // For now, it just ensures the visual is active if it's the first level
+            if (currentLevel === 0) {
+                applyVisualUpgrade(upgrade.id, upgrade.visualClass);
+            }
+
+            if (upgrade.effect && upgrade.effect.type === 'idle') {
+                idleRate = getIdleRateIncrease(upgrade, currentLevel); // Update total idle rate
+                startIdleGain(); // Restart interval with new rate
+            }
+
+            renderUpgrades(); // Re-render upgrades to update costs and levels
+            updateDisplay();
+            saveGame();
+        }
+
+        function applyVisualUpgrade(id, visualClass) {
+            let visualElement = document.getElementById(`visual-${id}`);
+            if (!visualElement) {
+                visualElement = document.createElement('div');
+                visualElement.id = `visual-${id}`;
+                visualElement.classList.add('upgrade-visual', visualClass);
+                planetVisuals.appendChild(visualElement);
+                // Trigger reflow for animation
+                void visualElement.offsetWidth;
+            }
+            visualElement.classList.add('active');
+        }
+
+        function startIdleGain() {
+            if (idleInterval) clearInterval(idleInterval); // Clear existing interval if any
+            if (idleRate > 0) {
+                idleInterval = setInterval(() => {
+                    plants += idleRate;
+                    updateDisplay();
+                    saveGame();
+                }, 1000); // Every second
+            }
+        }
+
+        function showFeedback(text, feedbackClass = '') {
+            // Create a new feedback element for each click
+            const newFeedback = document.createElement('div');
+            newFeedback.classList.add('click-feedback');
+            if (feedbackClass) {
+                newFeedback.classList.add(feedbackClass);
+            }
+            newFeedback.textContent = text;
+
+            // Position the feedback near the logo
+            newFeedback.style.left = '50%';
+            newFeedback.style.top = '50%';
+            newFeedback.style.transform = 'translate(-50%, -50%)';
+            newFeedback.style.position = 'absolute'; // Ensure it's positioned correctly
+            newFeedback.style.opacity = '0'; // Start invisible
+
+            ecoLogo.parentElement.appendChild(newFeedback);
+
+            // Trigger reflow to apply initial styles before animation
+            void newFeedback.offsetWidth;
+
+            // Add 'show' class to trigger animation
+            newFeedback.classList.add('show');
+
+            // Remove element after animation completes
+            newFeedback.addEventListener('transitionend', () => {
+                newFeedback.remove();
+            });
+        }
+
+        // Function to display a custom message box
+        function showMessageBox(title, message, onConfirm = null, showCancel = false) {
+            const overlay = document.createElement('div');
+            overlay.classList.add('message-box-overlay');
+            overlay.innerHTML = `
+                <div class="message-box">
+                    <h3 id="messageBoxTitle">${title}</h3>
+                    <p id="messageBoxContent">${message}</p>
+                    <div class="message-box-buttons">
+                        <button class="confirm-btn">OK</button>
+                        ${showCancel ? '<button class="cancel-btn">Cancel</button>' : ''}
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+            overlay.classList.add('visible'); // Make it visible immediately
+
+            const confirmBtn = overlay.querySelector('.confirm-btn');
+            const cancelBtn = overlay.querySelector('.cancel-btn');
+
+            confirmBtn.onclick = () => {
+                overlay.remove();
+                if (onConfirm) onConfirm();
+            };
+
+            if (cancelBtn) {
+                cancelBtn.onclick = () => {
+                    overlay.remove();
+                };
+            }
+        }
+
+        // --- Event Listeners ---
+        ecoLogo.addEventListener('click', generateResources);
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // MAX_PLANET_SCORE is now a constant, no need to calculate
+            maxPlanetScoreDisplay.textContent = MAX_PLANET_SCORE;
+            initializeTheme();
+            loadGame(); // Load game state from local storage
+            renderUpgrades(); // Render upgrade shop
+            updateDisplay(); // Update display with loaded data
+        });
+    </script>
+</body>
+</html>
