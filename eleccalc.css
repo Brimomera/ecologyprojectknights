@@ -758,6 +758,7 @@ body.dark .message-box h3 {
     }
     .nav__items a {
         font-size: 0.8rem;
+        margin-left: 0;
     }
     .nav__cont:hover .nav__items a {
         padding-left: 10px;
