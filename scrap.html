@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Love Letter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Updated background to use the uploaded paper.jpg */
+            background-image: url('uploaded:paper.jpg-89a44fe9-851d-431e-8c6d-11fffc034277');
+            background-size: cover; /* Cover the entire viewport */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-position: center center; /* Center the image */
+            background-attachment: fixed; /* Keep background fixed while scrolling */
+            background-color: #F5F5DC; /* Beige fallback color */
+            color: #4A2C2A; /* Dark brown for text, for contrast */
+            line-height: 1.8;
+            font-size: 1.15rem;
+            text-align: center;
+            overflow-y: auto; /* Allow scrolling if content overflows */
+        }
+
+        .letter-container {
+            background-color: rgba(255, 255, 255, 0.85); /* Slightly transparent white for readability */
+            padding: 2.5rem;
+            margin: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            width: 90%;
+            box-sizing: border-box;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #6F4E37; /* Coffee brown heading */
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+        }
+
+        .urdu-romanized { /* New class for Romanized Urdu */
+            font-style: italic;
+            font-weight: 500;
+            color: #7C3AED; /* A subtle purple, similar to your theme accent */
+        }
+
+        .signature {
+            margin-top: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #6F4E37;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .letter-container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            body {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+            body {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="letter-container">
+        <h1>A Love Letter</h1>
+        <p>
+            My Dearest,
+        </p>
+        <p>
+            Your eyes, they are pretty. The way you smile is pretty. The way you laugh is pretty. YOU ARE PRETTY.... That's who you are. In the eyes of all, they are perfect, in mine, you are.
+        </p>
+        <p>
+            Everything you do has a reason and must have a reason. I don't like you, I admire you. I find you perfect, the perfect human, created by God just to display His power... I love your hair. I love you and I will keep on doing it until the day of judgment.
+        </p>
+        <p>
+            Oh, but do these words mean more than you?! Am I merely a poet or am I in love with you? I say I am, I don't want you to value my words, I want you to value me.
+        </p>
+        <p>
+            In your presence, time itself seems to stand still, a gentle whisper of eternity. My world, once a canvas of muted shades, now bursts with vibrant hues, painted by the light of your laughter. Every shared glance, every unspoken thought, weaves a tapestry of connection that binds our souls.
+        </p>
+        <p>
+            Here's something I wrote for you:
+            <br>
+            <span class="urdu-romanized">Baad e ishq munafiq hua ma</span>
+            <br>
+            <span class="urdu-romanized">apki wajah se kafir hua me</span>
+            <br>
+            <span class="urdu-romanized">log kehte hein mujh se shirk krta ha tu</span>
+            <br>
+            <span class="urdu-romanized">apke madhab ka aalim hua ma</span>
+            <br>
+            <span class="urdu-romanized">Izhar e muhabbat mushkil ha magar na mumkin nhi</span>
+            <br>
+            <span class="urdu-romanized">mere lab band ha lekin annkhe bhut kuch kehti rhi</span>
+            <br>
+            <span class="urdu-romanized">Mere dost mujhe chidhate hein</span>
+            <br>
+            <span class="urdu-romanized">apke gesson ki qasmein khilwate hein</span>
+            <br>
+            <span class="urdu-romanized">kehte ha jani waqt pani ki trh behta ha</span>
+            <br>
+            <span class="urdu-romanized">tu akhir usse kuch kyu nhi kehta ha</span>
+        </p>
+        <p class="signature">
+            Truly Yours,
+            <br>
+            Rauf
+        </p>
+    </div>
+</body>
+</html>
