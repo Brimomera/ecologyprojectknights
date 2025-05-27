@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - KNTECH</title>
+    <link rel="stylesheet" href="styles.css"> <style>
+        /* Basic styling for the About Us page. Add these rules to your styles.css */
+        .about-container {
+            max-width: 960px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-radius: 10px;
+            line-height: 1.7;
+            color: #333;
+        }
+        .about-container h1 {
+            text-align: center;
+            color: #2c3e50; /* Dark blue/grey for headings */
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .about-container h2 {
+            color: #34495e; /* Slightly lighter heading */
+            margin-top: 35px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+        .about-container p {
+            margin-bottom: 20px;
+            text-align: justify;
+            font-size: 1.1em;
+        }
+        .about-container ul {
+            list-style: disc;
+            margin-left: 25px;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+        }
+        .about-container ul li {
+            margin-bottom: 8px;
+        }
+
+        /* Mission/Vision Box */
+        .mission-vision-box {
+            background-color: #f8f9fa; /* Light grey background */
+            border-left: 5px solid #3498db; /* Blue accent bar */
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .mission-vision-box h3 {
+            color: #2980b9; /* Slightly darker blue */
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+        .mission-vision-box p {
+            margin-bottom: 0;
+            text-align: left;
+            font-style: italic;
+        }
+
+        /* Stats/Impact Section (optional, if you want to add numbers) */
+        .impact-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            gap: 20px;
+        }
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            padding: 20px;
+            background-color: #eaf2f8; /* Very light blue */
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        }
+        .stat-item .number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #2980b9;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        .stat-item .label {
+            font-size: 1.1em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .about-container {
+                margin: 20px auto;
+                padding: 20px;
+            }
+            .about-container h1 {
+                font-size: 2em;
+            }
+            .about-container h2 {
+                font-size: 1.5em;
+            }
+            .impact-stats {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            </nav>
+    </header>
+
+    <main>
+        <div class="about-container">
+            <h1>About KNTECH</h1>
+
+            <p>At **KNTECH**, we specialize in engineering and manufacturing **robust, reliable, and cutting-edge communication systems** designed for the world's most demanding environments. Since our establishment, our core purpose has been to ensure that vital connections are never lost, no matter the challenges posed by extreme conditions.</p>
+
+            <p>We understand that in critical sectors like **industrial facilities, transportation networks, marine operations, mining, and public safety**, communication failures can have serious consequences. That's why every KNTECH solution is meticulously designed for **durability, superior performance, and unwavering dependability**.</p>
+
+            <div class="mission-vision-box">
+                <h3>Our Mission</h3>
+                <p>To empower industries and organizations globally with secure, clear, and dependable communication technologies that enhance operational efficiency and safeguard personnel in any environment.</p>
+            </div>
+
+            <h2>Our Journey & Expertise</h2>
+            <p>KNTECH's story is one of continuous innovation and a relentless pursuit of excellence in specialized communication. We've grown by consistently pushing technological boundaries, developing solutions that not only meet but often exceed industry standards.</p>
+            <p>Our comprehensive portfolio of products includes:</p>
+            <ul>
+                <li>**Industrial Telephones:** Engineered to withstand harsh elements like extreme temperatures, dust, water, and vandalism.</li>
+                <li>**Emergency Intercom Systems:** Critical for rapid, clear communication and coordinated response during crises.</li>
+                <li>**Public Address & General Alarm (PAGA) Systems:** Ensuring wide-area voice broadcasting for safety and operational directives in large facilities.</li>
+                <li>**SIP & IP-based Solutions:** Leveraging modern network technologies to provide flexible, scalable, and intelligent communication infrastructure.</li>
+            </ul>
+
+            <h2>Impact & Reach</h2>
+            <p>KNTECH products are deployed in critical infrastructure and operations across numerous countries worldwide. We are proud to contribute to enhancing safety, efficiency, and connectivity in diverse settings, from underground mines to offshore platforms and bustling city subways.</p>
+
+            <div class="impact-stats">
+                <div class="stat-item">
+                    <div class="number">20+</div>
+                    <div class="label">Years in Business</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">100K+</div>
+                    <div class="label">Devices Deployed Worldwide</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">50+</div>
+                    <div class="label">Industries Served</div>
+                </div>
+            </div>
+
+            <p>KNTECH is more than just a manufacturer; we are a dedicated partner committed to building the backbone of critical communication. We look forward to continuing our legacy of innovation and contributing to a safer, more connected future for industries everywhere.</p>
+        </div>
+    </main>
+
+    <footer>
+        </footer>
+</body>
+</html>
