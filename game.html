@@ -303,6 +303,36 @@
             transition: transform 0.3s ease;
         }
 
+        /* Add styles for the reset button */
+        .reset-button {
+            position: absolute;
+            top: 20px;
+            right: 80px; /* Adjust right position to be next to theme toggle */
+            background: var(--danger-button-bg); /* Use a danger color for reset */
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 1.5rem;
+            color: white; /* Ensure icon is visible */
+        }
+
+        body.dark .reset-button {
+            background: var(--danger-button-bg); /* Use dark danger color for dark theme */
+        }
+
+        .reset-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--danger-button-shadow); /* Use danger shadow */
+            background-color: var(--danger-button-hover);
+        }
+
         main {
             flex: 1; /* Allows main to grow and push footer down */
             display: flex;
@@ -641,9 +671,102 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Removed message box styling */
+        /* Custom Message Box Styles */
         .message-box-overlay {
-            display: none; /* Hide the overlay */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .message-box-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .message-box {
+            background: var(--background);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .message-box-overlay.visible .message-box {
+            transform: scale(1);
+        }
+
+        .message-box-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+        body.dark .message-box-title {
+            color: var(--accent);
+        }
+
+        .message-box-message {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 25px;
+        }
+
+        .message-box-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .message-box-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .confirm-button {
+            background-color: var(--danger-button-bg);
+            color: white;
+        }
+        .confirm-button:hover {
+            background-color: var(--danger-button-hover);
+            transform: translateY(-2px);
+        }
+
+        .cancel-button {
+            background-color: #6b7280; /* Gray */
+            color: white;
+        }
+        .cancel-button:hover {
+            background-color: #4b5563; /* Darker gray */
+            transform: translateY(-2px);
+        }
+
+        .close-button {
+            background-color: var(--primary);
+            color: white;
+        }
+        .close-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -667,7 +790,7 @@
              <li class="nav__items">
                 <a href="game.html">🎮 Planet builder</a>
             </li>
-             
+
             </li>
             <li class="nav__items">
                 <a href="ecotech.html">✨ Our Values</a>
@@ -675,8 +798,8 @@
             <li class="nav__items">
                 <a href="change.html">💪 Forces of Change</a>
             </li>
-          
-            
+
+
         </ul>
     </nav>
 
@@ -685,6 +808,9 @@
            <img src="earthicon.png" alt="EcoTech Logo" class="logo" onclick="window.location.href='index.html';" title="Home">
             <button id="themeToggle" class="theme-toggle" title="Toggle Dark/Light Mode">
                 <span id="theme-icon">☀️</span>
+            </button>
+            <button id="resetGame" class="reset-button" title="Reset Game Progress">
+                🔄
             </button>
         </header>
 
@@ -719,6 +845,18 @@
         </footer>
     </div>
 
+    <div id="customMessageBoxOverlay" class="message-box-overlay">
+        <div class="message-box">
+            <h3 id="messageBoxTitle" class="message-box-title"></h3>
+            <p id="messageBoxMessage" class="message-box-message"></p>
+            <div class="message-box-buttons">
+                <button id="messageBoxConfirm" class="message-box-button confirm-button">Confirm</button>
+                <button id="messageBoxCancel" class="message-box-button cancel-button">Cancel</button>
+                <button id="messageBoxClose" class="message-box-button close-button">OK</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         console.log("Planet Builder script started."); // Debugging log
 
@@ -736,6 +874,16 @@
         const idleGainDisplay = document.getElementById('idleGainDisplay');
         const idleRateDisplay = document.getElementById('idleRateDisplay');
         const maxLevelMessage = document.getElementById('maxLevelMessage');
+        const resetGameButton = document.getElementById('resetGame'); // Add this line
+
+        // --- DOM Elements for Custom Message Box ---
+        const customMessageBoxOverlay = document.getElementById('customMessageBoxOverlay');
+        const messageBoxTitle = document.getElementById('messageBoxTitle');
+        const messageBoxMessage = document.getElementById('messageBoxMessage');
+        const messageBoxConfirm = document.getElementById('messageBoxConfirm');
+        const messageBoxCancel = document.getElementById('messageBoxCancel');
+        const messageBoxClose = document.getElementById('messageBoxClose');
+
 
         // --- Game State Variables ---
         let plants = 0;
@@ -1159,14 +1307,120 @@
             }
         }
 
-        // Removed the showMessageBox function entirely
-        // function showMessageBox(title, message, onConfirm = null, showCancel = false) {
-        //     // ... (function content removed)
-        // }
+        // --- Custom Message Box Function ---
+        function showMessageBox(title, message, onConfirm = null, showCancel = false) {
+            messageBoxTitle.textContent = title;
+            messageBoxMessage.textContent = message;
+
+            // Hide/show buttons based on needs
+            if (onConfirm) { // This is a confirmation dialog
+                messageBoxConfirm.style.display = 'inline-block';
+                messageBoxClose.style.display = 'none';
+                if (showCancel) {
+                    messageBoxCancel.style.display = 'inline-block';
+                } else {
+                    messageBoxCancel.style.display = 'none';
+                }
+            } else { // This is just an alert/info message
+                messageBoxConfirm.style.display = 'none';
+                messageBoxCancel.style.display = 'none';
+                messageBoxClose.style.display = 'inline-block';
+            }
+
+            customMessageBoxOverlay.classList.add('visible');
+
+            return new Promise((resolve) => {
+                const confirmHandler = () => {
+                    customMessageBoxOverlay.classList.remove('visible');
+                    messageBoxConfirm.removeEventListener('click', confirmHandler);
+                    messageBoxCancel.removeEventListener('click', cancelHandler);
+                    messageBoxClose.removeEventListener('click', closeHandler);
+                    resolve(true); // User confirmed
+                };
+
+                const cancelHandler = () => {
+                    customMessageBoxOverlay.classList.remove('visible');
+                    messageBoxConfirm.removeEventListener('click', confirmHandler);
+                    messageBoxCancel.removeEventListener('click', cancelHandler);
+                    messageBoxClose.removeEventListener('click', closeHandler);
+                    resolve(false); // User cancelled
+                };
+
+                const closeHandler = () => {
+                    customMessageBoxOverlay.classList.remove('visible');
+                    messageBoxConfirm.removeEventListener('click', confirmHandler);
+                    messageBoxCancel.removeEventListener('click', cancelHandler);
+                    messageBoxClose.removeEventListener('click', closeHandler);
+                    resolve(true); // For simple alerts, assume OK
+                };
+
+                if (onConfirm) {
+                    messageBoxConfirm.addEventListener('click', confirmHandler);
+                    if (showCancel) {
+                        messageBoxCancel.addEventListener('click', cancelHandler);
+                    }
+                } else {
+                    messageBoxClose.addEventListener('click', closeHandler);
+                }
+            });
+        }
+
+        // --- Updated Reset Game Function ---
+        async function resetGame() { // Make it async to await the showMessageBox
+            const confirmReset = await showMessageBox(
+                "Confirm Reset",
+                "Are you sure you want to reset all game progress? This cannot be undone!",
+                true, // This is a confirm dialog
+                true  // Show cancel button
+            );
+
+            if (!confirmReset) {
+                console.log("Game reset cancelled.");
+                return;
+            }
+
+            try {
+                // Clear all game-related items from localStorage
+                localStorage.removeItem('pbPlants');
+                localStorage.removeItem('pbWater');
+                localStorage.removeItem('pbPlanetScore');
+                localStorage.removeItem('pbUpgrades');
+                localStorage.removeItem('pbIdleRate');
+
+                // Reset all in-memory game state variables
+                plants = 0;
+                water = 0;
+                planetScore = 0;
+                upgrades = {};
+                idleRate = 0;
+
+                // Clear any existing idle gain interval
+                if (idleInterval) {
+                    clearInterval(idleInterval);
+                    idleInterval = null; // Reset the interval variable
+                }
+
+                // Remove all visual upgrades from the planet
+                while (planetVisuals.firstChild) {
+                    planetVisuals.removeChild(planetVisuals.firstChild);
+                }
+
+                // Re-render upgrades and update display to reflect reset state
+                renderUpgrades();
+                updateDisplay();
+
+                console.log("Game progress has been reset.");
+                await showMessageBox("Success!", "Game progress has been reset!"); // Use custom message box for feedback
+            } catch (error) {
+                console.error("Error resetting game:", error);
+                await showMessageBox("Error", "An error occurred while resetting the game.");
+            }
+        }
 
         // --- Event Listeners ---
         ecoLogo.addEventListener('click', generateResources);
         themeToggle.addEventListener('click', toggleTheme);
+        resetGameButton.addEventListener('click', resetGame); // Add this line
 
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
